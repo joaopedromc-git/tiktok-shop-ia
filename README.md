@@ -15,7 +15,7 @@ Um sistema que transforma o anúncio de um produto em vídeos verticais de propa
 ## Como funciona
 
 ```mermaid
-flowchart LR
+flowchart TD
     A["Anúncio do vendedor"] --> B["Agente de roteiro<br/>especialista-promocao"]
     B --> C{"Aprovação 1<br/>roteiro"}
     C --> R1["Revisor<br/>texto"]
@@ -75,7 +75,7 @@ O projeto é operado por uma sessão do **Claude Code**, que coordena tudo e con
 
 O que os números dizem:
 
-- **Dois vídeos fazem 45% das visualizações.** Os dois têm cara de comercial: produto grande, fumaça e luz, uma pergunta curta no primeiro segundo. Essa receita foi documentada e reaplicada.
+- **Dois vídeos fazem 45% das visualizações.** O body splash D tem cara de comercial: produto grande, fumaça e luz, uma pergunta curta no primeiro segundo. Essa receita foi documentada e reaplicada. A garrafa A abre com o problema (uma garrafa de água esquentando no painel do carro).
 - **O produto pesa mais que o formato.** A extensão ficou em cerca de 220 visualizações por vídeo com qualquer receita, inclusive a cópia exata do vídeo de maior alcance. A decisão foi parar de gastar crédito nela.
 - **O gargalo é o clique, não a compra.** Menos de 1% de quem vê o produto toca nele; de quem toca, 1,5% compra.
 - **O retorno financeiro foi pequeno.** As duas vendas vieram de vídeos da primeira semana. Depois disso o alcance caiu (mediana de 379 nos vídeos 1 a 14 e 252,5 nos vídeos 15 a 28), ao mesmo tempo em que as violações se acumulavam. Os vídeos recentes também ficaram menos dias no ar, então a queda não tem uma causa única comprovada.
@@ -88,7 +88,7 @@ O TikTok aplicou 6 violações automáticas; nas cinco com horário de postagem 
 
 | Violação | Vezes | Causa | O que mudou |
 |---|:---:|---|---|
-| Produto inconsistente | 3 | Na peseira: cena com objetos que pareciam parte do produto e padrão do tecido diferente do anúncio. Na garrafa A e na Hilee C, a causa ainda não foi analisada | Produto protagonista em todo quadro; clipe com qualquer diferença é rejeitado |
+| Produto inconsistente | 3 | Na peseira: cena com objetos que pareciam parte do produto e padrão do tecido diferente do anúncio. Na garrafa A, hipótese: o vídeo abre com uma garrafa de plástico comum, não a do anúncio. Na Hilee C, a causa ainda não foi analisada | Produto protagonista em todo quadro; clipe com qualquer diferença é rejeitado |
 | Quadro estático | 2 | Produto parado com só a câmera se aproximando; quadros congelados na edição | Uma mão move o produto em todo clipe; nada parado por mais de 1 s |
 | Alegação exagerada | 1 | O gancho mostrava um problema que o anúncio não prometia resolver | Fala e tela só repetem o vendedor; o recurso foi aceito e os pontos, devolvidos |
 
