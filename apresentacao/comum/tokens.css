@@ -1,0 +1,15 @@
+/* Identidade visual do vídeo de apresentação (ver briefing.md). */
+:root {
+  --fundo: #0E0E10;
+  --texto: #F5F4F0;
+  --texto-2: #A9A79F;
+  --destaque: #C6F432;
+  --dado: #3D8BFF;
+  --violacao: #FF4D4D;
+  --pessoa: #FF8A3D;
+  --cartao: #FCFCFB;
+  --cartao-texto: #0B0B0B;
+  --moldura: #2A2A2E;
+  --titulo: "Bricolage Grotesque", sans-serif;
+  --corpo: "Inter", sans-serif;
+}

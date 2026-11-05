@@ -1,0 +1,17 @@
+{
+  "name": "apresentacao-remotion",
+  "private": true,
+  "scripts": {
+    "render": "remotion render"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.537",
+    "remotion": "4.0.537",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}

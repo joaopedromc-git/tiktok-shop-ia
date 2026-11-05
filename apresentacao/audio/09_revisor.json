@@ -1,0 +1,161 @@
+{
+ "texto": "Os erros viraram memória e um revisor. Nos testes, pegou a alegação exagerada e um de dois quadros estáticos. O vídeo seguinte passou em tudo e foi punido por produto inconsistente.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "Os",
+   "inicio": 0.048,
+   "fim": 0.166
+  },
+  {
+   "palavra": "erros",
+   "inicio": 0.166,
+   "fim": 0.637
+  },
+  {
+   "palavra": "viraram",
+   "inicio": 0.637,
+   "fim": 0.991
+  },
+  {
+   "palavra": "memória",
+   "inicio": 0.991,
+   "fim": 1.64
+  },
+  {
+   "palavra": "e",
+   "inicio": 1.64,
+   "fim": 1.758
+  },
+  {
+   "palavra": "um",
+   "inicio": 1.758,
+   "fim": 1.829
+  },
+  {
+   "palavra": "revisor",
+   "inicio": 1.829,
+   "fim": 2.383
+  },
+  {
+   "palavra": "Nos",
+   "inicio": 2.714,
+   "fim": 2.914
+  },
+  {
+   "palavra": "testes",
+   "inicio": 2.914,
+   "fim": 3.409
+  },
+  {
+   "palavra": "pegou",
+   "inicio": 3.551,
+   "fim": 3.893
+  },
+  {
+   "palavra": "a",
+   "inicio": 3.893,
+   "fim": 3.928
+  },
+  {
+   "palavra": "alegação",
+   "inicio": 3.928,
+   "fim": 4.424
+  },
+  {
+   "palavra": "exagerada",
+   "inicio": 4.424,
+   "fim": 5.178
+  },
+  {
+   "palavra": "e",
+   "inicio": 5.178,
+   "fim": 5.296
+  },
+  {
+   "palavra": "um",
+   "inicio": 5.296,
+   "fim": 5.379
+  },
+  {
+   "palavra": "de",
+   "inicio": 5.379,
+   "fim": 5.485
+  },
+  {
+   "palavra": "dois",
+   "inicio": 5.485,
+   "fim": 5.803
+  },
+  {
+   "palavra": "quadros",
+   "inicio": 5.803,
+   "fim": 6.192
+  },
+  {
+   "palavra": "estáticos",
+   "inicio": 6.192,
+   "fim": 6.971
+  },
+  {
+   "palavra": "O",
+   "inicio": 7.3,
+   "fim": 7.395
+  },
+  {
+   "palavra": "vídeo",
+   "inicio": 7.395,
+   "fim": 7.725
+  },
+  {
+   "palavra": "seguinte",
+   "inicio": 7.725,
+   "fim": 8.137
+  },
+  {
+   "palavra": "passou",
+   "inicio": 8.137,
+   "fim": 8.444
+  },
+  {
+   "palavra": "em",
+   "inicio": 8.444,
+   "fim": 8.574
+  },
+  {
+   "palavra": "tudo",
+   "inicio": 8.574,
+   "fim": 8.998
+  },
+  {
+   "palavra": "e",
+   "inicio": 8.998,
+   "fim": 9.057
+  },
+  {
+   "palavra": "foi",
+   "inicio": 9.057,
+   "fim": 9.211
+  },
+  {
+   "palavra": "punido",
+   "inicio": 9.211,
+   "fim": 9.564
+  },
+  {
+   "palavra": "por",
+   "inicio": 9.564,
+   "fim": 9.682
+  },
+  {
+   "palavra": "produto",
+   "inicio": 9.682,
+   "fim": 10.26
+  },
+  {
+   "palavra": "inconsistente",
+   "inicio": 10.26,
+   "fim": 11.262
+  }
+ ]
+}

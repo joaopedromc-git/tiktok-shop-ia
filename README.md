@@ -12,6 +12,12 @@ Um sistema que transforma o anúncio de um produto em vídeos verticais de propa
 |:---:|:---:|:---:|:---:|:---:|
 | 6 produtos, 05/10 a 04/11/2026 | mediana de 294 por vídeo | R$ 23,13 de comissão | só a assinatura do Google AI Plus | viraram regras, memória e um revisor |
 
+<p align="center">
+  <a href="docs/apresentacao.mp4"><img src="docs/img/apresentacao_capa.jpg" width="640" alt="Capa do vídeo de apresentação: parede de celulares com os vídeos e o texto ninguém aparece"></a>
+  <br>
+  <sub>Vídeo de apresentação (1 min 26 s), feito com o mesmo tipo de fluxo: roteiro escrito por um agente, narração edge-tts e cenas em HyperFrames e Remotion. Código em <a href="apresentacao/"><code>apresentacao/</code></a>.</sub>
+</p>
+
 ## Como funciona
 
 <p align="center">
@@ -150,5 +156,6 @@ Os vídeos estão em `produtos/<produto>/video_<lote>.mp4` (720p). O vídeo A da
 | `db/` | Esquema do PostgreSQL |
 | `docs/` | Especificação da arquitetura dos vídeos e imagens deste README |
 | `n8n/` | Primeira versão: bot do Telegram com Gemini, desligada em 08/10 |
+| `apresentacao/` | Vídeo de apresentação: roteiro, narração e cenas em HyperFrames e Remotion |
 
 Instalação, API do render e configuração estão em [`LEIAME.md`](LEIAME.md). Fotos de referência, clipes brutos e capturas de tela ficaram fora do repositório.

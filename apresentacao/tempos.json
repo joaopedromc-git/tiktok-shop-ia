@@ -1,0 +1,78 @@
+{
+ "fps": 30,
+ "entrada_s": 0.25,
+ "cenas": [
+  {
+   "id": "01_gancho",
+   "ferramenta": "hyperframes",
+   "fala_s": 3.81,
+   "duracao_s": 4.51,
+   "quadros": 136
+  },
+  {
+   "id": "02_o_que_e",
+   "ferramenta": "hyperframes",
+   "fala_s": 7.5,
+   "duracao_s": 8.2,
+   "quadros": 246
+  },
+  {
+   "id": "03_fluxo",
+   "ferramenta": "remotion",
+   "fala_s": 8.196,
+   "duracao_s": 8.896,
+   "quadros": 267
+  },
+  {
+   "id": "04_os_videos",
+   "ferramenta": "hyperframes",
+   "fala_s": 5.071,
+   "duracao_s": 5.771,
+   "quadros": 174
+  },
+  {
+   "id": "05_alcance",
+   "ferramenta": "remotion",
+   "fala_s": 6.167,
+   "duracao_s": 6.867,
+   "quadros": 207
+  },
+  {
+   "id": "06_funil",
+   "ferramenta": "remotion",
+   "fala_s": 10.542,
+   "duracao_s": 11.242,
+   "quadros": 338
+  },
+  {
+   "id": "07_violacoes",
+   "ferramenta": "hyperframes",
+   "fala_s": 4.729,
+   "duracao_s": 5.429,
+   "quadros": 163
+  },
+  {
+   "id": "08_conflito",
+   "ferramenta": "hyperframes",
+   "fala_s": 10.06,
+   "duracao_s": 10.76,
+   "quadros": 323
+  },
+  {
+   "id": "09_revisor",
+   "ferramenta": "remotion",
+   "fala_s": 11.262,
+   "duracao_s": 11.962,
+   "quadros": 359
+  },
+  {
+   "id": "10_licoes_fim",
+   "ferramenta": "hyperframes",
+   "fala_s": 10.036,
+   "duracao_s": 12.736,
+   "quadros": 383,
+   "obs": "inclui 2 s finais com o reposit\u00f3rio na tela"
+  }
+ ],
+ "total_s": 86.37
+}

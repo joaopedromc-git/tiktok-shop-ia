@@ -20,3 +20,14 @@ produtos/*/clipe_*.mp4
 
 # python
 __pycache__/
+
+# vídeo de apresentação: dependências, cópias de mídia e saídas
+apresentacao/**/node_modules/
+apresentacao/hyperframes/*/assets/
+apresentacao/hyperframes/**/.hyperframes/
+apresentacao/remotion/public/
+apresentacao/remotion/out/
+apresentacao/saida/
+apresentacao/comum/gsap.min.js
+apresentacao/.bin-*/
+apresentacao/hyperframes/teste/

@@ -1,0 +1,101 @@
+{
+ "texto": "Um sistema transforma anúncios de produtos em vídeos de afiliado. Rodou um mês, de verdade. Custo de API: zero.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "Um",
+   "inicio": 0.048,
+   "fim": 0.166
+  },
+  {
+   "palavra": "sistema",
+   "inicio": 0.166,
+   "fim": 0.673
+  },
+  {
+   "palavra": "transforma",
+   "inicio": 0.673,
+   "fim": 1.156
+  },
+  {
+   "palavra": "anúncios",
+   "inicio": 1.156,
+   "fim": 1.628
+  },
+  {
+   "palavra": "de",
+   "inicio": 1.628,
+   "fim": 1.734
+  },
+  {
+   "palavra": "produtos",
+   "inicio": 1.734,
+   "fim": 2.253
+  },
+  {
+   "palavra": "em",
+   "inicio": 2.253,
+   "fim": 2.454
+  },
+  {
+   "palavra": "vídeos",
+   "inicio": 2.454,
+   "fim": 2.866
+  },
+  {
+   "palavra": "de",
+   "inicio": 2.866,
+   "fim": 2.925
+  },
+  {
+   "palavra": "afiliado",
+   "inicio": 2.925,
+   "fim": 3.527
+  },
+  {
+   "palavra": "Rodou",
+   "inicio": 3.846,
+   "fim": 4.247
+  },
+  {
+   "palavra": "um",
+   "inicio": 4.247,
+   "fim": 4.365
+  },
+  {
+   "palavra": "mês",
+   "inicio": 4.365,
+   "fim": 4.743
+  },
+  {
+   "palavra": "de",
+   "inicio": 4.896,
+   "fim": 5.002
+  },
+  {
+   "palavra": "verdade",
+   "inicio": 5.002,
+   "fim": 5.58
+  },
+  {
+   "palavra": "Custo",
+   "inicio": 5.896,
+   "fim": 6.226
+  },
+  {
+   "palavra": "de",
+   "inicio": 6.226,
+   "fim": 6.344
+  },
+  {
+   "palavra": "API",
+   "inicio": 6.344,
+   "fim": 6.84
+  },
+  {
+   "palavra": "zero",
+   "inicio": 7.087,
+   "fim": 7.5
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "texto": "Dezesseis mil, quinhentas e vinte e duas visualizações. Dois vídeos fazem quarenta e cinco por cento.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "Dezesseis",
+   "inicio": 0.048,
+   "fim": 0.755
+  },
+  {
+   "palavra": "mil",
+   "inicio": 0.755,
+   "fim": 1.133
+  },
+  {
+   "palavra": "quinhentas",
+   "inicio": 1.239,
+   "fim": 1.687
+  },
+  {
+   "palavra": "e",
+   "inicio": 1.687,
+   "fim": 1.805
+  },
+  {
+   "palavra": "vinte",
+   "inicio": 1.805,
+   "fim": 2.017
+  },
+  {
+   "palavra": "e",
+   "inicio": 2.017,
+   "fim": 2.041
+  },
+  {
+   "palavra": "duas",
+   "inicio": 2.041,
+   "fim": 2.359
+  },
+  {
+   "palavra": "visualizações",
+   "inicio": 2.359,
+   "fim": 3.35
+  },
+  {
+   "palavra": "Dois",
+   "inicio": 3.667,
+   "fim": 4.033
+  },
+  {
+   "palavra": "vídeos",
+   "inicio": 4.033,
+   "fim": 4.469
+  },
+  {
+   "palavra": "fazem",
+   "inicio": 4.469,
+   "fim": 4.823
+  },
+  {
+   "palavra": "quarenta",
+   "inicio": 4.823,
+   "fim": 5.236
+  },
+  {
+   "palavra": "e",
+   "inicio": 5.236,
+   "fim": 5.295
+  },
+  {
+   "palavra": "cinco",
+   "inicio": 5.295,
+   "fim": 5.601
+  },
+  {
+   "palavra": "por",
+   "inicio": 5.601,
+   "fim": 5.731
+  },
+  {
+   "palavra": "cento",
+   "inicio": 5.731,
+   "fim": 6.167
+  }
+ ]
+}

@@ -1,0 +1,141 @@
+{
+ "texto": "Lição: conferir a fidelidade visual desde o primeiro vídeo. Próximo passo: um modelo de visão comparando quadros com as fotos do anúncio. O código está no repositório.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "Lição",
+   "inicio": 0.048,
+   "fim": 0.531
+  },
+  {
+   "palavra": "conferir",
+   "inicio": 0.732,
+   "fim": 1.215
+  },
+  {
+   "palavra": "a",
+   "inicio": 1.215,
+   "fim": 1.274
+  },
+  {
+   "palavra": "fidelidade",
+   "inicio": 1.274,
+   "fim": 1.817
+  },
+  {
+   "palavra": "visual",
+   "inicio": 1.817,
+   "fim": 2.288
+  },
+  {
+   "palavra": "desde",
+   "inicio": 2.288,
+   "fim": 2.654
+  },
+  {
+   "palavra": "o",
+   "inicio": 2.654,
+   "fim": 2.689
+  },
+  {
+   "palavra": "primeiro",
+   "inicio": 2.689,
+   "fim": 3.126
+  },
+  {
+   "palavra": "vídeo",
+   "inicio": 3.126,
+   "fim": 3.538
+  },
+  {
+   "palavra": "Próximo",
+   "inicio": 3.856,
+   "fim": 4.304
+  },
+  {
+   "palavra": "passo",
+   "inicio": 4.304,
+   "fim": 4.705
+  },
+  {
+   "palavra": "um",
+   "inicio": 4.953,
+   "fim": 5.083
+  },
+  {
+   "palavra": "modelo",
+   "inicio": 5.083,
+   "fim": 5.507
+  },
+  {
+   "palavra": "de",
+   "inicio": 5.507,
+   "fim": 5.59
+  },
+  {
+   "palavra": "visão",
+   "inicio": 5.59,
+   "fim": 5.943
+  },
+  {
+   "palavra": "comparando",
+   "inicio": 5.943,
+   "fim": 6.45
+  },
+  {
+   "palavra": "quadros",
+   "inicio": 6.45,
+   "fim": 6.875
+  },
+  {
+   "palavra": "com",
+   "inicio": 6.875,
+   "fim": 7.028
+  },
+  {
+   "palavra": "as",
+   "inicio": 7.028,
+   "fim": 7.146
+  },
+  {
+   "palavra": "fotos",
+   "inicio": 7.146,
+   "fim": 7.524
+  },
+  {
+   "palavra": "do",
+   "inicio": 7.524,
+   "fim": 7.618
+  },
+  {
+   "palavra": "anúncio",
+   "inicio": 7.618,
+   "fim": 8.125
+  },
+  {
+   "palavra": "O",
+   "inicio": 8.444,
+   "fim": 8.562
+  },
+  {
+   "palavra": "código",
+   "inicio": 8.562,
+   "fim": 9.01
+  },
+  {
+   "palavra": "está",
+   "inicio": 9.01,
+   "fim": 9.222
+  },
+  {
+   "palavra": "no",
+   "inicio": 9.222,
+   "fim": 9.293
+  },
+  {
+   "palavra": "repositório",
+   "inicio": 9.293,
+   "fim": 10.036
+  }
+ ]
+}

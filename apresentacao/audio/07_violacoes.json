@@ -1,0 +1,71 @@
+{
+ "texto": "O que deu errado: seis violações automáticas, quatro a seis minutos após postar.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "O",
+   "inicio": 0.048,
+   "fim": 0.119
+  },
+  {
+   "palavra": "que",
+   "inicio": 0.119,
+   "fim": 0.213
+  },
+  {
+   "palavra": "deu",
+   "inicio": 0.213,
+   "fim": 0.39
+  },
+  {
+   "palavra": "errado",
+   "inicio": 0.39,
+   "fim": 0.803
+  },
+  {
+   "palavra": "seis",
+   "inicio": 1.074,
+   "fim": 1.475
+  },
+  {
+   "palavra": "violações",
+   "inicio": 1.475,
+   "fim": 1.958
+  },
+  {
+   "palavra": "automáticas",
+   "inicio": 1.958,
+   "fim": 2.748
+  },
+  {
+   "palavra": "quatro",
+   "inicio": 2.913,
+   "fim": 3.244
+  },
+  {
+   "palavra": "a",
+   "inicio": 3.244,
+   "fim": 3.303
+  },
+  {
+   "palavra": "seis",
+   "inicio": 3.303,
+   "fim": 3.597
+  },
+  {
+   "palavra": "minutos",
+   "inicio": 3.597,
+   "fim": 3.998
+  },
+  {
+   "palavra": "após",
+   "inicio": 3.998,
+   "fim": 4.34
+  },
+  {
+   "palavra": "postar",
+   "inicio": 4.34,
+   "fim": 4.729
+  }
+ ]
+}

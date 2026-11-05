@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="assets/fontes.css">
+<link rel="stylesheet" href="assets/tokens.css">
+<script src="assets/gsap.min.js"></script>
+<style>
+  html,body{margin:0;padding:0;background:var(--fundo);}
+  #root{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--fundo);font-family:var(--corpo);color:var(--texto);}
+  #fundo{position:absolute;inset:0;background:var(--fundo);}
+  #vinheta{position:absolute;inset:0;background:radial-gradient(ellipse 75% 75% at 50% 50%,rgba(0,0,0,0) 0%,rgba(0,0,0,.35) 100%);}
+  #grao{position:absolute;inset:-400px;background-image:url(assets/grao.png);background-size:384px 384px;opacity:.04;mix-blend-mode:screen;}
+  #palco{position:absolute;inset:0;transform-origin:960px 540px;}
+
+  /* molduras de celular (padrão 300x533) */
+  #leque{position:absolute;inset:0;}
+  .cel{position:absolute;left:810px;top:273.5px;width:300px;height:533px;}
+  .tela{position:absolute;inset:0;border-radius:36px;border:6px solid var(--moldura);box-sizing:border-box;overflow:hidden;background:#000;
+        box-shadow:0 30px 80px rgba(0,0,0,.55);}
+  .tela video{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;}
+  .dim{position:absolute;inset:0;background:var(--fundo);opacity:0;}
+
+  /* etiquetas dos produtos */
+  .etq{position:absolute;left:0;top:0;white-space:nowrap;}
+  .etq .p{font:600 22px/1 var(--corpo);color:var(--texto);background:#1A1A1E;border:1px solid rgba(255,255,255,.14);border-radius:999px;
+          padding:8px 16px;box-shadow:0 10px 26px rgba(0,0,0,.5);opacity:0;}
+
+  /* moldura herói (destaque 420x747) */
+  #hero{position:absolute;left:750px;top:166.5px;width:420px;height:747px;}
+  #gd-wrap,#fd-wrap{position:absolute;inset:0;}
+  #gd-wrap{opacity:0;}
+  #fd-wrap{clip-path:inset(0 0 100% 0);}
+  #scan{position:absolute;left:0;top:0;width:100%;height:6px;background:var(--destaque);opacity:0;
+        box-shadow:0 0 22px 6px rgba(198,244,50,.55);}
+  #barra{position:absolute;left:28px;right:28px;bottom:30px;height:6px;opacity:0;}
+  #barra .trilho{position:absolute;inset:0;border-radius:3px;background:rgba(255,255,255,.28);}
+  #barra .enche{position:absolute;inset:0;border-radius:3px;background:var(--dado);transform-origin:0 50%;box-shadow:0 0 12px rgba(61,139,255,.6);}
+  #barra .cab{position:absolute;left:-8px;top:-5px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.5);}
+
+  /* "6 produtos" */
+  #t6{position:absolute;left:0;top:78px;width:1920px;display:flex;justify-content:center;align-items:center;
+      font-family:var(--titulo);font-weight:800;font-size:132px;line-height:1;letter-spacing:-0.02em;}
+  #slot6{position:relative;height:1.1em;width:.62em;overflow:hidden;color:var(--destaque);opacity:0;}
+  #rolo6{position:absolute;left:0;top:0;width:100%;}
+  #rolo6 span{display:block;height:1.1em;line-height:1.1em;text-align:center;}
+  #prod{margin-left:.24em;color:var(--texto);opacity:0;}
+
+  /* "clipe de 8 s · Veo" */
+  #veo{position:absolute;left:1250px;top:300px;width:600px;}
+  #veo .pill{display:inline-block;font:600 28px/1 var(--corpo);color:var(--fundo);background:var(--dado);border-radius:999px;padding:10px 20px;opacity:0;}
+  #veo .l1{font-family:var(--titulo);font-weight:800;font-size:96px;line-height:.95;letter-spacing:-0.02em;color:var(--texto);margin-top:28px;opacity:0;}
+  #veo .l2{display:flex;align-items:center;font-family:var(--titulo);font-weight:800;font-size:230px;line-height:1;letter-spacing:-0.02em;
+           color:var(--destaque);font-variant-numeric:tabular-nums;opacity:0;margin-left:-8px;}
+  #slot8{position:relative;height:1.1em;width:.6em;overflow:hidden;}
+  #rolo8{position:absolute;left:0;top:0;width:100%;}
+  #rolo8 span{display:block;height:1.1em;line-height:1.1em;text-align:center;}
+  #veo .s{margin-left:.12em;}
+
+  /* edição em código */
+  #ted{position:absolute;left:96px;top:96px;display:flex;gap:.24em;font-family:var(--titulo);font-weight:800;font-size:104px;line-height:1;
+       letter-spacing:-0.02em;color:var(--texto);white-space:nowrap;}
+  #ted span{opacity:0;}
+  #te3{color:var(--destaque);}
+  #editor{position:absolute;left:96px;top:250px;width:880px;height:680px;border-radius:24px;background:#131316;border:1px solid rgba(255,255,255,.09);
+          box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden;opacity:0;}
+  #editor .topo{position:absolute;left:0;top:0;right:0;height:64px;border-bottom:1px solid rgba(255,255,255,.07);}
+  #editor .arq{position:absolute;left:28px;top:20px;font:500 22px/1 var(--corpo);color:var(--texto-2);}
+  #editor .ag{position:absolute;right:22px;top:15px;font:600 20px/1 var(--corpo);color:var(--fundo);background:var(--dado);border-radius:999px;padding:7px 14px;}
+  #janela{position:absolute;left:0;top:64px;right:0;bottom:0;overflow:hidden;}
+  #linhas{position:absolute;left:0;top:18px;width:100%;}
+  .ln{position:absolute;left:0;height:32px;width:100%;}
+  .ln .n{position:absolute;left:20px;top:8px;width:40px;text-align:right;font:500 16px/1 var(--corpo);color:rgba(169,167,159,.45);font-variant-numeric:tabular-nums;}
+  .ln .c{position:absolute;left:84px;top:10px;height:12px;display:flex;gap:10px;}
+  .tk{height:12px;border-radius:6px;}
+  #realce{position:absolute;left:0;right:0;height:32px;background:rgba(198,244,50,.10);border-left:4px solid var(--destaque);opacity:0;}
+  #brilhoEd{position:absolute;inset:0;border-radius:24px;border:2px solid var(--destaque);opacity:0;box-shadow:0 0 30px rgba(198,244,50,.35),inset 0 0 30px rgba(198,244,50,.12);}
+
+  /* eixo que a cena 05 recebe */
+  #eixo{position:absolute;left:96px;top:700px;width:1728px;height:2px;background:rgba(255,255,255,.14);transform-origin:0 50%;}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="5.771" data-width="1920" data-height="1080" data-fps="30">
+  <div id="fundo"></div>
+  <div id="vinheta"></div>
+  <div id="eixo"></div>
+  <div id="palco">
+
+    <div id="t6"><span id="slot6" data-layout-allow-overflow><span id="rolo6"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></span></span><span id="prod">produtos</span></div>
+
+    <div id="leque" data-layout-allow-overlap>
+      <div class="cel" id="c5"><div class="tela"><video id="v-pa" class="clip" data-start="0" data-duration="3.9" data-media-start="5.6" data-track-index="6" muted playsinline src="assets/midia/piseira_A.mp4"></video><div class="dim"></div></div></div>
+      <div class="cel" id="c0"><div class="tela"><video id="v-bs" class="clip" data-start="0" data-duration="3.9" data-media-start="3.0" data-track-index="1" muted playsinline src="assets/midia/bodysplash_D.mp4"></video><div class="dim"></div></div></div>
+      <div class="cel" id="c4"><div class="tela"><video id="v-hl" class="clip" data-start="0" data-duration="3.9" data-media-start="8.3" data-track-index="5" muted playsinline src="assets/midia/hilee_A.mp4"></video><div class="dim"></div></div></div>
+      <div class="cel" id="c1"><div class="tela"><video id="v-fc" class="clip" data-start="0" data-duration="3.9" data-media-start="0.2" data-track-index="2" muted playsinline src="assets/midia/facas_C.mp4"></video><div class="dim"></div></div></div>
+      <div class="cel" id="c3"><div class="tela"><video id="v-ex" class="clip" data-start="0" data-duration="3.9" data-media-start="8.0" data-track-index="4" muted playsinline src="assets/midia/extensao_C.mp4"></video><div class="dim"></div></div></div>
+    </div>
+
+    <div id="veo">
+      <div class="pill">Veo</div>
+      <div class="l1">clipe de</div>
+      <div class="l2"><span id="slot8" data-layout-allow-overflow><span id="rolo8"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></span></span><span class="s">s</span></div>
+    </div>
+
+    <div id="ted"><span id="te1">edição</span><span id="te2">em</span><span id="te3">código</span></div>
+    <div id="editor">
+      <div class="topo"><div class="arq">index.html</div><div class="ag">agente editor</div></div>
+      <div id="janela" data-layout-ignore><div id="realce"></div><div id="linhas"></div></div>
+      <div id="brilhoEd"></div>
+    </div>
+
+    <div id="hero">
+      <div class="tela">
+        <video id="v-gb" class="clip" data-start="0" data-duration="2.05" data-media-start="10.6" data-track-index="3" muted playsinline src="assets/midia/garrafa_B.mp4"></video>
+        <div id="gd-wrap"><video id="v-gd" class="clip" data-start="1.7" data-duration="3.4" data-media-start="7.6" data-track-index="7" muted playsinline src="assets/midia/garrafa_D.mp4"></video></div>
+        <div id="fd-wrap"><video id="v-fd" class="clip" data-start="4.76" data-duration="1.011" data-media-start="4.28" data-track-index="8" muted playsinline src="assets/midia/facas_D.mp4"></video></div>
+        <div id="scan"></div>
+        <div id="barra"><div class="trilho"></div><div class="enche"></div><div class="cab"></div></div>
+      </div>
+    </div>
+    <div id="etiquetas">
+      <div class="etq" id="e0"><div class="p">body splash</div></div>
+      <div class="etq" id="e1"><div class="p">faqueiro</div></div>
+      <div class="etq" id="e2"><div class="p">garrafa MODUS</div></div>
+      <div class="etq" id="e3"><div class="p">extensão USB</div></div>
+      <div class="etq" id="e4"><div class="p">garrafa Hilee</div></div>
+      <div class="etq" id="e5"><div class="p">peseira</div></div>
+    </div>
+  </div>
+  <div id="grao" data-layout-ignore></div>
+
+  <audio id="fala" class="clip" data-start="0.25" data-track-index="10" data-volume="1" src="assets/fala.mp3"></audio>
+  <audio id="sfx-whoosh" class="clip" data-start="0.16" data-track-index="11" data-volume="0.28" src="assets/sfx/whoosh.wav"></audio>
+  <audio id="sfx-tique" class="clip" data-start="1.88" data-track-index="12" data-volume="0.32" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-clique" class="clip" data-start="4.8" data-track-index="13" data-volume="0.32" src="assets/sfx/clique.wav"></audio>
+  <audio id="sfx-saida" class="clip" data-start="5.3" data-track-index="14" data-volume="0.2" src="assets/sfx/whoosh_curto.wav"></audio>
+</div>
+<script>
+(function(){
+  // tempos na cena = 0,25 + inicio (fala.json)
+  const W = {seis:0.297, produtos:0.722, o:1.76, veo:1.89, gera:2.267, clipes:2.586, a:3.446, edicao:3.587,
+             escrita:4.177, em:4.719, codigo:4.825, fimFala:5.321, fim:5.771};
+  const DUR = 5.771;
+
+  // ---------- linhas de código genéricas (blocos, sem texto legível) ----------
+  let s = 4242;
+  const rnd = () => (s = (s * 1103515245 + 12345) % 2147483648) / 2147483648;
+  const AZUL = '#3D8BFF', AZUL2 = 'rgba(61,139,255,.5)', CINZA = 'rgba(169,167,159,.38)', LIMA = '#C6F432';
+  const linhas = document.getElementById('linhas');
+  const N = 64, LH = 32;
+  let nivel = 0;
+  for (let i = 0; i < N; i++) {
+    const ln = document.createElement('div');
+    ln.className = 'ln'; ln.style.top = (i * LH) + 'px';
+    const n = document.createElement('div'); n.className = 'n'; n.textContent = i + 1; ln.appendChild(n);
+    const c = document.createElement('div'); c.className = 'c';
+    const r = rnd();
+    if (r < 0.22 && nivel > 0) nivel--; else if (r > 0.7 && nivel < 4) nivel++;
+    c.style.left = (84 + nivel * 34) + 'px';
+    const k = 1 + Math.floor(rnd() * 4);
+    for (let j = 0; j < k; j++) {
+      const t = document.createElement('div'); t.className = 'tk';
+      const q = rnd();
+      t.style.width = Math.round(j === 0 ? 36 + rnd() * 70 : 30 + rnd() * 150) + 'px';
+      t.style.background = j === 0 ? AZUL : (q < 0.12 ? LIMA : q < 0.55 ? AZUL2 : CINZA);
+      c.appendChild(t);
+    }
+    c.dataset.jx = Math.round((rnd() - 0.5) * 90);
+    c.dataset.sx = (0.55 + rnd() * 0.75).toFixed(2);
+    ln.appendChild(c);
+    linhas.appendChild(ln);
+  }
+
+  const tl = gsap.timeline({paused:true});
+
+  // granulado: troca de posição a cada 2 quadros (sequência fixa)
+  let g = 9091;
+  const rg = () => (g = (g * 1103515245 + 12345) % 2147483648) / 2147483648;
+  for (let t = 0; t < DUR; t += 1/15) tl.set('#grao', {x: Math.round(rg()*380), y: Math.round(rg()*380)}, t);
+
+  // respiro de câmera
+  tl.fromTo('#palco', {scale:1}, {scale:1.03, duration:DUR, ease:'none'}, 0);
+
+  // ---------- leque: 6 molduras, uma por produto ----------
+  const slot = i => ({x: (i - 2.5) * 262, y: 50 + (i - 2.5) * (i - 2.5) * 9, r: (i - 2.5) * 3.2});
+  const outros = [0, 1, 3, 4, 5];
+  const ordem = {2:0, 3:1, 1:2, 4:3, 0:4, 5:5}; // quem abre primeiro (do centro para fora)
+
+  // quadro 0: a moldura da cena 03 já rodando (garrafa) e as outras escondidas atrás dela
+  tl.set('#hero', {transformPerspective:1800}, 0);
+  outros.forEach(i => tl.set('#c' + i, {x:0, y:0, scale:1.4, rotation:0}, 0));
+
+  const L = W.seis - 0.04;
+  const h2 = slot(2);
+  tl.fromTo('#hero', {x:0, y:0, scale:1, rotation:0},
+    {x:h2.x, y:h2.y, scale:300/420, rotation:h2.r, duration:0.6, ease:'back.out(1.3)'}, L);
+  outros.forEach(i => {
+    const p = slot(i);
+    tl.to('#c' + i, {x:p.x, y:p.y, scale:1, rotation:p.r, duration:0.62, ease:'back.out(1.3)'}, L + 0.035 * ordem[i]);
+  });
+
+  // etiquetas no pé de cada moldura (acompanham a inclinação)
+  for (let i = 0; i < 6; i++) {
+    const p = slot(i), a = p.r * Math.PI / 180, h = 266.5;
+    const bx = 960 + p.x - Math.sin(a) * h, by = 540 + p.y + Math.cos(a) * h;
+    tl.set('#e' + i, {x:bx, y:by, xPercent:-50, yPercent:-50, rotation:p.r}, 0);
+    tl.fromTo('#e' + i + ' .p', {opacity:0, y:24, scale:0.9}, {opacity:1, y:0, scale:1, duration:0.42, ease:'back.out(1.6)'},
+      W.produtos - 0.12 + 0.05 * ordem[i]);
+  }
+
+  // "6 produtos": o número conta 1 → 6 enquanto o leque abre
+  tl.fromTo('#slot6', {opacity:0, y:50}, {opacity:1, y:0, duration:0.45, ease:'back.out(1.4)'}, W.seis);
+  tl.fromTo('#rolo6', {yPercent:0}, {yPercent:-500/6, duration:0.5, ease:'power2.out'}, W.seis + 0.04);
+  tl.fromTo('#prod', {opacity:0, y:50}, {opacity:1, y:0, duration:0.45, ease:'back.out(1.4)'}, W.produtos - 0.04);
+
+  // ---------- "Veo": a garrafa avança para o centro, as outras desfocam ----------
+  const V = W.o - 0.12;
+  tl.to('#t6', {opacity:0, y:-40, duration:0.25, ease:'power2.in'}, V - 0.04);
+  tl.to('.etq .p', {opacity:0, y:16, duration:0.2, ease:'power2.in'}, V - 0.04);
+  tl.to('#hero', {x:0, y:0, scale:1, rotation:0, duration:0.6, ease:'back.out(1.2)'}, V);
+  outros.forEach(i => {
+    const p = slot(i);
+    tl.to('#c' + i, {x:p.x * 1.1, y:p.y + 20, scale:0.9, duration:0.6, ease:'power2.out'}, V);
+  });
+  tl.to('.dim', {opacity:0.6, duration:0.45, ease:'power2.out'}, V);
+  tl.fromTo('#leque', {filter:'blur(0px)'}, {filter:'blur(7px)', duration:0.45, ease:'power2.out'}, V);
+  // dentro da moldura: troca para o clipe da garrafa com a mão em movimento
+  tl.fromTo('#gd-wrap', {opacity:0}, {opacity:1, duration:0.16, ease:'none'}, V + 0.14);
+
+  // rótulo e barra de 0 a 8 s
+  tl.fromTo('#veo .pill', {opacity:0, x:-30}, {opacity:1, x:0, duration:0.45, ease:'back.out(1.6)'}, W.veo - 0.03);
+  tl.fromTo('#veo .l1', {opacity:0, y:40}, {opacity:1, y:0, duration:0.5, ease:'back.out(1.4)'}, W.veo + 0.05);
+  tl.fromTo('#veo .l2', {opacity:0, y:50, scale:0.92}, {opacity:1, y:0, scale:1, duration:0.5, ease:'back.out(1.4)'}, W.veo + 0.12);
+  tl.fromTo('#barra', {opacity:0}, {opacity:1, duration:0.2, ease:'none'}, W.veo);
+  const B0 = W.veo + 0.1, B1 = W.clipes + 0.42;
+  tl.fromTo('#barra .enche', {scaleX:0}, {scaleX:1, duration:B1 - B0, ease:'none'}, B0);
+  tl.fromTo('#barra .cab', {x:0}, {x:420 - 56, duration:B1 - B0, ease:'none'}, B0);
+  tl.fromTo('#rolo8', {yPercent:0}, {yPercent:-800/9, duration:B1 - B0, ease:'steps(8)'}, B0);
+  tl.fromTo('#veo .l2', {scale:1.06}, {scale:1, duration:0.3, ease:'back.out(2)', immediateRender:false}, B1);
+
+  // ---------- "edição": a moldura gira e vai para a direita; código rola à esquerda ----------
+  const E = W.a - 0.14;
+  tl.to(['#veo .pill', '#veo .l1', '#veo .l2'], {opacity:0, x:40, duration:0.22, ease:'power2.in', stagger:0.03}, E);
+  tl.to('#barra', {opacity:0, duration:0.2, ease:'none'}, E);
+  outros.forEach(i => {
+    tl.to('#c' + i, {y:'+=70', scale:0.8, opacity:0, duration:0.35, ease:'power2.in'}, E + 0.02 * ordem[i]);
+  });
+  tl.to('#hero', {x:440, y:22, rotationY:-13, rotation:1.5, duration:0.62, ease:'power3.inOut'}, E + 0.06);
+  tl.fromTo('#editor', {opacity:0, x:-60}, {opacity:1, x:0, duration:0.55, ease:'back.out(1.3)'}, W.edicao - 0.1);
+  tl.fromTo('#te1', {opacity:0, y:50}, {opacity:1, y:0, duration:0.45, ease:'back.out(1.4)'}, W.edicao - 0.04);
+  tl.fromTo('#te2', {opacity:0, y:50}, {opacity:1, y:0, duration:0.4, ease:'back.out(1.4)'}, W.em - 0.04);
+  tl.fromTo('#te3', {opacity:0, y:50, scale:0.92}, {opacity:1, y:0, scale:1, duration:0.45, ease:'back.out(1.6)'}, W.codigo - 0.03);
+
+  // linhas rolando, embaralhadas; em "código" param e se alinham
+  const cs = Array.from(document.querySelectorAll('.ln .c'));
+  cs.forEach(c => tl.set(c, {x:+c.dataset.jx, scaleX:+c.dataset.sx, transformOrigin:'0 50%'}, 0));
+  const R0 = W.edicao - 0.1, R1 = W.codigo + 0.02;
+  const PARA = 26; // linha que fica no topo da janela quando o rolamento para
+  tl.fromTo('#linhas', {y:0}, {y:-PARA * LH, duration:R1 - R0, ease:'power2.out'}, R0);
+  cs.forEach((c, i) => {
+    const rel = Math.max(0, i - PARA);
+    tl.to(c, {x:0, scaleX:1, duration:0.3, ease:'back.out(1.5)'}, W.codigo - 0.04 + Math.min(rel, 20) * 0.012);
+  });
+  tl.set('#realce', {y:18 + 9 * LH}, 0);
+  tl.fromTo('#realce', {opacity:0}, {opacity:1, duration:0.1, ease:'none'}, W.codigo);
+  tl.fromTo('#brilhoEd', {opacity:0}, {opacity:1, duration:0.08, ease:'none'}, W.codigo - 0.02);
+  tl.to('#brilhoEd', {opacity:0, duration:0.4, ease:'power2.out'}, W.codigo + 0.1);
+
+  // "código": o vídeo do faqueiro entra na moldura numa varredura, com as legendas do próprio vídeo
+  const S0 = W.codigo - 0.06, SV = 0.3;
+  tl.fromTo('#fd-wrap', {clipPath:'inset(0% 0% 100% 0%)'}, {clipPath:'inset(0% 0% 0% 0%)', duration:SV, ease:'power2.inOut'}, S0);
+  tl.set('#scan', {opacity:1}, S0);
+  tl.fromTo('#scan', {y:-6}, {y:747 - 12, duration:SV, ease:'power2.inOut'}, S0);
+  tl.to('#scan', {opacity:0, duration:0.08, ease:'none'}, S0 + SV - 0.04);
+  tl.to('#hero', {rotationY:-6, duration:0.4, ease:'power2.out'}, W.codigo);
+
+  // ---------- saída: tudo cai em cascata e sobra o eixo do gráfico ----------
+  const OUT = 5.27;
+  tl.to('#ted', {y:1120, rotation:-4, duration:0.34, ease:'power2.in'}, OUT);
+  tl.to('#editor', {y:900, rotation:3, duration:0.34, ease:'power2.in'}, OUT + 0.03);
+  tl.to('#hero', {y:'+=1000', rotation:6, duration:0.34, ease:'power2.in'}, OUT + 0.06);
+  tl.fromTo('#eixo', {scaleX:0}, {scaleX:1, duration:0.3, ease:'power3.out'}, OUT + 0.08);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines["main"] = tl;
+})();
+</script>
+</body>
+</html>

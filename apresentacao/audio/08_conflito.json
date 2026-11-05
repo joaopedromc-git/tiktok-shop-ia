@@ -1,0 +1,141 @@
+{
+ "texto": "O conflito: para sair idêntico ao anúncio, o produto ficava parado e só a câmera se aproximava. Virou quadro estático. A saída: uma mão movendo o produto.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "O",
+   "inicio": 0.048,
+   "fim": 0.13
+  },
+  {
+   "palavra": "conflito",
+   "inicio": 0.13,
+   "fim": 0.767
+  },
+  {
+   "palavra": "para",
+   "inicio": 0.944,
+   "fim": 1.109
+  },
+  {
+   "palavra": "sair",
+   "inicio": 1.109,
+   "fim": 1.416
+  },
+  {
+   "palavra": "idêntico",
+   "inicio": 1.416,
+   "fim": 1.887
+  },
+  {
+   "palavra": "ao",
+   "inicio": 1.887,
+   "fim": 1.982
+  },
+  {
+   "palavra": "anúncio",
+   "inicio": 1.982,
+   "fim": 2.489
+  },
+  {
+   "palavra": "o",
+   "inicio": 2.63,
+   "fim": 2.678
+  },
+  {
+   "palavra": "produto",
+   "inicio": 2.678,
+   "fim": 3.067
+  },
+  {
+   "palavra": "ficava",
+   "inicio": 3.067,
+   "fim": 3.373
+  },
+  {
+   "palavra": "parado",
+   "inicio": 3.373,
+   "fim": 3.963
+  },
+  {
+   "palavra": "e",
+   "inicio": 3.963,
+   "fim": 3.998
+  },
+  {
+   "palavra": "só",
+   "inicio": 3.998,
+   "fim": 4.246
+  },
+  {
+   "palavra": "a",
+   "inicio": 4.246,
+   "fim": 4.305
+  },
+  {
+   "palavra": "câmera",
+   "inicio": 4.305,
+   "fim": 4.694
+  },
+  {
+   "palavra": "se",
+   "inicio": 4.694,
+   "fim": 4.788
+  },
+  {
+   "palavra": "aproximava",
+   "inicio": 4.788,
+   "fim": 5.472
+  },
+  {
+   "palavra": "Virou",
+   "inicio": 5.793,
+   "fim": 6.229
+  },
+  {
+   "palavra": "quadro",
+   "inicio": 6.229,
+   "fim": 6.736
+  },
+  {
+   "palavra": "estático",
+   "inicio": 6.736,
+   "fim": 7.373
+  },
+  {
+   "palavra": "A",
+   "inicio": 7.689,
+   "fim": 7.784
+  },
+  {
+   "palavra": "saída",
+   "inicio": 7.784,
+   "fim": 8.326
+  },
+  {
+   "palavra": "uma",
+   "inicio": 8.562,
+   "fim": 8.774
+  },
+  {
+   "palavra": "mão",
+   "inicio": 8.774,
+   "fim": 9.081
+  },
+  {
+   "palavra": "movendo",
+   "inicio": 9.081,
+   "fim": 9.553
+  },
+  {
+   "palavra": "o",
+   "inicio": 9.553,
+   "fim": 9.564
+  },
+  {
+   "palavra": "produto",
+   "inicio": 9.564,
+   "fim": 10.06
+  }
+ ]
+}

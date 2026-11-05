@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="assets/fontes.css">
+<link rel="stylesheet" href="assets/tokens.css">
+<script src="assets/gsap.min.js"></script>
+<style>
+  html,body{margin:0;padding:0;background:var(--fundo);}
+  #root{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--fundo);font-family:var(--corpo);color:var(--texto);}
+  #fundo{position:absolute;inset:0;background:var(--fundo);}
+  #vinheta{position:absolute;inset:0;background:radial-gradient(ellipse 75% 75% at 50% 50%,rgba(0,0,0,0) 0%,rgba(0,0,0,.35) 100%);}
+  #grao{position:absolute;inset:-400px;background-image:url(assets/grao.png);background-size:384px 384px;opacity:.04;mix-blend-mode:screen;}
+  #recolhe{position:absolute;inset:0;transform-origin:960px 540px;}
+  #soco{position:absolute;inset:0;transform-origin:960px 540px;}
+  #camera{position:absolute;left:284px;top:-180px;width:1352px;height:1308px;transform-origin:676px 1157.8px;}
+  #mascara{position:absolute;inset:0;-webkit-mask-image:url(assets/parede_mascara.svg);mask-image:url(assets/parede_mascara.svg);-webkit-mask-size:100% 100%;mask-size:100% 100%;}
+  #parede{position:absolute;left:0;top:0;width:1352px;height:1308px;object-fit:fill;}
+  .t{position:absolute;width:176px;height:312px;}
+  .dim{position:absolute;inset:0;background:var(--fundo);opacity:0;}
+  .luz{position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(198,244,50,.25));opacity:0;}
+  .b{position:absolute;width:176px;height:312px;box-sizing:border-box;border:5px solid var(--moldura);border-radius:26px;}
+  .b .cont{position:absolute;inset:-5px;border:5px solid var(--destaque);border-radius:26px;opacity:0;box-shadow:0 0 24px rgba(198,244,50,.55),inset 0 0 18px rgba(198,244,50,.35);}
+  .b28 .cont{inset:-5px;}
+  #brilho28{position:absolute;left:1176px;top:996px;width:176px;height:312px;border-radius:26px;background:radial-gradient(circle at 50% 50%,rgba(198,244,50,.55),rgba(198,244,50,0) 70%);opacity:0;}
+  #n28{position:absolute;left:0;top:0;width:520px;height:330px;margin-left:-260px;margin-top:-165px;display:flex;align-items:center;justify-content:center;
+       font-family:var(--titulo);font-weight:800;font-size:300px;line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;color:var(--destaque);
+       text-shadow:0 10px 50px rgba(0,0,0,.55);opacity:0;}
+  #rotulo{position:absolute;left:276px;top:119px;font-family:var(--corpo);font-weight:600;font-size:28px;line-height:1;padding:10px 18px;border-radius:999px;
+       background:rgba(14,14,16,.78);border:1px solid rgba(255,255,255,.14);color:var(--texto);opacity:0;white-space:nowrap;}
+  #frase{position:absolute;left:0;top:0;width:1920px;height:1080px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .w{font-family:var(--titulo);font-weight:800;font-size:250px;line-height:.95;letter-spacing:-0.02em;color:var(--texto);opacity:0;text-shadow:0 12px 60px rgba(0,0,0,.6);}
+  #w1{color:var(--destaque);}
+  #ponto{position:absolute;left:951px;top:531px;width:18px;height:18px;border-radius:50%;background:var(--destaque);box-shadow:0 0 18px 6px rgba(198,244,50,.6),0 0 60px 18px rgba(198,244,50,.25);opacity:0;}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="4.51" data-width="1920" data-height="1080" data-fps="30">
+  <div id="fundo"></div>
+  <div id="vinheta"></div>
+  <div id="recolhe">
+    <div id="soco">
+      <div id="camera" data-layout-allow-overflow>
+        <div id="mascara">
+          <video id="parede" class="clip" data-start="0" data-duration="4.51" data-track-index="1" muted playsinline src="assets/parede.mp4"></video>
+          <div class="t" style="left:0px;top:0px"><div class="dim" data-c="0" data-r="0"></div><div class="luz" data-c="0"></div></div><div class="t" style="left:196px;top:0px"><div class="dim" data-c="1" data-r="0"></div><div class="luz" data-c="1"></div></div><div class="t" style="left:392px;top:0px"><div class="dim" data-c="2" data-r="0"></div><div class="luz" data-c="2"></div></div><div class="t" style="left:588px;top:0px"><div class="dim" data-c="3" data-r="0"></div><div class="luz" data-c="3"></div></div><div class="t" style="left:784px;top:0px"><div class="dim" data-c="4" data-r="0"></div><div class="luz" data-c="4"></div></div><div class="t" style="left:980px;top:0px"><div class="dim" data-c="5" data-r="0"></div><div class="luz" data-c="5"></div></div><div class="t" style="left:1176px;top:0px"><div class="dim" data-c="6" data-r="0"></div><div class="luz" data-c="6"></div></div><div class="t" style="left:0px;top:332px"><div class="dim" data-c="0" data-r="1"></div><div class="luz" data-c="0"></div></div><div class="t" style="left:196px;top:332px"><div class="dim" data-c="1" data-r="1"></div><div class="luz" data-c="1"></div></div><div class="t" style="left:392px;top:332px"><div class="dim" data-c="2" data-r="1"></div><div class="luz" data-c="2"></div></div><div class="t" style="left:588px;top:332px"><div class="dim" data-c="3" data-r="1"></div><div class="luz" data-c="3"></div></div><div class="t" style="left:784px;top:332px"><div class="dim" data-c="4" data-r="1"></div><div class="luz" data-c="4"></div></div><div class="t" style="left:980px;top:332px"><div class="dim" data-c="5" data-r="1"></div><div class="luz" data-c="5"></div></div><div class="t" style="left:1176px;top:332px"><div class="dim" data-c="6" data-r="1"></div><div class="luz" data-c="6"></div></div><div class="t" style="left:0px;top:664px"><div class="dim" data-c="0" data-r="2"></div><div class="luz" data-c="0"></div></div><div class="t" style="left:196px;top:664px"><div class="dim" data-c="1" data-r="2"></div><div class="luz" data-c="1"></div></div><div class="t" style="left:392px;top:664px"><div class="dim" data-c="2" data-r="2"></div><div class="luz" data-c="2"></div></div><div class="t" style="left:588px;top:664px"><div class="dim" data-c="3" data-r="2"></div><div class="luz" data-c="3"></div></div><div class="t" style="left:784px;top:664px"><div class="dim" data-c="4" data-r="2"></div><div class="luz" data-c="4"></div></div><div class="t" style="left:980px;top:664px"><div class="dim" data-c="5" data-r="2"></div><div class="luz" data-c="5"></div></div><div class="t" style="left:1176px;top:664px"><div class="dim" data-c="6" data-r="2"></div><div class="luz" data-c="6"></div></div><div class="t" style="left:0px;top:996px"><div class="dim" data-c="0" data-r="3"></div><div class="luz" data-c="0"></div></div><div class="t" style="left:196px;top:996px"><div class="dim" data-c="1" data-r="3"></div><div class="luz" data-c="1"></div></div><div class="t" style="left:392px;top:996px"><div class="dim" data-c="2" data-r="3"></div><div class="luz" data-c="2"></div></div><div class="t" style="left:588px;top:996px"><div class="dim" data-c="3" data-r="3"></div><div class="luz" data-c="3"></div></div><div class="t" style="left:784px;top:996px"><div class="dim" data-c="4" data-r="3"></div><div class="luz" data-c="4"></div></div><div class="t" style="left:980px;top:996px"><div class="dim" data-c="5" data-r="3"></div><div class="luz" data-c="5"></div></div><div class="t" style="left:1176px;top:996px"><div class="dim" data-c="6" data-r="3"></div><div class="luz" data-c="6"></div></div>
+        </div>
+        <div class="b" style="left:0px;top:0px"><div class="cont" data-d="0"></div></div><div class="b" style="left:196px;top:0px"><div class="cont" data-d="1"></div></div><div class="b" style="left:392px;top:0px"><div class="cont" data-d="2"></div></div><div class="b" style="left:588px;top:0px"><div class="cont" data-d="3"></div></div><div class="b" style="left:784px;top:0px"><div class="cont" data-d="4"></div></div><div class="b" style="left:980px;top:0px"><div class="cont" data-d="5"></div></div><div class="b" style="left:1176px;top:0px"><div class="cont" data-d="6"></div></div><div class="b" style="left:0px;top:332px"><div class="cont" data-d="1"></div></div><div class="b" style="left:196px;top:332px"><div class="cont" data-d="2"></div></div><div class="b" style="left:392px;top:332px"><div class="cont" data-d="3"></div></div><div class="b" style="left:588px;top:332px"><div class="cont" data-d="4"></div></div><div class="b" style="left:784px;top:332px"><div class="cont" data-d="5"></div></div><div class="b" style="left:980px;top:332px"><div class="cont" data-d="6"></div></div><div class="b" style="left:1176px;top:332px"><div class="cont" data-d="7"></div></div><div class="b" style="left:0px;top:664px"><div class="cont" data-d="2"></div></div><div class="b" style="left:196px;top:664px"><div class="cont" data-d="3"></div></div><div class="b" style="left:392px;top:664px"><div class="cont" data-d="4"></div></div><div class="b" style="left:588px;top:664px"><div class="cont" data-d="5"></div></div><div class="b" style="left:784px;top:664px"><div class="cont" data-d="6"></div></div><div class="b" style="left:980px;top:664px"><div class="cont" data-d="7"></div></div><div class="b" style="left:1176px;top:664px"><div class="cont" data-d="8"></div></div><div class="b" style="left:0px;top:996px"><div class="cont" data-d="3"></div></div><div class="b" style="left:196px;top:996px"><div class="cont" data-d="4"></div></div><div class="b" style="left:392px;top:996px"><div class="cont" data-d="5"></div></div><div class="b" style="left:588px;top:996px"><div class="cont" data-d="6"></div></div><div class="b" style="left:784px;top:996px"><div class="cont" data-d="7"></div></div><div class="b" style="left:980px;top:996px"><div class="cont" data-d="8"></div></div><div class="b b28" style="left:1176px;top:996px"><div class="cont" data-d="9"></div></div>
+        <div id="brilho28"></div>
+      </div>
+    </div>
+    <div id="n28">28</div>
+    <div id="rotulo">vídeos de propaganda</div>
+    <div id="frase" data-layout-allow-overlap>
+      <div class="w" id="w1">ninguém</div>
+      <div class="w" id="w2">aparece</div>
+    </div>
+  </div>
+  <div id="ponto"></div>
+  <div id="grao" data-layout-ignore></div>
+
+  <audio id="fala" class="clip" data-start="0.25" data-track-index="10" data-volume="1" src="assets/fala.mp3"></audio>
+  <audio id="sfx-batida" class="clip" data-start="0.2" data-track-index="11" data-volume="0.32" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-pop" class="clip" data-start="0.64" data-track-index="12" data-volume="0.3" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-whoosh" class="clip" data-start="2.42" data-track-index="13" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-brilho" class="clip" data-start="3.6" data-track-index="14" data-volume="0.26" src="assets/sfx/brilho.wav"></audio>
+</div>
+<script>
+(function(){
+  // tempos: cena = 0,25 + inicio da palavra (fala.json)
+  const W = {vinte:0.298, oito:0.663, videos:0.946, propaganda:1.512, ninguem:2.551, aparece:3.058, nenhum:3.636, fim:4.06};
+  const tl = gsap.timeline({paused:true});
+
+  // granulado: troca de posição a cada 2 quadros (sequência fixa)
+  let s = 12345;
+  const rnd = () => (s = (s * 1103515245 + 12345) % 2147483648) / 2147483648;
+  for (let t = 0; t < 4.51; t += 1/15) tl.set('#grao', {x: Math.round(rnd()*380), y: Math.round(rnd()*380)}, t);
+
+  // câmera se afastando da parede (1,15 -> 1,0 em relação ao tamanho padrão)
+  const S0 = 1, S1 = 1/1.15, CAM = 4.2;
+  const camEase = gsap.parseEase('power1.out');
+  tl.fromTo('#camera', {scale:S0}, {scale:S1, duration:CAM, ease:'power1.out'}, 0);
+  // soco de impacto na batida
+  tl.fromTo('#soco', {scale:1.018}, {scale:1, duration:0.5, ease:'power3.out'}, 0);
+
+  // posição na tela da 28ª moldura num instante t
+  const ORX = 284 + 676, ORY = -180 + 1157.8;
+  const c28 = (t) => {
+    const k = S0 + (S1 - S0) * camEase(Math.min(t / CAM, 1));
+    const px = 284 + 6*196 + 88.0, py = -180 + 3*332 + 156.0;
+    return {x: ORX + (px - ORX) * k, y: ORY + (py - ORY) * k, k};
+  };
+
+  // "oito": a 28ª moldura acende e vira o número
+  tl.to('.b28 .cont', {opacity:1, duration:0.08, ease:'none'}, W.oito - 0.06);
+  tl.fromTo('#brilho28', {opacity:0}, {opacity:1, duration:0.08, ease:'none'}, W.oito - 0.06);
+  tl.to('#brilho28', {opacity:0, duration:0.4, ease:'power2.out'}, W.oito + 0.1);
+  const p = c28(W.oito);
+  tl.fromTo('#n28', {x:p.x, y:p.y, scale:0.42*p.k},
+    {x:960, y:540, scale:1, duration:0.55, ease:'back.out(1.4)'}, W.oito);
+  tl.fromTo('#n28', {opacity:0}, {opacity:1, duration:0.08, ease:'none'}, W.oito);
+  tl.to('.dim', {opacity:0.6, duration:0.4, ease:'power2.out'}, W.oito);
+  tl.to('.b28 .cont', {opacity:0.55, duration:0.5, ease:'power2.out'}, W.oito + 0.3);
+
+  // "propaganda": o 28 vai para o canto; onda de brilho da esquerda para a direita
+  tl.to('#n28', {x:96 + 75, y:72 + 72, scale:0.46, duration:0.55, ease:'power3.inOut'}, W.propaganda - 0.05);
+  tl.fromTo('#rotulo', {opacity:0, x:-24}, {opacity:1, x:0, duration:0.45, ease:'back.out(1.4)'}, W.propaganda + 0.42);
+  tl.to('.dim', {opacity:0.12, duration:0.35, ease:'power2.out'}, W.propaganda);
+  for (let c = 0; c < 7; c++) {
+    const at = W.propaganda + 0.02 + c * 0.065;
+    tl.fromTo(`.luz[data-c="${c}"]`, {opacity:0}, {opacity:0.42, duration:0.12, ease:'power2.out'}, at);
+    tl.to(`.luz[data-c="${c}"]`, {opacity:0, duration:0.35, ease:'power2.in'}, at + 0.12);
+  }
+
+  // "Ninguém": a parede cai para 25% de uma vez; tipografia gigante palavra a palavra
+  tl.to('.dim', {opacity:0.75, duration:0.1, ease:'power2.out'}, W.ninguem - 0.04);
+  tl.fromTo('#w1', {opacity:0, scale:0.92, y:60}, {opacity:1, scale:1, y:0, duration:0.5, ease:'back.out(1.4)'}, W.ninguem - 0.04);
+  tl.fromTo('#w2', {opacity:0, scale:0.92, y:60}, {opacity:1, scale:1, y:0, duration:0.5, ease:'back.out(1.4)'}, W.aparece - 0.04);
+
+  // "nenhum": contorno lima varre moldura a moldura (diagonal, 0,6 s)
+  for (let d = 0; d <= 9; d++) {
+    const at = W.nenhum - 0.03 + d * 0.055;
+    tl.fromTo(`.cont[data-d="${d}"]`, {opacity:0}, {opacity:1, duration:0.06, ease:'none'}, at);
+    tl.to(`.cont[data-d="${d}"]`, {opacity:0, duration:0.2, ease:'power1.in'}, at + 0.08);
+  }
+  // a moldura acesa clareia enquanto o contorno passa
+  document.querySelectorAll('.dim').forEach(el => {
+    const d = (+el.dataset.c) + (+el.dataset.r);
+    const at = W.nenhum - 0.03 + d * 0.055;
+    tl.to(el, {opacity:0.25, duration:0.06, ease:'none'}, at);
+    tl.to(el, {opacity:0.75, duration:0.22, ease:'power1.in'}, at + 0.08);
+  });
+
+  // saída: frase e 28 recolhem; parede vira um ponto de luz lima
+  const OUT = 4.1;
+  tl.to('#frase', {scale:0.6, opacity:0, duration:0.26, ease:'power3.in'}, OUT - 0.04);
+  tl.to(['#n28'], {x:960, y:540, scale:0.05, opacity:0, duration:0.28, ease:'power3.in'}, OUT - 0.04);
+  tl.to('#rotulo', {opacity:0, duration:0.15, ease:'power2.in'}, OUT - 0.04);
+  tl.to('#recolhe', {scale:0.02, duration:0.3, ease:'power3.in'}, OUT);
+  tl.to('#recolhe', {opacity:0, duration:0.08, ease:'none'}, OUT + 0.22);
+  tl.fromTo('#ponto', {scale:0, opacity:1}, {scale:1, opacity:1, duration:0.14, ease:'back.out(2)'}, OUT + 0.22);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines["main"] = tl;
+})();
+</script>
+</body>
+</html>

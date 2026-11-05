@@ -1,0 +1,56 @@
+{
+ "texto": "Vinte e oito vídeos de propaganda. Ninguém aparece em nenhum.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "Vinte",
+   "inicio": 0.048,
+   "fim": 0.402
+  },
+  {
+   "palavra": "e",
+   "inicio": 0.402,
+   "fim": 0.413
+  },
+  {
+   "palavra": "oito",
+   "inicio": 0.413,
+   "fim": 0.696
+  },
+  {
+   "palavra": "vídeos",
+   "inicio": 0.696,
+   "fim": 1.145
+  },
+  {
+   "palavra": "de",
+   "inicio": 1.145,
+   "fim": 1.262
+  },
+  {
+   "palavra": "propaganda",
+   "inicio": 1.262,
+   "fim": 1.982
+  },
+  {
+   "palavra": "Ninguém",
+   "inicio": 2.301,
+   "fim": 2.808
+  },
+  {
+   "palavra": "aparece",
+   "inicio": 2.808,
+   "fim": 3.292
+  },
+  {
+   "palavra": "em",
+   "inicio": 3.292,
+   "fim": 3.386
+  },
+  {
+   "palavra": "nenhum",
+   "inicio": 3.386,
+   "fim": 3.81
+  }
+ ]
+}

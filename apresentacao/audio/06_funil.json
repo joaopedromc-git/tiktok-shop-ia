@@ -1,0 +1,151 @@
+{
+ "texto": "Dezessete mil e oitocentas impressões, cento e trinta e cinco cliques, duas vendas. Vinte e três reais e treze centavos de comissão: retorno pequeno. O gargalo é o clique.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "Dezessete",
+   "inicio": 0.048,
+   "fim": 0.755
+  },
+  {
+   "palavra": "mil",
+   "inicio": 0.755,
+   "fim": 1.003
+  },
+  {
+   "palavra": "e",
+   "inicio": 1.003,
+   "fim": 1.062
+  },
+  {
+   "palavra": "oitocentas",
+   "inicio": 1.062,
+   "fim": 1.569
+  },
+  {
+   "palavra": "impressões",
+   "inicio": 1.569,
+   "fim": 2.3
+  },
+  {
+   "palavra": "cento",
+   "inicio": 2.454,
+   "fim": 2.713
+  },
+  {
+   "palavra": "e",
+   "inicio": 2.713,
+   "fim": 2.748
+  },
+  {
+   "palavra": "trinta",
+   "inicio": 2.748,
+   "fim": 2.996
+  },
+  {
+   "palavra": "e",
+   "inicio": 2.996,
+   "fim": 3.031
+  },
+  {
+   "palavra": "cinco",
+   "inicio": 3.031,
+   "fim": 3.326
+  },
+  {
+   "palavra": "cliques",
+   "inicio": 3.326,
+   "fim": 3.727
+  },
+  {
+   "palavra": "duas",
+   "inicio": 3.916,
+   "fim": 4.281
+  },
+  {
+   "palavra": "vendas",
+   "inicio": 4.281,
+   "fim": 4.8
+  },
+  {
+   "palavra": "Vinte",
+   "inicio": 5.119,
+   "fim": 5.413
+  },
+  {
+   "palavra": "e",
+   "inicio": 5.413,
+   "fim": 5.449
+  },
+  {
+   "palavra": "três",
+   "inicio": 5.449,
+   "fim": 5.72
+  },
+  {
+   "palavra": "reais",
+   "inicio": 5.72,
+   "fim": 6.121
+  },
+  {
+   "palavra": "e",
+   "inicio": 6.121,
+   "fim": 6.298
+  },
+  {
+   "palavra": "treze",
+   "inicio": 6.298,
+   "fim": 6.616
+  },
+  {
+   "palavra": "centavos",
+   "inicio": 6.616,
+   "fim": 7.17
+  },
+  {
+   "palavra": "de",
+   "inicio": 7.17,
+   "fim": 7.241
+  },
+  {
+   "palavra": "comissão",
+   "inicio": 7.241,
+   "fim": 7.76
+  },
+  {
+   "palavra": "retorno",
+   "inicio": 8.008,
+   "fim": 8.479
+  },
+  {
+   "palavra": "pequeno",
+   "inicio": 8.479,
+   "fim": 9.034
+  },
+  {
+   "palavra": "O",
+   "inicio": 9.363,
+   "fim": 9.446
+  },
+  {
+   "palavra": "gargalo",
+   "inicio": 9.446,
+   "fim": 10.012
+  },
+  {
+   "palavra": "é",
+   "inicio": 10.012,
+   "fim": 10.083
+  },
+  {
+   "palavra": "o",
+   "inicio": 10.083,
+   "fim": 10.153
+  },
+  {
+   "palavra": "clique",
+   "inicio": 10.153,
+   "fim": 10.542
+  }
+ ]
+}

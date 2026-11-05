@@ -1,0 +1,71 @@
+{
+ "texto": "Seis produtos. O Veo gera os clipes. A edição é escrita em código.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "Seis",
+   "inicio": 0.047,
+   "fim": 0.472
+  },
+  {
+   "palavra": "produtos",
+   "inicio": 0.472,
+   "fim": 1.179
+  },
+  {
+   "palavra": "O",
+   "inicio": 1.51,
+   "fim": 1.64
+  },
+  {
+   "palavra": "Veo",
+   "inicio": 1.64,
+   "fim": 2.017
+  },
+  {
+   "palavra": "gera",
+   "inicio": 2.017,
+   "fim": 2.241
+  },
+  {
+   "palavra": "os",
+   "inicio": 2.241,
+   "fim": 2.336
+  },
+  {
+   "palavra": "clipes",
+   "inicio": 2.336,
+   "fim": 2.866
+  },
+  {
+   "palavra": "A",
+   "inicio": 3.196,
+   "fim": 3.337
+  },
+  {
+   "palavra": "edição",
+   "inicio": 3.337,
+   "fim": 3.892
+  },
+  {
+   "palavra": "é",
+   "inicio": 3.892,
+   "fim": 3.927
+  },
+  {
+   "palavra": "escrita",
+   "inicio": 3.927,
+   "fim": 4.469
+  },
+  {
+   "palavra": "em",
+   "inicio": 4.469,
+   "fim": 4.575
+  },
+  {
+   "palavra": "código",
+   "inicio": 4.575,
+   "fim": 5.071
+  }
+ ]
+}

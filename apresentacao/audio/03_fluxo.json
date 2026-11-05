@@ -1,0 +1,111 @@
+{
+ "texto": "O Claude Code coordena tudo e opera o Google Flow. Três agentes escrevem, editam e revisam. Uma pessoa aprova e posta.",
+ "entrada_s": 0.25,
+ "palavras": [
+  {
+   "palavra": "O",
+   "inicio": 0.048,
+   "fim": 0.13
+  },
+  {
+   "palavra": "Claude",
+   "inicio": 0.13,
+   "fim": 0.449
+  },
+  {
+   "palavra": "Code",
+   "inicio": 0.449,
+   "fim": 0.732
+  },
+  {
+   "palavra": "coordena",
+   "inicio": 0.732,
+   "fim": 1.204
+  },
+  {
+   "palavra": "tudo",
+   "inicio": 1.204,
+   "fim": 1.699
+  },
+  {
+   "palavra": "e",
+   "inicio": 1.699,
+   "fim": 1.781
+  },
+  {
+   "palavra": "opera",
+   "inicio": 1.781,
+   "fim": 2.135
+  },
+  {
+   "palavra": "o",
+   "inicio": 2.135,
+   "fim": 2.194
+  },
+  {
+   "palavra": "Google",
+   "inicio": 2.194,
+   "fim": 2.524
+  },
+  {
+   "palavra": "Flow",
+   "inicio": 2.524,
+   "fim": 2.89
+  },
+  {
+   "palavra": "Três",
+   "inicio": 3.208,
+   "fim": 3.444
+  },
+  {
+   "palavra": "agentes",
+   "inicio": 3.444,
+   "fim": 3.939
+  },
+  {
+   "palavra": "escrevem",
+   "inicio": 3.939,
+   "fim": 4.612
+  },
+  {
+   "palavra": "editam",
+   "inicio": 4.765,
+   "fim": 5.402
+  },
+  {
+   "palavra": "e",
+   "inicio": 5.402,
+   "fim": 5.437
+  },
+  {
+   "palavra": "revisam",
+   "inicio": 5.437,
+   "fim": 6.062
+  },
+  {
+   "palavra": "Uma",
+   "inicio": 6.38,
+   "fim": 6.557
+  },
+  {
+   "palavra": "pessoa",
+   "inicio": 6.557,
+   "fim": 7.041
+  },
+  {
+   "palavra": "aprova",
+   "inicio": 7.041,
+   "fim": 7.654
+  },
+  {
+   "palavra": "e",
+   "inicio": 7.654,
+   "fim": 7.713
+  },
+  {
+   "palavra": "posta",
+   "inicio": 7.713,
+   "fim": 8.196
+  }
+ ]
+}
