@@ -14,24 +14,9 @@ Um sistema que transforma o anúncio de um produto em vídeos verticais de propa
 
 ## Como funciona
 
-```mermaid
-flowchart TD
-    subgraph S1["1 · Roteiro"]
-        direction LR
-        A["&nbsp;Anúncio&nbsp;"] --> B["&nbsp;Agente de roteiro&nbsp;"] --> C{{"&nbsp;Aprovação&nbsp;"}} --> R1["&nbsp;Revisor: texto&nbsp;"]
-    end
-    subgraph S2["2 · Clipes"]
-        direction LR
-        D["&nbsp;Primeiro quadro no Flow&nbsp;"] --> E["&nbsp;Clipe de 8 s no Veo&nbsp;"] --> F{{"&nbsp;Aprovação&nbsp;"}}
-    end
-    subgraph S3["3 · Edição e postagem"]
-        direction LR
-        G["&nbsp;Narração + HyperFrames&nbsp;"] --> H["&nbsp;Render&nbsp;"] --> R2["&nbsp;Revisor: vídeo&nbsp;"] --> I["&nbsp;Postagem manual&nbsp;"]
-    end
-    S1 --> S2 --> S3
-    M[("&nbsp;Memória: aprendizados.md&nbsp;")] -.-> B
-    I -.->|"violações e métricas"| M
-```
+<p align="center">
+  <img src="docs/img/fluxo.svg" width="960" alt="Diagrama em três etapas. Roteiro: anúncio, agente de roteiro, aprovação de uma pessoa e revisor do texto. Clipes: primeiro quadro no Flow, clipe no Veo, conferência quadro a quadro e aprovação. Edição e postagem: narração, edição HyperFrames, render, revisor do vídeo e postagem manual. A memória do projeto recebe violações e métricas e é lida antes de cada roteiro.">
+</p>
 
 1. **Roteiro:** o agente lê o anúncio e escreve 9 partes (3 ganchos, 3 apresentações, 3 chamadas), que se combinam em vídeos diferentes sem repetir. O banco PostgreSQL guarda as combinações já usadas.
 2. **Clipes:** o primeiro quadro é montado no editor de imagem do Flow a partir da foto do anúncio e conferido antes de gastar crédito. Só depois o Veo gera 8 s de vídeo a partir dele, com uma mão movendo o produto.
