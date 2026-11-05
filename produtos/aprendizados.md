@@ -22,6 +22,10 @@ O agente `especialista-promocao` lê este arquivo antes de cada roteiro. Uma lin
   - Conclusão: a receita que evita a violação de "produto inconsistente" (primeiro quadro + só câmera) **causa** a de "quadro estático" quando é usada nos 3 clipes. Fidelidade e movimento precisam vir juntos.
 - Regras novas (valem para todo produto): ver "Regras que não mudam" no CLAUDE.md.
 
+- **05/11/2026, conferido nas notificações do TikTok:** a 1ª violação da conta (05/10, −15, "produto inconsistente", recurso negado) foi o **vídeo A da garrafa**. O recurso do Hilee B foi **negado**.
+- **04/11/2026, Hilee C (vídeo 28, "Time canudo ou time direto?"): 6ª violação, "Promoção de produto inconsistente"** ("informações inconsistentes com os produtos vendidos"; orientação: tipo, tamanho, peso, imagens e logotipos iguais aos do produto vinculado). Aplicada 4 min depois de postar; produtos removidos do vídeo; sem recurso até 05/11. O revisor (`revisor/`) aprovou o vídeo nas três verificações: ele não confere fidelidade visual. **Causa ainda não analisada**: comparar os quadros do vídeo com as fotos e artes do anúncio (cor da garrafa, formato da tampa e do canudo, logotipo) antes do próximo lote da Hilee.
+- Contagem em 05/11/2026: 6 violações, **3 de produto inconsistente** (garrafa A, peseira A, Hilee C), 2 de quadro estático (facas A, Hilee B) e 1 de alegação (facas E, retirada no recurso). Inconsistência é o risco mais comum.
+
 ## Flow (clipes)
 - 08/10/2026, extensao, clipe B: o vídeo começou com uma extensão diferente (sem USB, sem botão, cabo do lado) e só virou a do anúncio aos ~5 s. Causa provável: prompt de "revelação" com zoom. Evitar transformação; pedir o produto completo e idêntico desde o primeiro quadro.
 - 06/10/2026, bodysplash, clipe A: a primeira versão saiu com frascos diferentes do anúncio (formato/tampa); foi refeita. Descrever formato do frasco, cor da tampa e cor de cada rótulo.

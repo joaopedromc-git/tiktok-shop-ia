@@ -9,5 +9,5 @@
 | 5 | Hilee B | 28/10 23:06 | 28/10 23:12 | Quadro estático | −4 pontos, menos visibilidade, produtos removidos | negado |
 | 6 | Hilee C | 04/11 13:32 | 04/11 13:36 | Promoção de produto inconsistente | produtos removidos do vídeo | não enviado |
 
-Todas foram aplicadas por detecção automática, entre 4 e 6 minutos depois da postagem.
+Todas foram aplicadas por detecção automática; nas cinco com horário de postagem registrado, entre 4 e 6 minutos depois.
 3 das 6 são de produto inconsistente (o que aparece no vídeo não bate com o produto vinculado: tipo, tamanho, cor, logotipo).
