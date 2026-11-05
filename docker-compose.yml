@@ -1,0 +1,35 @@
+# Sobe so o servico de render. Ele entra na mesma rede Docker do n8n,
+# entao o n8n chama http://render:8000 e nada fica exposto na internet.
+services:
+  render:
+    build: ./render
+    container_name: render
+    restart: unless-stopped
+    environment:
+      RENDER_TOKEN: ${RENDER_TOKEN}
+      VOZ: pt-BR-ThalitaMultilingualNeural
+    volumes:
+      - ./dados:/data
+    networks: [n8n]
+    cpus: 2.5
+    mem_limit: 3g
+
+  # HyperFrames (edição com animações). Sem porta: roda por docker exec.
+  editor:
+    build: ./render/editor
+    container_name: editor
+    # init: recolhe os processos do Chromium que terminam (evita zumbis)
+    init: true
+    restart: unless-stopped
+    environment:
+      HYPERFRAMES_NO_TELEMETRY: "1"
+    volumes:
+      - ./dados:/data
+    cpus: 2.5
+    mem_limit: 3g
+    shm_size: 1g
+
+networks:
+  n8n:
+    external: true
+    name: ${REDE_N8N}

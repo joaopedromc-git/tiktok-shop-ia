@@ -1,0 +1,34 @@
+{
+ "codigo": "bodysplash",
+ "lote": "D",
+ "descricao_produto": "(sem clipe novo: combinação cruzada pedida pelo operador em 14/10/2026 — clipe A do lote A (caixa com fumaça, frascos subindo) + clipes F e E do lote B; ângulo 'qual combina com você', com efeitos na edição)",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "A",
+   "fala": "Qual desses três combina com você?",
+   "titulo": "QUAL É O SEU?",
+   "linha": "3 body splashes no kit",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "F",
+   "fala": "Kit Body Man, da Primacial: um cheiro limpo pro dia a dia, um moderno e versátil, e um mais marcante pra quando quiser chamar atenção.",
+   "titulo": "KIT BODY MAN",
+   "linha": "limpo • versátil • marcante",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "cta",
+   "clipe": "E",
+   "fala": "Comenta qual seria o seu e toca no produto pra conferir o kit.",
+   "titulo": "COMENTA O SEU",
+   "linha": "e toca no produto",
+   "rodape": "",
+   "prompt": ""
+  }
+ ]
+}

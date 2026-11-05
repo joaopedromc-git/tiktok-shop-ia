@@ -1,0 +1,34 @@
+{
+ "codigo": "extensao",
+ "lote": "A",
+ "descricao_produto": "(vídeo A, feito antes do agente)",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "A",
+   "fala": "Uma tomada só pra ligar tudo isso? Aí vira essa bagunça.",
+   "titulo": "Falta tomada aí?",
+   "linha": "",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "B",
+   "fala": "Essa extensão tem cinco tomadas num lugar só, quatro USB, uma tipo cê e botão de liga e desliga.",
+   "titulo": "5 tomadas",
+   "linha": "4 USB • 1 Tipo-C • liga/desliga",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "cta",
+   "clipe": "C",
+   "fala": "Serve na mesa, no quarto ou na sala. Toca no produto aqui no vídeo e confere.",
+   "titulo": "Toque no produto",
+   "linha": "mesa • quarto • sala",
+   "rodape": "",
+   "prompt": ""
+  }
+ ]
+}

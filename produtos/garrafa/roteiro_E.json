@@ -1,0 +1,78 @@
+{
+ "codigo": "garrafa",
+ "lote": "E",
+ "tipo": "rotacao sem clipe novo (0 credito)",
+ "descricao_produto": "(sem clipe novo: rotacao com clipe E do lote B e clipes G, H, I do lote D; so a garrafa verde-militar com etiqueta preta MODUS aparece)",
+ "opcao_escolhida": 1,
+ "angulo": "Quente ou fria, voce escolhe: segundo o fabricante, quente por ate 12 h e fria por ate 18 h; fogueira (abertura) e praia (fim) dao o contraste",
+ "angulo_reserva": "Feita pra aguentar o passeio: aco inox 304 resistente a corrosao, livre de BPA, boca larga pra lavar (segundo o fabricante)",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "H",
+   "trecho": "0,2-3,1 s (ate 0,85x); PROIBIDO 3,2-4,3 s; se faltar tempo, emendar 4,4-5,0 s",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Fogueira acesa, noite fria, e o café já esfriou de novo?",
+   "titulo": "O CAFÉ ESFRIOU?",
+   "linha": "e a noite nem começou",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "E",
+   "complemento": "G 4,5-8,0 s (lote D, escritório)",
+   "trecho": "E 2,0-8,0 s (nao comecar em 0: 0-3,2 s e garrafa parada) -> G 4,5-8,0 s",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Garrafa Térmica MODUS: segundo o fabricante, deixa a bebida quente por até doze horas e fria por até dezoito. Café na trilha, água fria no trabalho.",
+   "titulo": "QUENTE OU FRIA*",
+   "linha": "12 h quente · 18 h fria",
+   "rodape": "*Dados do fabricante",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "cta",
+   "clipe": "I",
+   "trecho": "1,5-6,3 s",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Praia ou trilha primeiro? Toque no produto do vídeo e confira os detalhes.",
+   "titulo": "TOQUE E CONFIRA",
+   "linha": "praia ou trilha?",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  }
+ ],
+ "opcao_2": [
+  {
+   "parte": "intro",
+   "clipe": "H",
+   "fala": "Garrafa de acampamento que enferruja depois de poucas viagens?",
+   "titulo": "ENFERRUJOU?",
+   "linha": "depois de poucas viagens",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "E",
+   "complemento": "G 4,5-8,0 s",
+   "fala": "Garrafa Térmica MODUS: aço inox trezentos e quatro, resistente à corrosão e livre de bê pê á, segundo o fabricante. Boca larga pra lavar à mão depois do passeio.",
+   "titulo": "AÇO INOX 304*",
+   "linha": "boca larga pra lavar",
+   "rodape": "*Dados do fabricante",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "cta",
+   "clipe": "I",
+   "fala": "Do acampamento à praia, qual o próximo passeio? Toque no produto e confira.",
+   "titulo": "TOQUE E CONFIRA",
+   "linha": "qual o próximo passeio?",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+/* Fontes instaladas no container editor (Google Fonts, OFL). Declaradas com local() para o lint do HyperFrames
+   e para o Chromium usar o arquivo do sistema, sem internet. */
+@font-face { font-family: "Anton"; src: local("Anton"); }
+@font-face { font-family: "Bebas Neue"; src: local("Bebas Neue Regular"), local("Bebas Neue"); }
+@font-face { font-family: "Archivo Black"; src: local("Archivo Black"); }
+@font-face { font-family: "Poppins"; font-weight: 600; src: local("Poppins SemiBold"); }
+@font-face { font-family: "Poppins"; font-weight: 700; src: local("Poppins Bold"), local("Poppins"); }
+@font-face { font-family: "Poppins"; font-weight: 800; src: local("Poppins ExtraBold"); }
+@font-face { font-family: "Poppins"; font-weight: 900; src: local("Poppins Black"); }
+@font-face { font-family: "Bricolage Grotesque"; font-weight: 200 800; src: local("Bricolage Grotesque 96pt ExtraBold"), local("Bricolage Grotesque"); }
+@font-face { font-family: "Inter"; font-weight: 100 900; src: local("Inter"); }
+@font-face { font-family: "DM Serif Display"; src: local("DM Serif Display"); }
+@font-face { font-family: "Montserrat"; font-weight: 100 900; src: local("Montserrat"); }
+@font-face { font-family: "Noto Color Emoji"; src: local("Noto Color Emoji"); }

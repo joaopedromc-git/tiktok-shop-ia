@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Bebas Placar";src:local("Bebas Neue Regular"),local("Bebas Neue"),local("BebasNeue-Regular")}
+@font-face{font-family:"Mont Placar";font-weight:100 900;src:local("Montserrat Thin"),local("Montserrat-Thin"),local("Montserrat")}
+:root{--preto:#111214;--verm:#FF3D2E;--creme:#FFF4E4}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#111214}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#111214;font-family:"Mont Placar";font-weight:800}
+.clip{position:absolute;inset:0}
+.cam{position:absolute;inset:0;overflow:hidden;z-index:1}
+.full{width:100%;height:100%;object-fit:cover}
+#camG1{transform-origin:50% 21%}
+#camH{transform-origin:30% 24%}
+#camG2{transform-origin:30% 30%}
+#camI{transform-origin:50% 40%}
+.vinheta{z-index:3;background:radial-gradient(ellipse 100% 72% at 50% 50%,rgba(0,0,0,0) 66%,rgba(17,18,20,.38) 100%)}
+.flash{z-index:9;background:#FFFFFF;opacity:0}
+.titulo{z-index:6}
+/* placar: peças escuras com filete creme; a peça "acesa" vira vermelho-placar */
+.tile{display:flex;align-items:center;justify-content:center;background:rgba(17,18,20,.9);color:var(--creme);
+  border-radius:14px;box-shadow:inset 0 0 0 3px rgba(255,244,228,.28),0 12px 28px rgba(0,0,0,.45)}
+.tile b{display:block;font-family:"Bebas Placar";font-weight:400;white-space:nowrap;letter-spacing:2px;line-height:1;text-align:center}
+.vs{display:flex;align-items:center;justify-content:center;width:84px;height:84px;border-radius:50%;background:var(--creme);
+  color:var(--preto);font-family:"Bebas Placar";font-size:46px;letter-spacing:1px;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+#t1-row{position:absolute;left:40px;top:196px;width:860px;display:flex;align-items:center;justify-content:center;gap:14px}
+#c1,#c2{height:150px;padding:0 26px}
+#c1 b,#c2 b{font-size:128px;padding-top:10px}
+/* kicker e título da apresentação */
+#k2{position:absolute;left:40px;top:214px;width:860px;display:flex;justify-content:center}
+#k2 span{display:block;white-space:nowrap;background:rgba(17,18,20,.88);color:var(--creme);font-family:"Mont Placar";font-weight:800;
+  font-size:44px;letter-spacing:5px;padding:16px 30px 18px;border-radius:12px;box-shadow:inset 0 -5px 0 var(--verm),0 10px 24px rgba(0,0,0,.4)}
+#t2-row{position:absolute;left:40px;top:196px;width:860px;display:flex;justify-content:center;gap:12px;perspective:900px}
+#t2a,#t2b{height:130px;padding:0 26px}
+#t2a{background:var(--verm);color:#FFFFFF;box-shadow:0 12px 28px rgba(0,0,0,.45)}
+#t2a b,#t2b b{font-size:108px;padding-top:8px}
+/* placar lateral (à esquerda da garrafa e da alça; x 30-256, y 600-866) */
+#pl{position:absolute;left:30px;top:600px;width:226px;perspective:800px}
+#pl .tile{position:relative;width:226px;height:126px;margin-bottom:14px}
+#pl .tile b{position:absolute;left:0;right:0;top:50%;transform:translateY(-46%)}
+.um{font-size:76px}
+.dois{font-size:50px;line-height:1.02 !important}
+/* balão de comentário da CTA (mesma coluna do placar) */
+#bolha{position:absolute;left:30px;top:800px;display:block;background:var(--verm);border-radius:22px;padding:18px 34px 14px;
+  box-shadow:0 14px 30px rgba(0,0,0,.45)}
+#bolha b{display:block;font-family:"Bebas Placar";font-weight:400;font-size:92px;line-height:.98;white-space:nowrap;color:#FFFFFF;letter-spacing:2px}
+#bolha i{position:absolute;left:44px;bottom:-34px;width:58px;height:40px;display:block;background:var(--verm);clip-path:polygon(0 0,100% 0,0 100%)}
+/* rodapé de dado do fabricante */
+#rod{z-index:6}
+#rod span{position:absolute;left:44px;top:1468px;display:block;font-family:"Mont Placar";font-weight:600;font-size:30px;
+  color:rgba(255,255,255,.82);text-shadow:0 2px 8px rgba(0,0,0,.75)}
+/* legenda caixa-palavra */
+.legenda{z-index:7}
+.cap{position:absolute;left:40px;width:878px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:nowrap}
+.pal{display:block;font-family:"Mont Placar";font-weight:800;font-size:68px;line-height:1;white-space:nowrap;color:var(--creme);
+  background:rgba(17,18,20,.9);padding:14px 22px 18px;border-radius:12px;box-shadow:0 10px 22px rgba(0,0,0,.4)}
+.pal.k{background:var(--verm);color:#FFFFFF}
+/* CTA: botão com seta para baixo/esquerda + "toca no produto" */
+#toque{z-index:8}
+#tq-b{position:absolute;left:56px;top:1404px;width:116px;height:116px;display:block;border-radius:50%;background:var(--verm);
+  box-shadow:0 0 0 6px rgba(17,18,20,.92),0 12px 26px rgba(0,0,0,.5)}
+#tq-b svg{display:block;width:116px;height:116px}
+#tq-o{position:absolute;left:56px;top:1404px;width:116px;height:116px;display:block;border:7px solid var(--verm);border-radius:50%;opacity:0}
+#tq-l{position:absolute;left:196px;top:1428px;display:block;white-space:nowrap;background:rgba(17,18,20,.9);color:var(--creme);
+  font-family:"Mont Placar";font-weight:800;font-size:42px;line-height:1;padding:18px 30px 20px;border-radius:40px;
+  box-shadow:inset 0 0 0 3px var(--verm),0 10px 24px rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="16.32" data-width="1080" data-height="1920">
+  <!-- INTRO: G 0-2,5 s a 0,9x (topo aberto inclina para a câmera contra o céu) -->
+  <div id="camG1" class="cam"><video id="vG1" class="clip full" data-start="0" data-duration="2.778" data-media-start="0" data-playback-rate="0.9" data-track-index="0" src="assets/clipe_G.mp4" muted playsinline></video></div>
+  <!-- APRESENTAÇÃO: H 0,6-5,915 s (tampinha abre no "dois"), G 2,4-3,5 s, I 0,5 s em diante (segue na CTA) -->
+  <div id="camH" class="cam"><video id="vH" class="clip full" data-start="2.778" data-duration="5.905" data-media-start="0.6" data-playback-rate="0.9" data-track-index="1" src="assets/clipe_H.mp4" muted playsinline></video></div>
+  <div id="camG2" class="cam"><video id="vG2" class="clip full" data-start="8.683" data-duration="1.222" data-media-start="2.4" data-playback-rate="0.9" data-track-index="0" src="assets/clipe_G.mp4" muted playsinline></video></div>
+  <div id="camI" class="cam"><video id="vI" class="clip full" data-start="9.905" data-duration="6.415" data-media-start="0.5" data-playback-rate="0.9" data-track-index="1" src="assets/clipe_I.mp4" muted playsinline></video></div>
+
+  <div id="vin" class="clip vinheta" data-start="0" data-duration="16.32" data-track-index="5"></div>
+
+  <!-- intro: placar "CANUDO (OU) DIRETO?" já no quadro 0, acima da tampa; acende a peça dita -->
+  <div id="t1" class="clip titulo" data-start="0" data-duration="2.778" data-track-index="6">
+    <div id="t1-row"><span id="c1" class="tile"><b>CANUDO</b></span><span id="vs1" class="vs">OU</span><span id="c2" class="tile"><b>DIRETO?</b></span></div>
+  </div>
+
+  <!-- apresentação: kicker "GARRAFA TÉRMICA HILEE" e depois "2 JEITOS DE BEBER" (sai antes de a garrafa subir) -->
+  <div id="k2w" class="clip titulo" data-start="2.956" data-duration="1.509" data-track-index="7">
+    <div id="k2"><span id="k2s">GARRAFA TÉRMICA HILEE</span></div>
+  </div>
+  <div id="t2" class="clip titulo" data-start="4.445" data-duration="1.066" data-track-index="8">
+    <div id="t2-row"><span id="t2a" class="tile"><b>2 JEITOS</b></span><span id="t2b" class="tile"><b>DE BEBER</b></span></div>
+  </div>
+
+  <!-- placar lateral: CANUDO | DIRETO -> VEDAÇÃO TOTAL* / FÁCIL DE LIMPAR* -> CANUDO | DIRETO (CTA) -->
+  <div id="plw" class="clip titulo" data-start="5.875" data-duration="7.762" data-track-index="9">
+    <div id="pl">
+      <span id="p1" class="tile"><b id="p1a" class="um">CANUDO</b><b id="p1b" class="dois" style="opacity:0">VEDAÇÃO<br>TOTAL*</b></span>
+      <span id="p2" class="tile"><b id="p2a" class="um">DIRETO</b><b id="p2b" class="dois" style="opacity:0">FÁCIL DE<br>LIMPAR*</b></span>
+    </div>
+  </div>
+
+  <div id="rod" class="clip" data-start="2.778" data-duration="9.118" data-track-index="10"><span id="rod-s">*Dados do fabricante</span></div>
+
+  <!-- CTA: balão "COMENTA O SEU" (antes do toque) + botão com seta para baixo/esquerda em "toca" -->
+  <div id="t3" class="clip titulo" data-start="13.577" data-duration="2.743" data-track-index="7">
+    <span id="bolha"><b>COMENTA<br>O SEU</b><i></i></span>
+  </div>
+  <div id="toque" class="clip" data-start="14.756" data-duration="1.564" data-track-index="10">
+    <i id="tq-o"></i>
+    <span id="tq-b"><svg id="tq-s" viewBox="0 0 116 116"><path d="M78 38 L40 76 M38 48 L38 78 L68 78" fill="none" stroke="#FFF4E4" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span id="tq-l">toca no produto</span>
+  </div>
+
+  <div id="fl2" class="clip flash" data-start="2.758" data-duration="0.12" data-track-index="11"></div>
+  <div id="fl3" class="clip flash" data-start="8.663" data-duration="0.12" data-track-index="11"></div>
+
+  <div id="leg-int-0" class="clip legenda" data-start="0.158" data-duration="0.436" data-track-index="12"><div id="leg-int-0-c" class="cap" style="top:985px"><span id="leg-int-0-0" class="pal">Você</span><span id="leg-int-0-1" class="pal">é</span><span id="leg-int-0-2" class="pal">do</span></div></div>
+  <div id="leg-int-1" class="clip legenda" data-start="0.594" data-duration="0.885" data-track-index="12"><div id="leg-int-1-c" class="cap" style="top:985px"><span id="leg-int-1-0" class="pal">time</span><span id="leg-int-1-1" class="pal k">canudo</span></div></div>
+  <div id="leg-int-2" class="clip legenda" data-start="1.479" data-duration="0.247" data-track-index="12"><div id="leg-int-2-c" class="cap" style="top:985px"><span id="leg-int-2-0" class="pal">ou</span><span id="leg-int-2-1" class="pal">do</span></div></div>
+  <div id="leg-int-3" class="clip legenda" data-start="1.726" data-duration="1.052" data-track-index="12"><div id="leg-int-3-c" class="cap" style="top:985px"><span id="leg-int-3-0" class="pal">time</span><span id="leg-int-3-1" class="pal k">direto?</span></div></div>
+  <div id="leg-apr-0" class="clip legenda" data-start="2.936" data-duration="0.967" data-track-index="12"><div id="leg-apr-0-c" class="cap" style="top:1290px"><span id="leg-apr-0-0" class="pal">Garrafa</span><span id="leg-apr-0-1" class="pal">térmica</span></div></div>
+  <div id="leg-apr-1" class="clip legenda" data-start="3.903" data-duration="0.542" data-track-index="12"><div id="leg-apr-1-c" class="cap" style="top:1290px"><span id="leg-apr-1-0" class="pal">Hilee:</span></div></div>
+  <div id="leg-apr-2" class="clip legenda" data-start="4.445" data-duration="0.696" data-track-index="12"><div id="leg-apr-2-c" class="cap" style="top:1290px"><span id="leg-apr-2-0" class="pal k">dois</span><span id="leg-apr-2-1" class="pal">jeitos</span></div></div>
+  <div id="leg-apr-3" class="clip legenda" data-start="5.141" data-duration="0.684" data-track-index="12"><div id="leg-apr-3-c" class="cap" style="top:1290px"><span id="leg-apr-3-0" class="pal">de</span><span id="leg-apr-3-1" class="pal">beber,</span></div></div>
+  <div id="leg-apr-4" class="clip legenda" data-start="5.825" data-duration="0.59" data-track-index="12"><div id="leg-apr-4-c" class="cap" style="top:1290px"><span id="leg-apr-4-0" class="pal">com</span><span id="leg-apr-4-1" class="pal k">canudo</span></div></div>
+  <div id="leg-apr-5" class="clip legenda" data-start="6.415" data-duration="0.731" data-track-index="12"><div id="leg-apr-5-c" class="cap" style="top:1290px"><span id="leg-apr-5-0" class="pal">ou</span><span id="leg-apr-5-1" class="pal k">direto,</span></div></div>
+  <div id="leg-apr-6" class="clip legenda" data-start="7.146" data-duration="1.026" data-track-index="12"><div id="leg-apr-6-c" class="cap" style="top:1290px"><span id="leg-apr-6-0" class="pal">como</span><span id="leg-apr-6-1" class="pal">preferir.</span></div></div>
+  <div id="leg-apr-7" class="clip legenda" data-start="8.172" data-duration="0.471" data-track-index="12"><div id="leg-apr-7-c" class="cap" style="top:1290px"><span id="leg-apr-7-0" class="pal">Segundo</span><span id="leg-apr-7-1" class="pal">o</span></div></div>
+  <div id="leg-apr-8" class="clip legenda" data-start="8.643" data-duration="0.861" data-track-index="12"><div id="leg-apr-8-c" class="cap" style="top:985px"><span id="leg-apr-8-0" class="pal">fabricante,</span></div></div>
+  <div id="leg-apr-9" class="clip legenda" data-start="9.504" data-duration="1.073" data-track-index="12"><div id="leg-apr-9-c" class="cap" style="top:985px"><span id="leg-apr-9-0" class="pal k">vedação</span><span id="leg-apr-9-1" class="pal">total</span></div></div>
+  <div id="leg-apr-10" class="clip legenda" data-start="10.577" data-duration="0.496" data-track-index="12"><div id="leg-apr-10-c" class="cap" style="top:985px"><span id="leg-apr-10-0" class="pal">e</span><span id="leg-apr-10-1" class="pal k">fácil</span></div></div>
+  <div id="leg-apr-11" class="clip legenda" data-start="11.073" data-duration="0.823" data-track-index="12"><div id="leg-apr-11-c" class="cap" style="top:985px"><span id="leg-apr-11-0" class="pal">de</span><span id="leg-apr-11-1" class="pal">limpar.</span></div></div>
+  <div id="leg-cta-0" class="clip legenda" data-start="12.081" data-duration="0.554" data-track-index="12"><div id="leg-cta-0-c" class="cap" style="top:1250px"><span id="leg-cta-0-0" class="pal k">Canudo</span></div></div>
+  <div id="leg-cta-1" class="clip legenda" data-start="12.635" data-duration="1.0" data-track-index="12"><div id="leg-cta-1-c" class="cap" style="top:1250px"><span id="leg-cta-1-0" class="pal">ou</span><span id="leg-cta-1-1" class="pal k">direto?</span></div></div>
+  <div id="leg-cta-2" class="clip legenda" data-start="13.637" data-duration="1.003" data-track-index="12"><div id="leg-cta-2-c" class="cap" style="top:1250px"><span id="leg-cta-2-0" class="pal k">Comenta</span><span id="leg-cta-2-1" class="pal">o</span><span id="leg-cta-2-2" class="pal">seu</span></div></div>
+  <div id="leg-cta-3" class="clip legenda" data-start="14.64" data-duration="0.377" data-track-index="12"><div id="leg-cta-3-c" class="cap" style="top:1250px"><span id="leg-cta-3-0" class="pal">e</span><span id="leg-cta-3-1" class="pal k">toca</span></div></div>
+  <div id="leg-cta-4" class="clip legenda" data-start="15.017" data-duration="0.495" data-track-index="12"><div id="leg-cta-4-c" class="cap" style="top:1250px"><span id="leg-cta-4-0" class="pal">no</span><span id="leg-cta-4-1" class="pal">produto</span></div></div>
+  <div id="leg-cta-5" class="clip legenda" data-start="15.512" data-duration="0.808" data-track-index="12"><div id="leg-cta-5-c" class="cap" style="top:1250px"><span id="leg-cta-5-0" class="pal">do</span><span id="leg-cta-5-1" class="pal">vídeo.</span></div></div>
+
+  <audio id="voz-intro" data-start="0.15" data-duration="2.664" data-track-index="13" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="2.928" data-duration="9.0" data-track-index="13" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="12.05" data-duration="4.27" data-track-index="13" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-1" data-start="0" data-duration="0.8" data-track-index="14" data-volume="0.6" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-tique-1" data-start="1.837" data-duration="0.03" data-track-index="14" data-volume="0.32" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-whoosh-1" data-start="2.678" data-duration="0.3" data-track-index="15" data-volume="0.38" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-pop-1" data-start="4.365" data-duration="0.09" data-track-index="14" data-volume="0.36" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-tique-2" data-start="5.855" data-duration="0.03" data-track-index="14" data-volume="0.36" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-whoosh-2" data-start="8.603" data-duration="0.3" data-track-index="15" data-volume="0.34" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-tique-3" data-start="10.612" data-duration="0.03" data-track-index="14" data-volume="0.36" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-subida-1" data-start="11.396" data-duration="0.5" data-media-start="0.9" data-track-index="15" data-volume="0.32" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-pop-2" data-start="13.547" data-duration="0.09" data-track-index="14" data-volume="0.36" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-clique-1" data-start="14.756" data-duration="0.05" data-track-index="14" data-volume="0.5" src="assets/sfx/clique.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const V = "#FF3D2E", P = "rgba(17,18,20,0.9)", C = "#FFF4E4";
+
+// ---- INTRO (G): punch-in + tremor no quadro 0, sem flash (o quadro 0 é a capa: garrafa e pergunta limpas) ----
+tl.fromTo("#camG1", {scale:1.13}, {scale:1.03, duration:0.4, ease:"power3.out"}, 0);
+tl.to("#camG1", {scale:1.045, duration:0.472, ease:"none"}, 0.4);
+tl.fromTo("#camG1", {x:0, y:0}, {keyframes:[{x:14, y:-8, duration:0.05}, {x:-11, y:6, duration:0.06}, {x:7, y:-4, duration:0.06}, {x:0, y:0, duration:0.08}], ease:"none", immediateRender:false}, 0.02);
+tl.fromTo("#t1-row", {scale:1.07, transformOrigin:"50% 50%"}, {scale:1, duration:0.3, ease:"back.out(2.2)"}, 0);
+tl.fromTo("#vs1", {scale:1}, {scale:1.25, duration:0.12, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 0.1);
+// "canudo": peça 1 acende + punch
+tl.to("#c1", {backgroundColor:V, color:"#FFFFFF", scale:1.06, duration:0.12, ease:"power2.out"}, 0.875);
+tl.to("#c1", {scale:1, duration:0.25, ease:"power2.out"}, 0.995);
+tl.to("#camG1", {scale:1.085, duration:0.12, ease:"power2.out"}, 0.875);
+tl.to("#camG1", {scale:1.06, duration:0.45, ease:"power2.inOut"}, 0.995);
+tl.to("#camG1", {scale:1.07, duration:0.559, ease:"none"}, 1.445);
+// "direto": peça 2 acende, a 1 apaga + punch
+tl.to("#c1", {backgroundColor:P, color:C, duration:0.12, ease:"none"}, 2.007);
+tl.to("#c2", {backgroundColor:V, color:"#FFFFFF", scale:1.06, duration:0.12, ease:"power2.out"}, 2.007);
+tl.to("#c2", {scale:1, duration:0.25, ease:"power2.out"}, 2.127);
+tl.to("#camG1", {scale:1.1, duration:0.12, ease:"power2.out"}, 2.007);
+tl.to("#camG1", {scale:1.08, duration:0.488, ease:"power1.out"}, 2.127);
+// saída para o H: zoom com desfoque + flash curto
+tl.to("#camG1", {scale:1.2, filter:"blur(16px)", duration:0.16, ease:"power2.in"}, 2.618);
+tl.to("#t1-row", {scale:1.2, opacity:0, filter:"blur(10px)", duration:0.16, ease:"power2.in"}, 2.618);
+tl.fromTo("#fl2", {opacity:0}, {keyframes:[{opacity:0.4, duration:0.03}, {opacity:0, duration:0.08}], ease:"none"}, 2.758);
+
+// ---- APRESENTAÇÃO, H: entra do desfoque; punch na tampinha abrindo ("dois"); câmera fecha no topo enquanto ele sobe ----
+tl.fromTo("#camH", {scale:1.18, filter:"blur(16px)"}, {scale:1.02, filter:"blur(0px)", duration:0.3, ease:"power3.out"}, 2.778);
+tl.to("#camH", {scale:1.04, duration:1.364, ease:"none"}, 3.078);
+tl.to("#camH", {scale:1.1, duration:0.2, ease:"power2.out"}, 4.445);
+tl.to("#camH", {scale:1.16, duration:2.508, ease:"sine.inOut"}, 4.645);
+tl.to("#camH", {scale:1.06, duration:0.5, ease:"power2.inOut"}, 7.156);
+tl.to("#camH", {scale:1.08, duration:1.024, ease:"none"}, 7.656);
+tl.fromTo("#k2s", {clipPath:"inset(0% 100% 0% 0% round 12px)"}, {clipPath:"inset(0% 0% 0% 0% round 12px)", duration:0.3, ease:"power3.out"}, 2.956);
+tl.to("#k2s", {y:-30, opacity:0, duration:0.14, ease:"power2.in"}, 4.305);
+// "2 JEITOS DE BEBER" vira como placa de placar
+tl.fromTo("#t2a", {rotationX:-95, transformOrigin:"50% 0%"}, {rotationX:0, duration:0.34, ease:"back.out(1.8)"}, 4.445);
+tl.fromTo("#t2b", {rotationX:-95, transformOrigin:"50% 0%"}, {rotationX:0, duration:0.34, ease:"back.out(1.8)"}, 4.545);
+tl.to("#t2-row", {y:-60, opacity:0, duration:0.18, ease:"power2.in"}, 5.311);
+// placar lateral: entra em "canudo"; acende a peça dita; "como preferir" acende as duas
+tl.fromTo("#p1", {x:-320}, {x:0, duration:0.3, ease:"power3.out"}, 5.875);
+tl.fromTo("#p2", {x:-320}, {x:0, duration:0.3, ease:"power3.out"}, 5.955);
+tl.to("#p1", {backgroundColor:V, color:"#FFFFFF", duration:0.1, ease:"none"}, 5.965);
+tl.fromTo("#p1", {scale:1}, {scale:1.08, duration:0.1, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 5.965);
+tl.to("#p1", {backgroundColor:P, color:C, duration:0.1, ease:"none"}, 6.531);
+tl.to("#p2", {backgroundColor:V, color:"#FFFFFF", duration:0.1, ease:"none"}, 6.531);
+tl.fromTo("#p2", {scale:1}, {scale:1.08, duration:0.1, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 6.531);
+tl.to("#p1", {backgroundColor:V, color:"#FFFFFF", duration:0.1, ease:"none"}, 7.156);
+tl.to(["#p1", "#p2"], {backgroundColor:P, color:C, duration:0.15, ease:"none"}, 8.182);
+// rodapé: entra com a parte e pulsa em "segundo o fabricante"
+tl.fromTo("#rod-s", {opacity:0}, {opacity:1, duration:0.25, ease:"none"}, 2.778);
+tl.fromTo("#rod-s", {scale:1, transformOrigin:"0% 50%"}, {scale:1.12, duration:0.14, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 8.182);
+
+// ---- G2: corte seco com flash; câmera leve (sem invadir a alça do lado esquerdo) ----
+tl.fromTo("#fl3", {opacity:0}, {keyframes:[{opacity:0.35, duration:0.03}, {opacity:0, duration:0.08}], ease:"none"}, 8.663);
+tl.fromTo("#camG2", {scale:1.1}, {scale:1.03, duration:0.28, ease:"power3.out"}, 8.683);
+tl.to("#camG2", {scale:1.055, duration:0.939, ease:"none"}, 8.963);
+// "vedação": peça 1 vira VEDAÇÃO TOTAL* (placa de placar)
+tl.to("#p1", {rotationX:90, duration:0.09, ease:"power2.in"}, 9.434);
+tl.set("#p1a", {opacity:0}, 9.524);
+tl.set("#p1b", {opacity:1}, 9.524);
+tl.set("#p1", {backgroundColor:V, color:"#FFFFFF"}, 9.524);
+tl.fromTo("#p1", {rotationX:-90}, {rotationX:0, duration:0.2, ease:"back.out(2)", immediateRender:false}, 9.524);
+
+// ---- I: entra num corte com punch; "fácil de limpar" vira a peça 2 ----
+tl.fromTo("#camI", {scale:1.1}, {scale:1.02, duration:0.3, ease:"power3.out"}, 9.905);
+tl.to("#camI", {scale:1.045, duration:1.588, ease:"none"}, 10.205);
+tl.to("#p2", {rotationX:90, duration:0.09, ease:"power2.in"}, 10.602);
+tl.set("#p2a", {opacity:0}, 10.692);
+tl.set("#p2b", {opacity:1}, 10.692);
+tl.set("#p2", {backgroundColor:V, color:"#FFFFFF"}, 10.692);
+tl.fromTo("#p2", {rotationX:-90}, {rotationX:0, duration:0.2, ease:"back.out(2)", immediateRender:false}, 10.692);
+tl.to("#rod-s", {opacity:0, duration:0.15, ease:"none"}, 11.746);
+
+// ---- CTA: passagem em zoom (subida termina aqui); placar volta para CANUDO | DIRETO; balão; toque ----
+tl.to("#camI", {scale:1.11, filter:"blur(6px)", duration:0.13, ease:"power2.in"}, 11.796);
+tl.to("#camI", {scale:1.04, filter:"blur(0px)", duration:0.3, ease:"power3.out"}, 11.926);
+tl.to("#camI", {scale:1.06, duration:2.527, ease:"none"}, 12.226);
+tl.to(["#p1", "#p2"], {rotationX:90, duration:0.09, ease:"power2.in", stagger:0.05}, 11.826);
+tl.set(["#p1b", "#p2b"], {opacity:0}, 11.916);
+tl.set(["#p1a", "#p2a"], {opacity:1}, 11.916);
+tl.set(["#p1", "#p2"], {backgroundColor:P, color:C}, 11.916);
+tl.fromTo(["#p1", "#p2"], {rotationX:-90}, {rotationX:0, duration:0.2, ease:"back.out(2)", stagger:0.05, immediateRender:false}, 11.916);
+tl.to("#p1", {backgroundColor:V, color:"#FFFFFF", duration:0.1, ease:"none"}, 12.091);
+tl.to("#p1", {backgroundColor:P, color:C, duration:0.1, ease:"none"}, 12.728);
+tl.to("#p2", {backgroundColor:V, color:"#FFFFFF", duration:0.1, ease:"none"}, 12.728);
+tl.to("#pl", {x:-340, opacity:0, duration:0.16, ease:"power2.in"}, 13.457);
+tl.fromTo("#bolha", {scale:0.3, opacity:0, transformOrigin:"12% 100%"}, {scale:1, opacity:1, duration:0.55, ease:"elastic.out(1,0.55)"}, 13.577);
+tl.fromTo("#bolha", {rotation:0}, {keyframes:[{rotation:-3, duration:0.08}, {rotation:3, duration:0.12}, {rotation:0, duration:0.1}], ease:"none", immediateRender:false}, 14.184);
+tl.to("#camI", {scale:1.08, duration:0.24, ease:"power2.out"}, 14.756);
+tl.to("#camI", {scale:1.09, duration:1.324, ease:"none"}, 14.996);
+tl.fromTo("#tq-b", {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.24, ease:"back.out(2.2)"}, 14.756);
+tl.fromTo("#tq-l", {clipPath:"inset(0% 100% 0% 0% round 40px)"}, {clipPath:"inset(0% 0% 0% 0% round 40px)", duration:0.28, ease:"power3.out"}, 14.836);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.9, opacity:0, duration:0.6, ease:"power2.out"}, 14.756);
+tl.fromTo("#tq-s", {x:0, y:0}, {x:-7, y:7, duration:0.22, yoyo:true, repeat:3, ease:"sine.inOut"}, 15.056);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.9, opacity:0, duration:0.6, ease:"power2.out", immediateRender:false}, 15.706);
+
+// ---- legenda ----
+tl.fromTo("#leg-int-0-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},0.158);
+tl.fromTo("#leg-int-0-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},0.415);
+tl.fromTo("#leg-int-0-2",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},0.474);
+tl.fromTo("#leg-int-1-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},0.594);
+tl.fromTo("#leg-int-1-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},0.875);
+tl.fromTo("#leg-int-2-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},1.479);
+tl.fromTo("#leg-int-2-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},1.63);
+tl.fromTo("#leg-int-3-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},1.726);
+tl.fromTo("#leg-int-3-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},2.007);
+tl.fromTo("#leg-apr-0-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},2.936);
+tl.fromTo("#leg-apr-0-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},3.418);
+tl.fromTo("#leg-apr-1-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},3.903);
+tl.fromTo("#leg-apr-2-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},4.445);
+tl.fromTo("#leg-apr-2-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},4.75);
+tl.fromTo("#leg-apr-3-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},5.141);
+tl.fromTo("#leg-apr-3-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},5.245);
+tl.fromTo("#leg-apr-4-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},5.825);
+tl.fromTo("#leg-apr-4-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},5.965);
+tl.fromTo("#leg-apr-5-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},6.415);
+tl.fromTo("#leg-apr-5-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},6.531);
+tl.fromTo("#leg-apr-6-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},7.146);
+tl.fromTo("#leg-apr-6-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},7.356);
+tl.fromTo("#leg-apr-7-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},8.172);
+tl.fromTo("#leg-apr-7-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},8.642);
+tl.fromTo("#leg-apr-8-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},8.643);
+tl.fromTo("#leg-apr-9-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},9.504);
+tl.fromTo("#leg-apr-9-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},9.998);
+tl.fromTo("#leg-apr-10-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},10.577);
+tl.fromTo("#leg-apr-10-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},10.682);
+tl.fromTo("#leg-apr-11-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},11.073);
+tl.fromTo("#leg-apr-11-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},11.177);
+tl.fromTo("#leg-cta-0-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},12.081);
+tl.fromTo("#leg-cta-1-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},12.635);
+tl.fromTo("#leg-cta-1-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},12.728);
+tl.fromTo("#leg-cta-2-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},13.637);
+tl.fromTo("#leg-cta-2-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},14.095);
+tl.fromTo("#leg-cta-2-2",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},14.154);
+tl.fromTo("#leg-cta-3-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},14.64);
+tl.fromTo("#leg-cta-3-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},14.756);
+tl.fromTo("#leg-cta-4-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},15.017);
+tl.fromTo("#leg-cta-4-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},15.11);
+tl.fromTo("#leg-cta-5-0",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},15.512);
+tl.fromTo("#leg-cta-5-1",{opacity:0,scale:0.72,y:14},{opacity:1,scale:1,y:0,duration:0.13,ease:"back.out(2.4)"},15.617);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

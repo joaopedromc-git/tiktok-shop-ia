@@ -1,0 +1,36 @@
+{
+ "codigo": "facas",
+ "lote": "C",
+ "descricao_produto": "(sem clipe novo: combinação cruzada — clipes D, E, F do lote B + 1,8 s do clipe B do lote A; ângulo 'presente pra casa nova' escolhido pelo operador em 14/10/2026)",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "F",
+   "fala": "Conhece alguém de casa nova? Olha esse presente pra cozinha.",
+   "titulo": "CASA NOVA?",
+   "linha": "presente pra cozinha",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "D",
+   "clipes_extras": ["E"],
+   "fala": "Abre a caixa e vem o faqueiro completo: quatro facas, uma tesoura multiuso e um descascador.",
+   "titulo": "FAQUEIRO COMPLETO",
+   "linha": "6 peças na caixa",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "cta",
+   "clipe": "B",
+   "clipes_extras": ["F"],
+   "fala": "Presente pra cozinha e pro churrasco. Toca no produto e confere.",
+   "titulo": "TOCA NO PRODUTO",
+   "linha": "e confere",
+   "rodape": "",
+   "prompt": ""
+  }
+ ]
+}

@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Archivo Black";src:local("Archivo Black"),local("Archivo Black Regular"),local("ArchivoBlack-Regular")}
+@font-face{font-family:"Poppins";font-weight:600;src:local("Poppins SemiBold")}
+@font-face{font-family:"Poppins";font-weight:800;src:local("Poppins ExtraBold")}
+:root{--base:#141210;--brasa:#FF6B2C;--texto:#FFF6EA}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#141210}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#141210}
+.clip{position:absolute;inset:0}
+.cam{position:absolute;inset:0;overflow:hidden}
+.full{width:100%;height:100%;object-fit:cover}
+#camA,#camB1,#camB2,#cardC{z-index:1}
+#bgC{z-index:0}
+#bgC-i{position:absolute;left:-65px;top:-115px;width:1210px;height:2150px;object-fit:cover;filter:blur(26px) brightness(.5)}
+#cardC{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0;overflow:hidden}
+/* cartão herói: quadro nítido das 4 facas sobre ele mesmo desfocado */
+.hero{z-index:2;overflow:hidden}
+.hbg{position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover}
+.htint{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 35% 42%,rgba(20,18,16,.25) 0,rgba(20,18,16,.8) 100%)}
+.hcard{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0;overflow:hidden}
+.himg{position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover}
+.hsw{position:absolute;inset:0;mix-blend-mode:screen;overflow:hidden}
+.hsw i{position:absolute;left:0;top:0;width:100%;height:100%;display:block;
+  background:linear-gradient(105deg,rgba(255,107,44,0) 40%,rgba(255,214,170,.36) 50%,rgba(255,107,44,0) 60%)}
+.edge{position:absolute;display:block;border:5px solid var(--brasa);border-radius:32px;opacity:0;
+  box-shadow:0 0 26px rgba(255,107,44,.6),0 0 70px rgba(255,107,44,.22),inset 0 0 20px rgba(255,107,44,.28)}
+.item{position:absolute;left:682px;width:236px;height:64px;display:flex;align-items:center;gap:10px;opacity:0}
+.item svg{display:block;width:34px;height:34px;flex:none}
+.item span{display:block;font-family:"Poppins";font-weight:800;font-size:29px;line-height:1;color:var(--texto);white-space:nowrap;
+  letter-spacing:.3px;text-shadow:0 3px 10px rgba(0,0,0,.7)}
+/* luz e moldura */
+.vinheta{z-index:3;background:radial-gradient(ellipse 88% 64% at 50% 50%,rgba(0,0,0,0) 60%,rgba(0,0,0,.4) 100%)}
+.topo{z-index:3;background:linear-gradient(to bottom,rgba(20,18,16,.72) 0,rgba(20,18,16,.4) 14%,rgba(20,18,16,0) 27%)}
+.flash{z-index:9;background:#FFF6EA}
+.flashb{z-index:9;background:radial-gradient(ellipse at 50% 50%,rgba(255,226,196,.9) 0,rgba(255,107,44,.5) 50%,rgba(255,107,44,0) 85%)}
+/* corte: lâmina de luz em diagonal */
+.corte{z-index:9;overflow:hidden}
+.corte i{position:absolute;left:-330px;top:-300px;width:330px;height:2520px;display:block;
+  background:linear-gradient(to right,rgba(255,107,44,0) 0,rgba(255,107,44,.7) 34%,#FFF6EA 50%,rgba(255,107,44,.7) 66%,rgba(255,107,44,0) 100%)}
+#scan{z-index:4;overflow:hidden;mix-blend-mode:screen}
+#scan i{position:absolute;left:0;top:0;width:1080px;height:300px;display:block;
+  background:linear-gradient(to bottom,rgba(255,107,44,0) 0,rgba(255,150,90,.3) 45%,rgba(255,236,214,.5) 62%,rgba(255,107,44,0) 100%)}
+/* títulos: Archivo Black, à esquerda, sombra dura */
+.titulo{z-index:5}
+.tl{position:absolute;left:56px;display:block;font-family:"Archivo Black";font-weight:400;color:var(--texto);line-height:1;white-space:nowrap;
+  letter-spacing:-1px;text-shadow:0 6px 0 rgba(20,18,16,.9),0 14px 30px rgba(0,0,0,.55)}
+.tl em{font-style:normal;color:var(--brasa)}
+.tl.br{color:var(--brasa)}
+.mask{position:absolute;left:56px;width:900px;overflow:hidden;display:block}
+.mask .tl{left:0;top:0}
+.risco{position:absolute;display:block;height:10px;border-radius:5px;background:linear-gradient(to right,var(--brasa),#FFD9B8);
+  box-shadow:0 0 18px rgba(255,107,44,.7)}
+.pilula{position:absolute;left:56px;display:block;font-family:"Poppins";font-weight:800;line-height:1;color:var(--base);
+  background:var(--brasa);border-radius:14px;white-space:nowrap;box-shadow:0 10px 26px rgba(0,0,0,.5)}
+.pilula b{font-weight:800;display:inline-block}
+/* legenda sublinhado: branco com contorno, palavra-chave em brasa com fio de lâmina que se desenha */
+.legenda{z-index:7}
+.cap{position:absolute;left:40px;width:870px;display:flex;justify-content:center;align-items:flex-start;gap:20px;flex-wrap:nowrap}
+.pal{position:relative;display:block;font-family:"Poppins";font-weight:800;font-size:76px;line-height:1.1;color:#FFFFFF;white-space:nowrap;
+  -webkit-text-stroke:11px #141210;paint-order:stroke fill;text-shadow:0 8px 18px rgba(0,0,0,.5)}
+.pal.k{color:var(--brasa)}
+.fio{position:absolute;left:0;bottom:-12px;width:100%;height:13px;display:block;
+  background:linear-gradient(to right,var(--brasa),#FFD9B8);clip-path:polygon(0 0,100% 38%,100% 62%,0 100%);
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.6))}
+.rodape{z-index:7}
+.rodape span{position:absolute;left:56px;top:1468px;display:block;font-family:"Poppins";font-weight:600;font-size:30px;line-height:1;
+  color:rgba(255,255,255,.8);text-shadow:0 2px 8px rgba(0,0,0,.85)}
+/* CTA */
+#ovC{z-index:4}
+.num{position:absolute;display:block;width:58px;height:58px;border-radius:50%;background:var(--brasa);color:var(--base);
+  font-family:"Archivo Black";font-weight:400;font-size:34px;line-height:58px;text-align:center;opacity:0;
+  box-shadow:0 0 0 4px rgba(20,18,16,.85),0 6px 16px rgba(0,0,0,.6)}
+.brk{position:absolute;display:block;border:5px solid var(--brasa);border-radius:20px;opacity:0;
+  box-shadow:0 0 22px rgba(255,107,44,.7),inset 0 0 14px rgba(255,107,44,.3)}
+#cta{z-index:8}
+#cta-b{position:absolute;left:48px;top:1412px;display:flex;align-items:center;gap:20px;font-family:"Archivo Black";font-weight:400;
+  font-size:52px;line-height:1;color:var(--base);background:var(--brasa);padding:16px 40px 16px 16px;border-radius:999px;white-space:nowrap;
+  box-shadow:0 0 44px rgba(255,107,44,.5),0 12px 26px rgba(0,0,0,.5)}
+#cta-b svg{display:block;width:78px;height:78px;flex:none}
+#cta-o{position:absolute;left:43px;top:1406px;width:122px;height:122px;display:block;border:6px solid var(--brasa);border-radius:50%;opacity:0}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="20.6" data-width="1080" data-height="1920">
+  <!-- INTRO: clipe A 0-4,46 s (0,92x), kit inteiro no quadro -->
+  <div id="camA" class="cam"><video id="vA" class="clip full" data-start="0" data-duration="4.85" data-media-start="0" data-playback-rate="0.92" data-track-index="0" src="assets/clipe_A.mp4" muted playsinline></video></div>
+  <!-- APRESENTAÇÃO: B 0-0,81 s (0,77x) > cartão das 4 facas (quadro 0,80 s) > B 4,0-7,7 s (0,77x), close do relevo -->
+  <div id="camB1" class="cam"><video id="vB1" class="clip full" data-start="4.85" data-duration="1.05" data-media-start="0" data-playback-rate="0.77" data-track-index="0" src="assets/clipe_B.mp4" muted playsinline></video></div>
+  <div id="hero" class="clip hero" data-start="5.9" data-duration="4.05" data-track-index="1">
+    <img id="h-bg" class="hbg" src="assets/b_quadro.jpg" alt="" />
+    <div id="h-tint" class="htint"></div>
+    <div id="h-card" class="hcard"><img id="h-img" class="himg" src="assets/b_quadro.jpg" alt="As quatro facas do faqueiro" /><div id="h-sw" class="hsw"><i id="h-swi"></i></div></div>
+    <i id="h-edge" class="edge" style="left:56px;top:320px;width:608px;height:954px"></i>
+    <div id="li0" class="item" style="top:606px"><svg id="li0-v" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#FF6B2C"/><path d="M11 21 L17.5 27.5 L29.5 13.5" fill="none" stroke="#141210" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="li0-t">CHEFE</span></div><div id="li1" class="item" style="top:718px"><svg id="li1-v" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#FF6B2C"/><path d="M11 21 L17.5 27.5 L29.5 13.5" fill="none" stroke="#141210" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="li1-t">CARNE</span></div><div id="li2" class="item" style="top:830px"><svg id="li2-v" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#FF6B2C"/><path d="M11 21 L17.5 27.5 L29.5 13.5" fill="none" stroke="#141210" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="li2-t">CUTELO</span></div><div id="li3" class="item" style="top:942px"><svg id="li3-v" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#FF6B2C"/><path d="M11 21 L17.5 27.5 L29.5 13.5" fill="none" stroke="#141210" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="li3-t">DESCASCAR</span></div>
+  </div>
+  <div id="camB2" class="cam"><video id="vB2" class="clip full" data-start="9.95" data-duration="4.8" data-media-start="4.0" data-playback-rate="0.77" data-track-index="0" src="assets/clipe_B.mp4" muted playsinline></video></div>
+  <!-- CTA: quadro 0 do C (0,6 s) + C 0-4,04 s em 0,77x (nunca passa de 4,5 s: defeito do descascador) -->
+  <div id="bgC" class="clip" data-start="17.9" data-duration="2.7" data-track-index="2"><img id="bgC-i" src="assets/c_quadro.jpg" alt="" /></div>
+  <div id="cardC"><div id="camC" class="cam">
+    <img id="iC" class="clip full" data-start="14.75" data-duration="0.6" data-track-index="0" src="assets/c_quadro.jpg" alt="Faqueiro de 6 peças" />
+    <video id="vC" class="clip full" data-start="15.35" data-duration="5.25" data-media-start="0" data-playback-rate="0.77" data-track-index="0" src="assets/clipe_C.mp4" muted playsinline></video>
+  </div></div>
+
+  <div id="vin" class="clip vinheta" data-start="0" data-duration="20.6" data-track-index="3"></div>
+  <div id="topo" class="clip topo" data-start="0" data-duration="20.6" data-track-index="4"></div>
+  <div id="flash0" class="clip flash" data-start="0" data-duration="0.12" data-track-index="5"></div>
+  <div id="corte1" class="clip corte" data-start="4.68" data-duration="0.36" data-track-index="5"><i id="corte1-i"></i></div>
+  <div id="flash2" class="clip flashb" data-start="9.95" data-duration="0.2" data-track-index="5"></div>
+  <div id="scan" class="clip" data-start="11.4" data-duration="1.3" data-track-index="5"><i id="scan-i"></i></div>
+  <div id="flash3" class="clip flash" data-start="14.75" data-duration="0.14" data-track-index="5"></div>
+  <i id="edgeC" class="edge" style="z-index:2;left:76px;top:324px;width:928px;height:1066px"></i>
+
+  <!-- títulos -->
+  <div id="ti" class="clip titulo" data-start="0" data-duration="2.3" data-track-index="6">
+    <div id="ti-l0" class="tl" style="top:192px;font-size:116px">FACA QUE</div>
+    <div id="ti-l1" class="tl br" style="top:312px;font-size:116px">NÃO CORTA?</div>
+    <i id="ti-r" class="risco" style="left:30px;top:304px;width:890px"></i>
+  </div>
+  <div id="tp" class="clip titulo" data-start="2.85" data-duration="1.85" data-track-index="6">
+    <span id="tp-p" class="pilula" style="top:196px;font-size:58px;padding:16px 28px 18px">Faqueiro de <b id="tp-6">6</b> peças</span>
+  </div>
+  <div id="ta" class="clip titulo" data-start="4.95" data-duration="5.0" data-track-index="6">
+    <div id="ta-l0" class="tl" style="top:198px;font-size:84px"><em>4</em> FACAS NO KIT</div>
+    <i id="ta-r" class="risco" style="left:56px;top:294px;width:300px"></i>
+  </div>
+  <div id="tb" class="clip titulo" data-start="11.4" data-duration="3.3" data-track-index="6">
+    <div class="mask" style="top:192px;height:112px"><div id="tb-l0" class="tl" style="font-size:104px">LÂMINA</div></div>
+    <div class="mask" style="top:300px;height:112px"><div id="tb-l1" class="tl br" style="font-size:104px">ONDULADA</div></div>
+    <span id="tb-p" class="pilula" style="top:430px;font-size:46px;padding:13px 24px 15px">mais durabilidade*</span>
+  </div>
+  <div id="tc" class="clip titulo" data-start="14.75" data-duration="5.85" data-track-index="6">
+    <div id="tc-l0" class="tl" style="top:198px;font-size:80px">KIT COM <em>6</em> PEÇAS</div>
+    <span id="tc-p" class="pilula" style="top:300px;font-size:42px;padding:11px 22px 13px">tesoura e descascador inclusos</span>
+  </div>
+  <div id="rodape" class="clip rodape" data-start="4.85" data-duration="9.9" data-track-index="7"><span id="rodape-s">*Dados do fabricante</span></div>
+
+  <!-- CTA: contagem das 6 peças e colchetes na tesoura e no descascador -->
+  <div id="ovC" class="clip" data-start="15.1" data-duration="3.0" data-track-index="8">
+    <b id="n0" class="num" style="left:101px;top:333px">1</b><b id="n1" class="num" style="left:386px;top:315px">2</b><b id="n2" class="num" style="left:556px;top:329px">3</b><b id="n3" class="num" style="left:736px;top:569px">4</b><b id="n4" class="num" style="left:851px;top:371px">5</b><b id="n5" class="num" style="left:843px;top:1011px">6</b>
+    <i id="bk-t" class="brk" style="left:812px;top:422px;width:248px;height:602px"></i>
+    <i id="bk-d" class="brk" style="left:838px;top:1054px;width:216px;height:468px"></i>
+  </div>
+  <div id="cta" class="clip" data-start="18.202" data-duration="2.398" data-track-index="9">
+    <i id="cta-o"></i>
+    <span id="cta-b"><svg id="cta-s" viewBox="0 0 78 78"><circle cx="39" cy="39" r="37" fill="#141210"/><path d="M54 24 L26 52 M25 32 L25 53 L46 53" fill="none" stroke="#FF6B2C" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>TOQUE NO PRODUTO</span>
+  </div>
+
+  <div id="leg-intro-0" class="clip legenda" data-start="0.267" data-duration="0.495" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-intro-0-0" class="pal">Faca</span><span id="leg-intro-0-1" class="pal">que</span></div></div>
+  <div id="leg-intro-1" class="clip legenda" data-start="0.762" data-duration="0.378" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-intro-1-0" class="pal k">amassa<i id="leg-intro-1-0c" class="fio"></i></span></div></div>
+  <div id="leg-intro-2" class="clip legenda" data-start="1.14" data-duration="0.354" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-intro-2-0" class="pal">em</span><span id="leg-intro-2-1" class="pal">vez</span><span id="leg-intro-2-2" class="pal">de</span></div></div>
+  <div id="leg-intro-3" class="clip legenda" data-start="1.494" data-duration="0.778" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-intro-3-0" class="pal k">cortar?<i id="leg-intro-3-0c" class="fio"></i></span></div></div>
+  <div id="leg-intro-4" class="clip legenda" data-start="2.272" data-duration="0.637" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-intro-4-0" class="pal">Olha</span><span id="leg-intro-4-1" class="pal">esse</span></div></div>
+  <div id="leg-intro-5" class="clip legenda" data-start="2.909" data-duration="0.495" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-intro-5-0" class="pal k">faqueiro<i id="leg-intro-5-0c" class="fio"></i></span></div></div>
+  <div id="leg-intro-6" class="clip legenda" data-start="3.404" data-duration="1.316" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-intro-6-0" class="pal">de</span><span id="leg-intro-6-1" class="pal k">seis<i id="leg-intro-6-1c" class="fio"></i></span><span id="leg-intro-6-2" class="pal k">peças<i id="leg-intro-6-2c" class="fio"></i></span></div></div>
+  <div id="leg-apresentacao-0" class="clip legenda" data-start="5.118" data-duration="0.861" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-apresentacao-0-0" class="pal">Esse</span><span id="leg-apresentacao-0-1" class="pal">faqueiro</span><span id="leg-apresentacao-0-2" class="pal">tem</span></div></div>
+  <div id="leg-apresentacao-1" class="clip legenda" data-start="5.979" data-duration="1.026" data-track-index="12"><div class="cap" style="top:1290px"><span id="leg-apresentacao-1-0" class="pal">faca</span><span id="leg-apresentacao-1-1" class="pal">do</span><span id="leg-apresentacao-1-2" class="pal k">chefe<i id="leg-apresentacao-1-2c" class="fio"></i></span></div></div>
+  <div id="leg-apresentacao-2" class="clip legenda" data-start="7.005" data-duration="0.967" data-track-index="12"><div class="cap" style="top:1290px"><span id="leg-apresentacao-2-0" class="pal">faca</span><span id="leg-apresentacao-2-1" class="pal">de</span><span id="leg-apresentacao-2-2" class="pal k">carne<i id="leg-apresentacao-2-2c" class="fio"></i></span></div></div>
+  <div id="leg-apresentacao-3" class="clip legenda" data-start="7.972" data-duration="0.672" data-track-index="12"><div class="cap" style="top:1290px"><span id="leg-apresentacao-3-0" class="pal k">cutelo<i id="leg-apresentacao-3-0c" class="fio"></i></span></div></div>
+  <div id="leg-apresentacao-4" class="clip legenda" data-start="8.644" data-duration="0.436" data-track-index="12"><div class="cap" style="top:1290px"><span id="leg-apresentacao-4-0" class="pal">e</span><span id="leg-apresentacao-4-1" class="pal">faca</span></div></div>
+  <div id="leg-apresentacao-5" class="clip legenda" data-start="9.08" data-duration="1.061" data-track-index="12"><div class="cap" style="top:1290px"><span id="leg-apresentacao-5-0" class="pal">de</span><span id="leg-apresentacao-5-1" class="pal k">descascar<i id="leg-apresentacao-5-1c" class="fio"></i></span></div></div>
+  <div id="leg-apresentacao-6" class="clip legenda" data-start="10.141" data-duration="0.483" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-apresentacao-6-0" class="pal">Segundo</span><span id="leg-apresentacao-6-1" class="pal">o</span></div></div>
+  <div id="leg-apresentacao-7" class="clip legenda" data-start="10.624" data-duration="0.814" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-apresentacao-7-0" class="pal">fabricante</span></div></div>
+  <div id="leg-apresentacao-8" class="clip legenda" data-start="11.438" data-duration="0.684" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-apresentacao-8-0" class="pal">as</span><span id="leg-apresentacao-8-1" class="pal k">ondulações<i id="leg-apresentacao-8-1c" class="fio"></i></span></div></div>
+  <div id="leg-apresentacao-9" class="clip legenda" data-start="12.122" data-duration="0.507" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-apresentacao-9-0" class="pal">da</span><span id="leg-apresentacao-9-1" class="pal k">lâmina<i id="leg-apresentacao-9-1c" class="fio"></i></span></div></div>
+  <div id="leg-apresentacao-10" class="clip legenda" data-start="12.629" data-duration="0.66" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-apresentacao-10-0" class="pal">prolongam</span></div></div>
+  <div id="leg-apresentacao-11" class="clip legenda" data-start="13.289" data-duration="1.311" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-apresentacao-11-0" class="pal">a</span><span id="leg-apresentacao-11-1" class="pal k">durabilidade<i id="leg-apresentacao-11-1c" class="fio"></i></span></div></div>
+  <div id="leg-cta-0" class="clip legenda" data-start="15.067" data-duration="1.062" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-cta-0-0" class="pal k">Seis<i id="leg-cta-0-0c" class="fio"></i></span><span id="leg-cta-0-1" class="pal k">peças<i id="leg-cta-0-1c" class="fio"></i></span></div></div>
+  <div id="leg-cta-1" class="clip legenda" data-start="16.129" data-duration="0.849" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-cta-1-0" class="pal">com</span><span id="leg-cta-1-1" class="pal k">tesoura<i id="leg-cta-1-1c" class="fio"></i></span></div></div>
+  <div id="leg-cta-2" class="clip legenda" data-start="16.978" data-duration="1.214" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-cta-2-0" class="pal">e</span><span id="leg-cta-2-1" class="pal k">descascador<i id="leg-cta-2-1c" class="fio"></i></span></div></div>
+  <div id="leg-cta-3" class="clip legenda" data-start="18.192" data-duration="0.271" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-cta-3-0" class="pal k">Toca<i id="leg-cta-3-0c" class="fio"></i></span></div></div>
+  <div id="leg-cta-4" class="clip legenda" data-start="18.463" data-duration="0.72" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-cta-4-0" class="pal">no</span><span id="leg-cta-4-1" class="pal k">produto<i id="leg-cta-4-1c" class="fio"></i></span></div></div>
+  <div id="leg-cta-5" class="clip legenda" data-start="19.183" data-duration="0.578" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-cta-5-0" class="pal">e</span><span id="leg-cta-5-1" class="pal k">confere<i id="leg-cta-5-1c" class="fio"></i></span></div></div>
+  <div id="leg-cta-6" class="clip legenda" data-start="19.761" data-duration="0.839" data-track-index="12"><div class="cap" style="top:1250px"><span id="leg-cta-6-0" class="pal">o</span><span id="leg-cta-6-1" class="pal">seu</span></div></div>
+
+  <audio id="voz-intro" data-start="0.25" data-duration="4.54" data-track-index="13" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="5.1" data-duration="9.55" data-track-index="13" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="15.05" data-duration="5.45" data-track-index="13" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-0" data-start="0" data-duration="0.8" data-track-index="14" data-volume="0.6" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-whooshc-1" data-start="2.0" data-duration="0.3" data-track-index="14" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-pop-1" data-start="2.909" data-duration="0.09" data-track-index="14" data-volume="0.35" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-whoosh-1" data-start="4.64" data-duration="0.55" data-track-index="14" data-volume="0.4" src="assets/sfx/whoosh.wav"></audio>
+  <audio id="sfx-whooshc-2" data-start="5.84" data-duration="0.3" data-track-index="14" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-tique-1" data-start="7.372" data-duration="0.03" data-track-index="14" data-volume="0.42" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-tique-2" data-start="9.176" data-duration="0.03" data-track-index="14" data-volume="0.42" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-brilho-1" data-start="11.36" data-duration="0.9" data-track-index="14" data-volume="0.3" src="assets/sfx/brilho.wav"></audio>
+  <audio id="sfx-subida-1" data-start="14.35" data-duration="0.4" data-media-start="1.0" data-track-index="14" data-volume="0.38" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-pop-2" data-start="15.2" data-duration="0.09" data-track-index="14" data-volume="0.3" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-tique-3" data-start="16.282" data-duration="0.03" data-track-index="14" data-volume="0.4" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-clique-1" data-start="18.202" data-duration="0.05" data-track-index="14" data-volume="0.5" src="assets/sfx/clique.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// ---- INTRO: kit inteiro no quadro 0, punch-in 1,12->1, título batendo; o título é "cortado" em "cortar?" ----
+tl.fromTo("#flash0", {opacity:0.55}, {opacity:0, duration:0.12}, 0);
+tl.fromTo("#camA", {scale:1.12}, {scale:1, duration:0.4, ease:"power3.out"}, 0);
+tl.fromTo("#ti-l0", {scale:1.3, transformOrigin:"0% 50%"}, {scale:1, duration:0.3, ease:"back.out(1.8)"}, 0);
+tl.fromTo("#ti-l1", {scale:1.3, transformOrigin:"0% 50%"}, {scale:1, duration:0.3, ease:"back.out(1.8)"}, 0.05);
+tl.to("#ti-l1", {scale:1.05, transformOrigin:"0% 50%", duration:0.14, yoyo:true, repeat:1, ease:"sine.inOut"}, 1.1);
+tl.fromTo("#ti-r", {scaleX:0, opacity:1, rotation:-4, transformOrigin:"0% 50%"}, {scaleX:1, opacity:1, rotation:-4, duration:0.12, ease:"power3.in"}, 1.98);
+tl.to("#ti-l0", {x:-70, y:-34, opacity:0, duration:0.2, ease:"power2.in"}, 2.08);
+tl.to("#ti-l1", {x:70, y:34, opacity:0, duration:0.2, ease:"power2.in"}, 2.08);
+tl.to("#ti-r", {opacity:0, duration:0.12}, 2.14);
+tl.fromTo("#tp-p", {opacity:0, x:-60, scale:0.9, transformOrigin:"0% 50%"}, {opacity:1, x:0, scale:1, duration:0.24, ease:"back.out(1.8)"}, 2.909);
+tl.fromTo("#tp-6", {scale:1}, {scale:1.5, duration:0.13, yoyo:true, repeat:1, ease:"power2.out"}, 3.54);
+tl.to("#tp-p", {opacity:0, y:-30, duration:0.16, ease:"power2.in"}, 4.52);
+
+// passagem: lâmina de luz em diagonal + corte
+tl.fromTo("#corte1-i", {x:-200, rotation:16}, {x:1800, rotation:16, duration:0.36, ease:"power2.inOut"}, 4.68);
+
+// ---- APRESENTAÇÃO ----
+tl.fromTo("#camB1", {scale:1.08}, {scale:1, duration:0.4, ease:"power3.out"}, 4.85);
+tl.fromTo("#rodape-s", {opacity:0}, {opacity:1, duration:0.2}, 4.85);
+tl.fromTo("#ta-l0", {scale:1.6, opacity:0, transformOrigin:"0% 50%"}, {scale:1, opacity:1, duration:0.26, ease:"back.out(1.8)"}, 4.97);
+tl.fromTo("#ta-r", {scaleX:0, transformOrigin:"0% 50%"}, {scaleX:1, duration:0.3, ease:"power3.out"}, 5.15);
+// produto herói: as 4 facas congelam e viram cartão; a lista acende no tempo da fala (sem rotular faca)
+tl.fromTo("#h-card", {x:-32, y:-58, scale:1.06, clipPath:"inset(0px 0px 0px 0px round 0px)"}, {x:38.1, y:191.9, scale:0.596, clipPath:"inset(215px 30px 105px 30px round 50px)", duration:0.42, ease:"power3.inOut"}, 5.9);
+tl.fromTo("#h-bg", {filter:"blur(0px) brightness(1)", scale:1}, {filter:"blur(26px) brightness(0.5)", scale:1.12, duration:0.42, ease:"power2.out"}, 5.9);
+tl.to("#h-bg", {scale:1.2, duration:3.6, ease:"none"}, 6.32);
+tl.fromTo("#h-tint", {opacity:0}, {opacity:1, duration:0.4}, 5.9);
+tl.fromTo("#h-edge", {opacity:0, scale:1.04}, {opacity:1, scale:1, duration:0.22, ease:"power2.out"}, 6.26);
+tl.fromTo("#li0",{opacity:0,x:40},{opacity:0.42,x:0,duration:0.08,ease:"power2.out"},6.16);
+tl.to("#li0",{opacity:1,duration:0.12},6.322);
+tl.fromTo("#li0-v",{scale:0,rotation:-40},{scale:1,rotation:0,duration:0.24,ease:"back.out(2.6)"},6.322);
+tl.fromTo("#li0-t",{color:"#FFF6EA"},{color:"#FF6B2C",duration:0.1},6.322);
+tl.to("#li0-t",{color:"#FFF6EA",duration:0.3},6.862);
+tl.fromTo("#li1",{opacity:0,x:40},{opacity:0.42,x:0,duration:0.08,ease:"power2.out"},6.18);
+tl.to("#li1",{opacity:1,duration:0.12},7.372);
+tl.fromTo("#li1-v",{scale:0,rotation:-40},{scale:1,rotation:0,duration:0.24,ease:"back.out(2.6)"},7.372);
+tl.fromTo("#li1-t",{color:"#FFF6EA"},{color:"#FF6B2C",duration:0.1},7.372);
+tl.to("#li1-t",{color:"#FFF6EA",duration:0.3},7.912);
+tl.fromTo("#li2",{opacity:0,x:40},{opacity:0.42,x:0,duration:0.08,ease:"power2.out"},6.2);
+tl.to("#li2",{opacity:1,duration:0.12},7.962);
+tl.fromTo("#li2-v",{scale:0,rotation:-40},{scale:1,rotation:0,duration:0.24,ease:"back.out(2.6)"},7.962);
+tl.fromTo("#li2-t",{color:"#FFF6EA"},{color:"#FF6B2C",duration:0.1},7.962);
+tl.to("#li2-t",{color:"#FFF6EA",duration:0.3},8.502);
+tl.fromTo("#li3",{opacity:0,x:40},{opacity:0.42,x:0,duration:0.08,ease:"power2.out"},6.22);
+tl.to("#li3",{opacity:1,duration:0.12},9.176);
+tl.fromTo("#li3-v",{scale:0,rotation:-40},{scale:1,rotation:0,duration:0.24,ease:"back.out(2.6)"},9.176);
+tl.fromTo("#li3-t",{color:"#FFF6EA"},{color:"#FF6B2C",duration:0.1},9.176);
+tl.to("#li3-t",{color:"#FFF6EA",duration:0.3},9.716);
+tl.fromTo("#h-swi", {xPercent:-120}, {xPercent:120, duration:1.0, ease:"power2.inOut"}, 6.55);
+tl.fromTo("#h-swi", {xPercent:-120}, {xPercent:120, duration:1.0, ease:"power2.inOut", immediateRender:false}, 8.15);
+tl.to("#ta-l0", {x:-60, opacity:0, duration:0.16, ease:"power2.in"}, 9.76);
+tl.to("#ta-r", {scaleX:0, transformOrigin:"100% 50%", duration:0.16, ease:"power2.in"}, 9.76);
+
+// close do relevo: "as ondulações da lâmina prolongam a durabilidade"
+tl.fromTo("#flash2", {opacity:0.6}, {opacity:0, duration:0.2}, 9.95);
+tl.fromTo("#camB2", {scale:1.07}, {scale:1, duration:0.4, ease:"power3.out"}, 9.95);
+tl.to("#camB2", {scale:1.02, duration:2.289, ease:"none"}, 10.35);
+tl.to("#camB2", {scale:1.08, duration:0.24, ease:"power3.out"}, 12.659);
+tl.to("#camB2", {scale:1.1, duration:1.8, ease:"none"}, 12.899);
+tl.fromTo("#scan-i", {y:300}, {y:1900, duration:1.25, ease:"power1.inOut"}, 11.42);
+tl.fromTo("#tb-l0", {yPercent:110}, {yPercent:0, duration:0.28, ease:"power3.out"}, 11.439);
+tl.fromTo("#tb-l1", {yPercent:110}, {yPercent:0, duration:0.28, ease:"power3.out"}, 11.539);
+tl.fromTo("#tb-p", {opacity:0, x:-50, scale:0.9, transformOrigin:"0% 50%"}, {opacity:1, x:0, scale:1, duration:0.22, ease:"back.out(1.8)"}, 13.348);
+tl.to("#tb-l0", {yPercent:-110, duration:0.16, ease:"power2.in"}, 14.5);
+tl.to("#tb-l1", {yPercent:-110, duration:0.16, ease:"power2.in"}, 14.52);
+tl.to("#tb-p", {opacity:0, duration:0.14}, 14.5);
+tl.to("#rodape-s", {opacity:0, duration:0.12}, 14.62);
+
+// ---- CTA: kit reto, contagem das 6 peças, tesoura e descascador, depois cartão + botão ----
+tl.fromTo("#flash3", {opacity:0.5}, {opacity:0, duration:0.14}, 14.75);
+tl.fromTo("#camC", {scale:1.1}, {scale:1, duration:0.42, ease:"power3.out"}, 14.75);
+tl.fromTo("#tc-l0", {scale:1.6, opacity:0, transformOrigin:"0% 50%"}, {scale:1, opacity:1, duration:0.26, ease:"back.out(1.8)"}, 14.8);
+tl.fromTo("#n0",{opacity:0,scale:2.2},{opacity:1,scale:1,duration:0.16,ease:"back.out(2.4)"},15.2);
+tl.fromTo("#n1",{opacity:0,scale:2.2},{opacity:1,scale:1,duration:0.16,ease:"back.out(2.4)"},15.33);
+tl.fromTo("#n2",{opacity:0,scale:2.2},{opacity:1,scale:1,duration:0.16,ease:"back.out(2.4)"},15.46);
+tl.fromTo("#n3",{opacity:0,scale:2.2},{opacity:1,scale:1,duration:0.16,ease:"back.out(2.4)"},15.59);
+tl.fromTo("#n4",{opacity:0,scale:2.2},{opacity:1,scale:1,duration:0.16,ease:"back.out(2.4)"},15.72);
+tl.fromTo("#n5",{opacity:0,scale:2.2},{opacity:1,scale:1,duration:0.16,ease:"back.out(2.4)"},15.85);
+tl.to(".num", {opacity:0, scale:0.6, duration:0.16, stagger:0.02}, 16.12);
+tl.fromTo("#tc-p", {opacity:0, x:-50, scale:0.9, transformOrigin:"0% 50%"}, {opacity:1, x:0, scale:1, duration:0.22, ease:"back.out(1.8)"}, 16.14);
+tl.fromTo("#bk-t", {opacity:0, scale:1.12}, {opacity:1, scale:1, duration:0.2, ease:"back.out(2)"}, 16.282);
+tl.fromTo("#bk-d", {opacity:0, scale:1.12}, {opacity:1, scale:1, duration:0.2, ease:"back.out(2)"}, 17.048);
+tl.to(["#bk-t","#bk-d"], {opacity:0, duration:0.16}, 17.86);
+tl.to("#tc-p", {x:-60, opacity:0, duration:0.16, ease:"power2.in"}, 17.93);
+tl.fromTo("#cardC", {x:0, y:0, scale:1, clipPath:"inset(0px 0px 0px 0px round 0px)"}, {x:75.6, y:40, scale:0.86, clipPath:"inset(330px 0px 350px 0px round 46px)", duration:0.3, ease:"power3.inOut"}, 18.0);
+tl.fromTo("#edgeC", {opacity:0, scale:1.03}, {opacity:1, scale:1, duration:0.2, ease:"power2.out"}, 18.26);
+tl.fromTo("#cta-b", {scale:0.6, opacity:0, transformOrigin:"10% 50%"}, {scale:1, opacity:1, duration:0.24, ease:"back.out(2.2)"}, 18.202);
+tl.fromTo("#cta-o", {scale:0.4, opacity:0.95}, {scale:1.9, opacity:0, duration:0.6, ease:"power2.out"}, 18.202);
+tl.to("#cta-b", {scale:1.045, duration:0.4, yoyo:true, repeat:3, ease:"sine.inOut"}, 18.622);
+tl.fromTo("#cta-s", {x:0, y:0}, {x:-5, y:5, duration:0.2, yoyo:true, repeat:7, ease:"sine.inOut"}, 18.622);
+tl.fromTo("#cta-o", {scale:0.4, opacity:0.95}, {scale:1.9, opacity:0, duration:0.6, ease:"power2.out", immediateRender:false}, 19.422);
+
+// ---- legenda ----
+tl.fromTo("#leg-intro-0-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},0.267);
+tl.fromTo("#leg-intro-0-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},0.668);
+tl.fromTo("#leg-intro-1-0c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},0.832);
+tl.fromTo("#leg-intro-1-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},0.762);
+tl.fromTo("#leg-intro-2-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},1.14);
+tl.fromTo("#leg-intro-2-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},1.246);
+tl.fromTo("#leg-intro-2-2",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},1.423);
+tl.fromTo("#leg-intro-3-0c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},1.564);
+tl.fromTo("#leg-intro-3-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},1.494);
+tl.fromTo("#leg-intro-4-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},2.272);
+tl.fromTo("#leg-intro-4-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},2.696);
+tl.fromTo("#leg-intro-5-0c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},2.979);
+tl.fromTo("#leg-intro-5-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},2.909);
+tl.fromTo("#leg-intro-6-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},3.404);
+tl.fromTo("#leg-intro-6-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},3.58);
+tl.fromTo("#leg-intro-6-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},3.51);
+tl.fromTo("#leg-intro-6-2c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},3.934);
+tl.fromTo("#leg-intro-6-2",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},3.864);
+tl.fromTo("#leg-apresentacao-0-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},5.118);
+tl.fromTo("#leg-apresentacao-0-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},5.389);
+tl.fromTo("#leg-apresentacao-0-2",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},5.837);
+tl.fromTo("#leg-apresentacao-1-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},5.979);
+tl.fromTo("#leg-apresentacao-1-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},6.274);
+tl.fromTo("#leg-apresentacao-1-2c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},6.402);
+tl.fromTo("#leg-apresentacao-1-2",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},6.332);
+tl.fromTo("#leg-apresentacao-2-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},7.005);
+tl.fromTo("#leg-apresentacao-2-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},7.264);
+tl.fromTo("#leg-apresentacao-2-2c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},7.452);
+tl.fromTo("#leg-apresentacao-2-2",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},7.382);
+tl.fromTo("#leg-apresentacao-3-0c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},8.042);
+tl.fromTo("#leg-apresentacao-3-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},7.972);
+tl.fromTo("#leg-apresentacao-4-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},8.644);
+tl.fromTo("#leg-apresentacao-4-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},8.726);
+tl.fromTo("#leg-apresentacao-5-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},9.08);
+tl.fromTo("#leg-apresentacao-5-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},9.256);
+tl.fromTo("#leg-apresentacao-5-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},9.186);
+tl.fromTo("#leg-apresentacao-6-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},10.141);
+tl.fromTo("#leg-apresentacao-6-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},10.612);
+tl.fromTo("#leg-apresentacao-7-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},10.624);
+tl.fromTo("#leg-apresentacao-8-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},11.438);
+tl.fromTo("#leg-apresentacao-8-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},11.579);
+tl.fromTo("#leg-apresentacao-8-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},11.509);
+tl.fromTo("#leg-apresentacao-9-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},12.122);
+tl.fromTo("#leg-apresentacao-9-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},12.298);
+tl.fromTo("#leg-apresentacao-9-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},12.228);
+tl.fromTo("#leg-apresentacao-10-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},12.629);
+tl.fromTo("#leg-apresentacao-11-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},13.289);
+tl.fromTo("#leg-apresentacao-11-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},13.418);
+tl.fromTo("#leg-apresentacao-11-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},13.348);
+tl.fromTo("#leg-cta-0-0c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},15.137);
+tl.fromTo("#leg-cta-0-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},15.067);
+tl.fromTo("#leg-cta-0-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},15.526);
+tl.fromTo("#leg-cta-0-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},15.456);
+tl.fromTo("#leg-cta-1-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},16.129);
+tl.fromTo("#leg-cta-1-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},16.352);
+tl.fromTo("#leg-cta-1-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},16.282);
+tl.fromTo("#leg-cta-2-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},16.978);
+tl.fromTo("#leg-cta-2-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},17.118);
+tl.fromTo("#leg-cta-2-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},17.048);
+tl.fromTo("#leg-cta-3-0c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},18.262);
+tl.fromTo("#leg-cta-3-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},18.192);
+tl.fromTo("#leg-cta-4-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},18.463);
+tl.fromTo("#leg-cta-4-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},18.628);
+tl.fromTo("#leg-cta-4-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},18.558);
+tl.fromTo("#leg-cta-5-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},19.183);
+tl.fromTo("#leg-cta-5-1c",{scaleX:0,transformOrigin:"0% 50%"},{scaleX:1,duration:0.16,ease:"power3.out"},19.324);
+tl.fromTo("#leg-cta-5-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},19.254);
+tl.fromTo("#leg-cta-6-0",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},19.761);
+tl.fromTo("#leg-cta-6-1",{opacity:0,y:20,scale:0.88},{opacity:1,y:0,scale:1,duration:0.12,ease:"back.out(2)"},19.796);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

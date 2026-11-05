@@ -1,0 +1,42 @@
+{
+ "codigo": "facas",
+ "lote": "A",
+ "descricao_produto": "a 6-piece kitchen knife set lying flat on a dark charcoal slate countertop, seen from directly above: four knives with matte black blades embossed with a raised diamond pattern, glossy black bolsters and reddish-brown wood-grain handles (one wide rectangular cleaver, one chef's knife, one carving knife, one small paring knife), one pair of black kitchen scissors with steel blades, and one black Y-shaped peeler with a white ceramic blade",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "A",
+   "modelo": "Veo 3.1 Fast",
+   "quadro": "fotos/quadro_diagonal.jpg",
+   "fala": "Faca que amassa em vez de cortar? Olha esse faqueiro de seis peças.",
+   "titulo": "FACA QUE NÃO CORTA?",
+   "linha": "Faqueiro de 6 peças",
+   "rodape": "",
+   "prompt": "Use the attached photo as the first frame and the exact reference: a 6-piece kitchen knife set lying flat on a dark charcoal slate countertop, seen from directly above: four knives with matte black blades embossed with a raised diamond pattern, glossy black bolsters and reddish-brown wood-grain handles (one wide rectangular cleaver, one chef's knife, one carving knife, one small paring knife), one pair of black kitchen scissors with steel blades, and one black Y-shaped peeler with a white ceramic blade. One continuous 8-second shot, vertical 9:16, premium kitchen product video. Camera only: a very slow, smooth, straight push-in toward the center of the set, top-down the whole time, no tilt, no rotation, no pull-back; every tool stays fully inside the frame and in sharp focus for the entire shot. Nothing moves on the counter, nothing is added, no hands, no food. The set stays complete and identical to the photo from the first to the last frame: exactly four knives, one pair of scissors, one peeler, same shapes, same diamond pattern on the blades, same wood-grain handles, same positions. Lighting stays constant, no flashes, no light sweeps. No text, no captions, no letters, no extra logos, no product changes, no morphing, no people talking to camera."
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "B",
+   "modelo": "Veo 3.1 Fast",
+   "quadro": "fotos/quadro_4facas.jpg",
+   "fala": "Esse faqueiro tem faca do chefe, faca de carne, cutelo e faca de descascar. Segundo o fabricante, as ondulações da lâmina prolongam a durabilidade.",
+   "titulo": "4 FACAS NO KIT",
+   "linha": "chefe, carne, cutelo e descascar",
+   "titulo2": "LÂMINA ONDULADA",
+   "linha2": "mais durabilidade*",
+   "rodape": "*Dados do fabricante",
+   "prompt": "Use the attached photo as the first frame and the exact reference: four kitchen knives from a 6-piece set lying flat side by side on a dark charcoal slate countertop, seen from directly above: matte black blades embossed with a raised diamond pattern, glossy black bolsters and reddish-brown wood-grain handles (one wide rectangular cleaver, one chef's knife, one carving knife, one small paring knife). One continuous 8-second shot, vertical 9:16, premium kitchen product video. Camera only: a very slow, smooth, straight push-in toward the center of the four blades, top-down the whole time, no tilt, no rotation, no pull-back, no sideways movement; all four knives stay fully inside the frame and in sharp focus for the entire shot. Nothing moves on the counter, nothing is added, no hands, no food. The knives stay complete and identical to the photo from the first to the last frame: exactly four knives, same shapes, the cleaver blade stays a wide rectangle, same diamond pattern on the blades, same wood-grain handles, same positions. Lighting stays constant, no flashes, no light sweeps. No text, no captions, no letters, no extra logos, no product changes, no morphing, no people talking to camera."
+  },
+  {
+   "parte": "cta",
+   "clipe": "C",
+   "modelo": "Veo 3.1 Lite",
+   "quadro": "fotos/quadro_kit_reto.jpg",
+   "fala": "Seis peças, com tesoura e descascador. Toca no produto e confere o seu.",
+   "titulo": "KIT COM 6 PEÇAS",
+   "linha": "tesoura e descascador inclusos",
+   "rodape": "",
+   "prompt": "Use the attached photo as the first frame and the exact reference: a 6-piece kitchen knife set lying flat on a dark charcoal slate countertop, seen from directly above: four knives with matte black blades embossed with a raised diamond pattern, glossy black bolsters and reddish-brown wood-grain handles (one wide rectangular cleaver, one chef's knife, one carving knife, one small paring knife), one pair of black kitchen scissors with steel blades, and one black Y-shaped peeler with a white ceramic blade. One continuous 8-second shot, vertical 9:16, premium kitchen product video. Locked-off top-down camera with only a barely perceptible, very slow push-in; no tilt, no rotation, no pull-back, no sideways movement; every tool stays fully inside the frame and in sharp focus for the entire shot. Nothing moves on the counter, nothing is added, no hands, no food. The set stays complete and identical to the photo from the first to the last frame: exactly four knives, one pair of scissors, one peeler, same shapes, same diamond pattern on the blades, same wood-grain handles, same positions. Lighting stays constant, no flashes, no light sweeps. No text, no captions, no letters, no extra logos, no product changes, no morphing, no people talking to camera."
+  }
+ ]
+}

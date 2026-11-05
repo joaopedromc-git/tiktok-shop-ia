@@ -1,0 +1,17 @@
+# segredos e dados locais
+.env
+.claude/settings.local.json
+dados/
+
+# terceiros (baixar à parte, ver LEIAME.md)
+render/kit/gsap.min.js
+
+# material bruto e pessoal: nunca versionar
+produtos/*/fotos/
+produtos/*/clipe_*.mp4
+*.jpg
+*.jpeg
+*.png
+*.PNG
+*.HEIC
+*.webp

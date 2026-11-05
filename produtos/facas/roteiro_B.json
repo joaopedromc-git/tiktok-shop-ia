@@ -1,0 +1,43 @@
+{
+ "codigo": "facas",
+ "lote": "B",
+ "descricao_produto": "a 6-piece kitchen knife set: four knives with matte black blades embossed with a raised diamond pattern, glossy black bolsters and reddish-brown wood-grain handles (one wide rectangular cleaver, one chef's knife, one carving knife, one small paring knife), one pair of black kitchen scissors with steel blades, and one black Y-shaped peeler with a white ceramic blade",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "D",
+   "modelo": "Veo 3.1 Fast",
+   "quadro": "fotos/quadro_caixa.jpg",
+   "fala": "Olha o que vem dentro dessa caixa: um faqueiro completo, de seis peças.",
+   "titulo": "OLHA O QUE VEM",
+   "linha": "Faqueiro de 6 peças",
+   "rodape": "",
+   "prompt": "Use the attached photo as the first frame and the exact reference: a top-down view of an open matte black gift box on a dark slate countertop, holding four kitchen knives with wood-grain brown handles and black diamond-embossed blades (one rectangular cleaver, two long knives, one small knife), black kitchen scissors and a black peeler with a white ceramic blade; a plain matte black lid covers the top part of the box. One continuous 8-second shot, vertical 9:16, top-down, camera locked in the same position. Action: in the first two seconds the plain black lid slides smoothly upward and completely out of the frame, revealing the knife handles. Then the third knife from the left (the wide chef's knife) slowly rises straight up out of its slot toward the camera, hovering a few centimeters above the box and becoming slightly larger, staying perfectly sharp and rigid. The other five tools stay completely still in their slots. Every tool stays identical to the photo from the first to the last frame: same shapes, same diamond pattern on the blades, same wood-grain handles, the cleaver blade stays rectangular, the peeler blade stays white. Lighting stays constant, no flashes. No hands, no people, no text, no captions, no letters, no logos, no new objects, no product changes, no morphing."
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "E",
+   "modelo": "Veo 3.1 Fast",
+   "quadro": "fotos/quadro_faca_sozinha.jpg",
+   "quadro_final": "fotos/quadro_kit_reto.jpg",
+   "fala": "Faca do chefe, faca de carne, cutelo, faca de descascar, tesoura e descascador.",
+   "titulo": "6 PEÇAS NO KIT",
+   "linha": "4 facas, tesoura e descascador",
+   "rodape": "",
+   "prompt": "Top-down view of a dark slate countertop, camera locked, vertical 9:16, one continuous 8-second shot. At the start one chef's knife with a wood-grain brown handle and a black diamond-embossed blade lies alone in the center; this chef's knife never moves. Action: five more tools slide smoothly into the frame, flat on the slate surface, and stop next to it. From the left edge of the frame a rectangular cleaver and a long knife slide in; from the right edge a small knife, black kitchen scissors and a black peeler with a white ceramic blade slide in. They enter one after another between second 1 and second 6, each one already complete and fully formed as it crosses the edge of the frame, and settle exactly in the positions of the last frame; then everything rests still. Every tool is rigid and keeps its exact shape and size while sliding: no bending, no stretching, no growing, no morphing, nothing fades in, nothing appears out of thin air, nothing duplicates. The final frame is identical to the last-frame image: exactly four knives, one pair of scissors, one peeler. Lighting stays constant, no flashes. No hands, no people, no text, no captions, no letters, no logos, no new objects."
+  },
+  {
+   "parte": "cta",
+   "clipe": "F",
+   "modelo": "Veo 3.1 Lite",
+   "quadro": "fotos/quadro_tomate.jpg",
+   "fala": "Segundo o fabricante, as ondulações da lâmina prolongam a durabilidade. Toca no produto e confere o seu.",
+   "titulo": "LÂMINA ONDULADA",
+   "linha": "mais durabilidade*",
+   "titulo2": "TOCA NO PRODUTO",
+   "linha2": "e confere o seu",
+   "rodape": "*Dados do fabricante",
+   "prompt": "Use the attached photo as the first frame and the exact reference: an adult's right hand holding a chef's knife with a wood-grain brown handle, a black bolster and a black blade with a diamond embossed pattern, slicing a ripe red tomato on a thick wooden cutting board in a bright kitchen with soft daylight. One continuous 8-second shot, vertical 9:16, camera fixed at the same angle. Action for the whole 8 seconds: the hand slowly and smoothly slices the tomato with a forward-and-down cutting motion, three cuts in a row; after each cut a new round tomato slice falls flat next to the two slices already on the board, with a little juice. The knife is rigid and stays identical to the photo in every frame: same blade shape and length, same diamond pattern on the flat side of the blade, same black bolster, same wood-grain handle; the blade never bends, never changes size and always stays black. Only one knife and one hand in the frame. Daylight stays constant, no flashes. No text, no captions, no letters, no logos, no other utensils, no face, no people talking to camera, no product changes, no morphing."
+  }
+ ]
+}

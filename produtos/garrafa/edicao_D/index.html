@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+/* nomes completos das fontes do container (o local("Bebas Neue") sozinho não carrega no Chromium; Inter é variável) */
+@font-face{font-family:"Bebas Seco";src:local("Bebas Neue Regular"),local("BebasNeue-Regular"),local("Bebas Neue")}
+@font-face{font-family:"Inter Seco";font-weight:100 900;src:local("Inter Thin"),local("Inter-Thin"),local("Inter")}
+:root{--giz:#F6F4EE;--tinta:#0F1317;--cob:#2D5BFF}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0F1317}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#0F1317;font-family:"Inter Seco";font-weight:800}
+.clip{position:absolute;inset:0}
+.cam{position:absolute;inset:0;overflow:hidden;z-index:1}
+.full{width:100%;height:100%;object-fit:cover}
+/* G1 e G2: origem no alto (a garrafa está perto do topo; o zoom nunca corta a tampa) */
+#camG1,#camG2{transform-origin:50% 0%}
+#camH1,#camG3,#camI{transform-origin:50% 50%}
+#camH2{transform-origin:54% 27%}
+.ov{position:absolute;inset:0}
+.ov svg{position:absolute;left:0;top:0;width:1080px;height:1920px;display:block;overflow:visible}
+.cb{fill:none;stroke:#F6F4EE;stroke-width:17;stroke-linecap:round;stroke-linejoin:round;opacity:.9}
+.cf{fill:none;stroke:#2D5BFF;stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.anel-b{fill:none;stroke:#F6F4EE;stroke-width:15;opacity:.85}
+.anel{fill:none;stroke:#2D5BFF;stroke-width:8}
+/* reflexo de luz que corre na garrafa (recortado no contorno da garrafa) */
+.sw-m{position:absolute;overflow:hidden;display:block;border-radius:60px}
+.sw-b{position:absolute;left:-420px;top:-240px;width:220px;height:1800px;display:block;
+  background:linear-gradient(to right,rgba(255,255,255,0) 0,rgba(255,255,255,.4) 50%,rgba(255,255,255,0) 100%)}
+.vinheta{z-index:3;background:radial-gradient(ellipse 90% 66% at 50% 50%,rgba(15,19,23,0) 60%,rgba(15,19,23,.34) 100%)}
+/* títulos: etiquetas de giz (Bebas Neue), palavra-chave em etiqueta cobalto */
+.titulo{z-index:6}
+.tag{display:block;font-family:"Bebas Seco";font-weight:400;line-height:1;white-space:nowrap;background:#F6F4EE;color:#0F1317;
+  padding:.12em .2em .02em;border-radius:16px;box-shadow:0 12px 30px rgba(15,19,23,.38)}
+.tag.az{background:#2D5BFF;color:#F6F4EE}
+.row{position:absolute;left:40px;width:878px;display:flex;justify-content:center;align-items:flex-start;gap:14px}
+.stack{position:absolute;left:40px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.sub{display:flex;align-items:center;gap:14px;white-space:nowrap;background:#F6F4EE;color:#0F1317;font-family:"Inter Seco";
+  font-weight:800;font-size:36px;line-height:1;padding:12px 26px 14px 16px;border-radius:40px;box-shadow:0 10px 26px rgba(15,19,23,.35)}
+.sub i{display:block;width:22px;height:22px;border-radius:50%;background:#2D5BFF;box-shadow:0 0 0 5px rgba(45,91,255,.22)}
+/* rodapé de fonte */
+#rod{z-index:7}
+#rod span{position:absolute;left:40px;top:1468px;display:block;font-family:"Inter Seco";font-weight:600;font-size:30px;line-height:1;
+  color:rgba(246,244,238,.88);background:rgba(15,19,23,.5);padding:8px 14px 9px;border-radius:10px}
+/* legenda "etiqueta marca-texto" */
+.legenda{z-index:10}
+.cap{position:absolute;left:100px;width:840px;display:flex;justify-content:center;align-items:flex-start}
+.ctag{display:flex;gap:16px;align-items:center;white-space:nowrap;background:rgba(246,244,238,.97);border-radius:22px;
+  padding:8px 26px 12px;box-shadow:0 12px 28px rgba(15,19,23,.4)}
+.w{position:relative;display:block;font-style:normal;font-family:"Inter Seco";font-weight:800;font-size:62px;line-height:1.14;color:#0F1317}
+.w b{position:relative;font-weight:800}
+.hl{position:absolute;left:-10px;right:-10px;top:6px;bottom:2px;display:block;background:#2D5BFF;border-radius:10px;transform-origin:0 50%}
+/* CTA: botão cobalto com seta para baixo/esquerda */
+#toque{z-index:11}
+#tq-b{position:absolute;left:46px;top:1404px;width:120px;height:120px;display:block;border-radius:50%;background:#2D5BFF;
+  box-shadow:0 0 0 7px #F6F4EE,0 14px 30px rgba(15,19,23,.45)}
+#tq-b svg{display:block;width:120px;height:120px}
+.tq-o{position:absolute;left:46px;top:1404px;width:120px;height:120px;display:block;border:6px solid #F6F4EE;border-radius:50%;opacity:0}
+/* passada seca: faixa de giz que varre a tela na troca de parte */
+.wipe{z-index:12;overflow:hidden}
+.wband{position:absolute;left:0;top:-200px;width:2600px;height:2320px;display:block;background:#F6F4EE;transform:skewX(-14deg)}
+.wband i{position:absolute;top:0;width:26px;height:100%;display:block;background:#2D5BFF}
+.flash{z-index:13;background:#F6F4EE;opacity:0}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="19.5" data-width="1080" data-height="1920">
+  <!-- INTRO 1 (0-1,72 s): clipe G 0,25-1,80 s em 0,92x (mão entra e fecha na alça; nada a partir de 1,9 s) -->
+  <div id="camG1" class="cam"><video id="vG1" class="clip full" data-start="0" data-duration="1.72" data-media-start="0.25" data-playback-rate="0.92" data-track-index="0" src="assets/clipe_G.mp4" muted playsinline></video></div>
+
+  <!-- INTRO 2 (1,72-3,5 s): clipe G 2,50-4,28 s em 1,0x (garrafa no alto, inteira; mesa seca embaixo) -->
+  <div id="camG2" class="cam"><video id="vG2" class="clip full" data-start="1.72" data-duration="1.78" data-media-start="2.5" data-track-index="1" src="assets/clipe_G.mp4" muted playsinline></video></div>
+
+  <!-- APRESENTAÇÃO 1 (3,5-6,8 s): clipe H 0,00-2,97 s em 0,90x (mão entra, levanta a garrafa; nada a partir de 3,2 s) -->
+  <div id="camH1" class="cam"><video id="vH1" class="clip full" data-start="3.5" data-duration="3.3" data-media-start="0" data-playback-rate="0.9" data-track-index="0" src="assets/clipe_H.mp4" muted playsinline></video>
+    <div id="ovH1" class="clip ov" data-start="3.5" data-duration="3.3" data-track-index="2">
+      <svg viewBox="0 0 1080 1920"><g id="kH0"><path class="cb" d="M330 474 L330 396 L408 396"/><path class="cf" d="M330 474 L330 396 L408 396"/></g><g id="kH1"><path class="cb" d="M824 396 L902 396 L902 474"/><path class="cf" d="M824 396 L902 396 L902 474"/></g><g id="kH2"><path class="cb" d="M330 1482 L330 1560 L408 1560"/><path class="cf" d="M330 1482 L330 1560 L408 1560"/></g><g id="kH3"><path class="cb" d="M824 1560 L902 1560 L902 1482"/><path class="cf" d="M824 1560 L902 1560 L902 1482"/></g></svg>
+    </div>
+  </div>
+
+  <!-- APRESENTAÇÃO 2 (6,8-11,3 s): clipe H 4,40-7,955 s em 0,79x (garrafa de volta na mesa, mão sai, fogueira) -->
+  <div id="camH2" class="cam"><video id="vH2" class="clip full" data-start="6.8" data-duration="4.5" data-media-start="4.4" data-playback-rate="0.79" data-track-index="1" src="assets/clipe_H.mp4" muted playsinline></video>
+    <div id="ovH2" class="clip ov" data-start="6.8" data-duration="4.5" data-track-index="2">
+      <svg viewBox="0 0 1080 1920">
+        <rect id="anB" class="anel-b" x="398" y="398" width="380" height="264" rx="36" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <rect id="an" class="anel" x="398" y="398" width="380" height="264" rx="36" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- APRESENTAÇÃO 3 (11,3-13,95 s): clipe G 4,50-6,75 s em 0,85x (garrafa desce à mesa, mão solta) -->
+  <div id="camG3" class="cam"><video id="vG3" class="clip full" data-start="11.3" data-duration="2.65" data-media-start="4.5" data-playback-rate="0.85" data-track-index="0" src="assets/clipe_G.mp4" muted playsinline></video></div>
+
+  <!-- CTA (13,95-19,5 s): clipe I 1,00-6,00 s em 0,90x (ondas o tempo todo; a mão entra e segura a alça) -->
+  <div id="camI" class="cam"><video id="vI" class="clip full" data-start="13.95" data-duration="5.55" data-media-start="1" data-playback-rate="0.9" data-track-index="1" src="assets/clipe_I.mp4" muted playsinline></video>
+    <div id="ovI" class="clip ov" data-start="13.95" data-duration="5.55" data-track-index="2">
+      <span id="swI-m" class="sw-m" style="left:338px;top:430px;width:410px;height:1200px"><i id="swI-b" class="sw-b"></i></span>
+      <svg viewBox="0 0 1080 1920"><g id="kI0"><path class="cb" d="M318 498 L318 420 L396 420"/><path class="cf" d="M318 498 L318 420 L396 420"/></g><g id="kI1"><path class="cb" d="M824 420 L902 420 L902 498"/><path class="cf" d="M824 420 L902 420 L902 498"/></g><g id="kI2"><path class="cb" d="M318 1568 L318 1646 L396 1646"/><path class="cf" d="M318 1568 L318 1646 L396 1646"/></g><g id="kI3"><path class="cb" d="M824 1646 L902 1646 L902 1568"/><path class="cf" d="M824 1646 L902 1646 L902 1568"/></g></svg>
+    </div>
+  </div>
+
+  <div id="vin" class="clip vinheta" data-start="0" data-duration="19.5" data-track-index="3"></div>
+
+  <!-- títulos -->
+  <div id="t1" class="clip titulo" data-start="0" data-duration="3.5" data-track-index="7">
+    <div class="stack" style="top:196px">
+      <div id="t1a" class="tag az" style="font-size:156px">POÇA</div>
+      <div id="t1b" class="tag" style="font-size:86px">NA MESA?</div>
+      <div id="t1c" class="sub"><i></i>toda vez que apoia</div>
+    </div>
+  </div>
+  <div id="t2" class="clip titulo" data-start="6.86" data-duration="4.44" data-track-index="8">
+    <div class="row" style="top:186px"><div id="t2a" class="tag az" style="font-size:104px">SEM SUOR</div><div id="t2b" class="tag" style="font-size:104px">POR FORA*</div></div>
+    <div class="row" style="top:322px;justify-content:flex-start"><div id="t2c" class="sub"><i></i>tampa com vedação</div></div>
+  </div>
+  <div id="t3" class="clip titulo" data-start="16.601" data-duration="2.899" data-track-index="7">
+    <div class="row" style="top:186px"><div id="t3a" class="tag az" style="font-size:104px">TOQUE</div><div id="t3b" class="tag" style="font-size:104px">NO PRODUTO</div></div>
+    <div class="row" style="top:322px"><div id="t3c" class="sub"><i></i>e confira de perto</div></div>
+  </div>
+
+  <div id="rod" class="clip" data-start="3.5" data-duration="10.45" data-track-index="9"><span>*Dados do fabricante</span></div>
+
+  <div id="toque" class="clip" data-start="16.641" data-duration="2.859" data-track-index="11">
+    <i id="tq-o1" class="tq-o"></i><i id="tq-o2" class="tq-o"></i><i id="tq-o3" class="tq-o"></i>
+    <span id="tq-b"><svg id="tq-s" viewBox="0 0 120 120"><path d="M80 40 L42 78 M40 50 L40 80 L70 80" fill="none" stroke="#F6F4EE" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </div>
+
+  <div id="wp1" class="clip wipe" data-start="3.32" data-duration="0.36" data-track-index="12"><span id="wb1" class="wband"><i style="left:60px"></i><i style="right:60px"></i></span></div>
+  <div id="wp2" class="clip wipe" data-start="13.77" data-duration="0.36" data-track-index="12"><span id="wb2" class="wband"><i style="left:60px"></i><i style="right:60px"></i></span></div>
+  <div id="fl0" class="clip flash" data-start="0" data-duration="0.12" data-track-index="13"></div>
+
+  <div id="lg-int-0" class="clip legenda" data-start="0.208" data-duration="0.872" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-int-0-p" class="ctag"><em id="lg-int-0-0" class="w"><b>Apoiou</b></em><em id="lg-int-0-1" class="w"><b>a</b></em><em id="lg-int-0-2" class="w k"><i id="lg-int-0-2h" class="hl"></i><b id="lg-int-0-2b">garrafa</b></em></span></div></div>
+  <div id="lg-int-1" class="clip legenda" data-start="1.08" data-duration="0.602" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-int-1-p" class="ctag"><em id="lg-int-1-0" class="w"><b>na</b></em><em id="lg-int-1-1" class="w k"><i id="lg-int-1-1h" class="hl"></i><b id="lg-int-1-1b">mesa</b></em></span></div></div>
+  <div id="lg-int-2" class="clip legenda" data-start="1.682" data-duration="0.613" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-int-2-p" class="ctag"><em id="lg-int-2-0" class="w"><b>e</b></em><em id="lg-int-2-1" class="w"><b>ficou</b></em><em id="lg-int-2-2" class="w"><b>aquela</b></em></span></div></div>
+  <div id="lg-int-3" class="clip legenda" data-start="2.295" data-duration="1.118" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-int-3-p" class="ctag"><em id="lg-int-3-0" class="w k"><i id="lg-int-3-0h" class="hl"></i><b id="lg-int-3-0b">poça</b></em><em id="lg-int-3-1" class="w"><b>de</b></em><em id="lg-int-3-2" class="w"><b>novo?</b></em></span></div></div>
+  <div id="lg-apr-0" class="clip legenda" data-start="3.758" data-duration="0.861" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-0-p" class="ctag"><em id="lg-apr-0-0" class="w"><b>Garrafa</b></em><em id="lg-apr-0-1" class="w"><b>Térmica</b></em></span></div></div>
+  <div id="lg-apr-1" class="clip legenda" data-start="4.619" data-duration="0.648" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-1-p" class="ctag"><em id="lg-apr-1-0" class="w k"><i id="lg-apr-1-0h" class="hl"></i><b id="lg-apr-1-0b">MODUS</b></em></span></div></div>
+  <div id="lg-apr-2" class="clip legenda" data-start="5.267" data-duration="0.555" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-2-p" class="ctag"><em id="lg-apr-2-0" class="w"><b>isolamento</b></em></span></div></div>
+  <div id="lg-apr-3" class="clip legenda" data-start="5.822" data-duration="0.542" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-3-p" class="ctag"><em id="lg-apr-3-0" class="w"><b>a</b></em><em id="lg-apr-3-1" class="w k"><i id="lg-apr-3-1h" class="hl"></i><b id="lg-apr-3-1b">vácuo</b></em></span></div></div>
+  <div id="lg-apr-4" class="clip legenda" data-start="6.364" data-duration="0.33" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-4-p" class="ctag"><em id="lg-apr-4-0" class="w"><b>pra</b></em><em id="lg-apr-4-1" class="w"><b>ela</b></em></span></div></div>
+  <div id="lg-apr-5" class="clip legenda" data-start="6.694" data-duration="0.531" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-5-p" class="ctag"><em id="lg-apr-5-0" class="w"><b>não</b></em><em id="lg-apr-5-1" class="w k"><i id="lg-apr-5-1h" class="hl"></i><b id="lg-apr-5-1b">suar</b></em></span></div></div>
+  <div id="lg-apr-6" class="clip legenda" data-start="7.225" data-duration="0.672" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-6-p" class="ctag"><em id="lg-apr-6-0" class="w"><b>por</b></em><em id="lg-apr-6-1" class="w"><b>fora</b></em></span></div></div>
+  <div id="lg-apr-7" class="clip legenda" data-start="7.897" data-duration="0.472" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-7-p" class="ctag"><em id="lg-apr-7-0" class="w"><b>e</b></em><em id="lg-apr-7-1" class="w k"><i id="lg-apr-7-1h" class="hl"></i><b id="lg-apr-7-1b">tampa</b></em></span></div></div>
+  <div id="lg-apr-8" class="clip legenda" data-start="8.369" data-duration="0.625" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-8-p" class="ctag"><em id="lg-apr-8-0" class="w"><b>com</b></em><em id="lg-apr-8-1" class="w k"><i id="lg-apr-8-1h" class="hl"></i><b id="lg-apr-8-1b">vedação</b></em></span></div></div>
+  <div id="lg-apr-9" class="clip legenda" data-start="8.994" data-duration="1.049" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-9-p" class="ctag"><em id="lg-apr-9-0" class="w"><b>contra</b></em><em id="lg-apr-9-1" class="w k"><i id="lg-apr-9-1h" class="hl"></i><b id="lg-apr-9-1b">vazamento,</b></em></span></div></div>
+  <div id="lg-apr-10" class="clip legenda" data-start="10.043" data-duration="1.415" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-10-p" class="ctag"><em id="lg-apr-10-0" class="w"><b>segundo</b></em><em id="lg-apr-10-1" class="w"><b>o</b></em><em id="lg-apr-10-2" class="w"><b>fabricante.</b></em></span></div></div>
+  <div id="lg-apr-11" class="clip legenda" data-start="11.458" data-duration="1.097" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-11-p" class="ctag"><em id="lg-apr-11-0" class="w"><b>Mais</b></em><em id="lg-apr-11-1" class="w k"><i id="lg-apr-11-1h" class="hl"></i><b id="lg-apr-11-1b">tranquilidade</b></em></span></div></div>
+  <div id="lg-apr-12" class="clip legenda" data-start="12.555" data-duration="0.413" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-12-p" class="ctag"><em id="lg-apr-12-0" class="w"><b>pra</b></em><em id="lg-apr-12-1" class="w"><b>levar</b></em></span></div></div>
+  <div id="lg-apr-13" class="clip legenda" data-start="12.968" data-duration="0.87" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-apr-13-p" class="ctag"><em id="lg-apr-13-0" class="w"><b>na</b></em><em id="lg-apr-13-1" class="w k"><i id="lg-apr-13-1h" class="hl"></i><b id="lg-apr-13-1b">bolsa.</b></em></span></div></div>
+  <div id="lg-cta-0" class="clip legenda" data-start="14.207" data-duration="1.156" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-cta-0-p" class="ctag"><em id="lg-cta-0-0" class="w"><b>Imaginou</b></em><em id="lg-cta-0-1" class="w"><b>a</b></em><em id="lg-cta-0-2" class="w k"><i id="lg-cta-0-2h" class="hl"></i><b id="lg-cta-0-2b">MODUS</b></em></span></div></div>
+  <div id="lg-cta-1" class="clip legenda" data-start="15.363" data-duration="1.238" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-cta-1-p" class="ctag"><em id="lg-cta-1-0" class="w"><b>na</b></em><em id="lg-cta-1-1" class="w"><b>sua</b></em><em id="lg-cta-1-2" class="w"><b>rotina?</b></em></span></div></div>
+  <div id="lg-cta-2" class="clip legenda" data-start="16.601" data-duration="0.283" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-cta-2-p" class="ctag"><em id="lg-cta-2-0" class="w k"><i id="lg-cta-2-0h" class="hl"></i><b id="lg-cta-2-0b">Toque</b></em></span></div></div>
+  <div id="lg-cta-3" class="clip legenda" data-start="16.884" data-duration="0.46" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-cta-3-p" class="ctag"><em id="lg-cta-3-0" class="w"><b>no</b></em><em id="lg-cta-3-1" class="w k"><i id="lg-cta-3-1h" class="hl"></i><b id="lg-cta-3-1b">produto</b></em></span></div></div>
+  <div id="lg-cta-4" class="clip legenda" data-start="17.344" data-duration="0.649" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-cta-4-p" class="ctag"><em id="lg-cta-4-0" class="w"><b>marcado</b></em></span></div></div>
+  <div id="lg-cta-5" class="clip legenda" data-start="17.993" data-duration="0.601" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-cta-5-p" class="ctag"><em id="lg-cta-5-0" class="w"><b>e</b></em><em id="lg-cta-5-1" class="w k"><i id="lg-cta-5-1h" class="hl"></i><b id="lg-cta-5-1b">confira</b></em></span></div></div>
+  <div id="lg-cta-6" class="clip legenda" data-start="18.594" data-duration="0.847" data-track-index="20"><div class="cap" style="top:1296px"><span id="lg-cta-6-p" class="ctag"><em id="lg-cta-6-0" class="w"><b>de</b></em><em id="lg-cta-6-1" class="w"><b>perto.</b></em></span></div></div>
+
+  <audio id="voz-intro" data-start="0.2" data-duration="3.24" data-track-index="21" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="3.75" data-duration="10.128" data-track-index="21" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="14.2" data-duration="5.256" data-track-index="21" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-1" data-start="0" data-duration="0.8" data-track-index="22" data-volume="0.55" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-whooshc-1" data-start="1.6" data-duration="0.3" data-track-index="22" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-whoosh-1" data-start="3.2" data-duration="0.55" data-track-index="22" data-volume="0.34" src="assets/sfx/whoosh.wav"></audio>
+  <audio id="sfx-brilho-1" data-start="5.1" data-duration="0.9" data-track-index="22" data-volume="0.28" src="assets/sfx/brilho.wav"></audio>
+  <audio id="sfx-whooshc-2" data-start="6.66" data-duration="0.3" data-track-index="22" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-pop-1" data-start="8.0" data-duration="0.09" data-track-index="22" data-volume="0.28" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-whooshc-3" data-start="11.2" data-duration="0.3" data-track-index="22" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-subida-1" data-start="13.55" data-duration="0.4" data-media-start="1" data-track-index="22" data-volume="0.3" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-clique-1" data-start="16.641" data-duration="0.05" data-track-index="22" data-volume="0.45" src="assets/sfx/clique.wav"></audio>
+  <audio id="sfx-pop-2" data-start="18.0" data-duration="0.09" data-track-index="22" data-volume="0.25" src="assets/sfx/pop.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// ================= INTRO 1 (clipe G 0,25-1,80 s) =================
+tl.fromTo("#fl0", {opacity:0.9}, {opacity:0, duration:0.1, ease:"power1.out"}, 0);
+tl.fromTo("#camG1", {scale:1.2}, {scale:1.0, duration:0.4, ease:"power3.out"}, 0);
+tl.to("#camG1", {scale:1.03, duration:0.815, ease:"none"}, 0.4);
+tl.to("#camG1", {scale:1.07, duration:0.1, ease:"power2.out"}, 1.215);
+tl.to("#camG1", {scale:1.055, duration:0.2, ease:"power2.inOut"}, 1.315);
+// zoom com desfoque (origem no alto: a tampa fica no quadro) e corte
+tl.to("#camG1", {scale:1.2, filter:"blur(14px)", duration:0.12, ease:"power2.in"}, 1.6);
+// título do gancho
+tl.fromTo("#t1a", {scale:2.2, opacity:0, transformOrigin:"0% 50%"}, {scale:1, opacity:1, duration:0.3, ease:"back.out(1.6)"}, 0.03);
+tl.fromTo("#t1b", {x:-70, opacity:0}, {x:0, opacity:1, duration:0.22, ease:"power3.out"}, 0.24);
+tl.fromTo("#t1c", {clipPath:"inset(0% 100% 0% 0% round 40px)"}, {clipPath:"inset(0% 0% 0% 0% round 40px)", duration:0.3, ease:"power3.out"}, 0.6);
+
+// ================= INTRO 2 (clipe G 2,50-4,28 s): garrafa no alto, mesa seca embaixo =================
+// G2 fica sempre >= 1,1x com origem no alto: o MODUS pequeno da base fica abaixo da legenda, nunca cortado por ela
+tl.fromTo("#camG2", {scale:1.24, filter:"blur(14px)"}, {scale:1.1, filter:"blur(0px)", duration:0.18, ease:"power3.out"}, 1.72);
+tl.to("#camG2", {scale:1.11, duration:0.435, ease:"none"}, 1.9);
+// "poça": punch
+tl.to("#camG2", {scale:1.16, duration:0.1, ease:"power3.out"}, 2.335);
+tl.to("#camG2", {scale:1.14, duration:0.3, ease:"power2.inOut"}, 2.435);
+tl.to("#camG2", {scale:1.15, duration:0.765, ease:"none"}, 2.735);
+tl.fromTo("#t1a", {scale:1.14}, {scale:1, duration:0.28, ease:"back.out(2)", immediateRender:false}, 2.335);
+tl.to(["#t1a", "#t1b", "#t1c"], {y:-30, opacity:0, duration:0.14, ease:"power2.in"}, 3.26);
+
+// passada seca 1 (esquerda -> direita; cobre a tela no corte de 3,5 s)
+tl.fromTo("#wb1", {x:-2900}, {x:1400, duration:0.36, ease:"power1.inOut"}, 3.32);
+
+// ================= APRESENTAÇÃO 1 (clipe H 0-2,97 s) =================
+tl.fromTo("#camH1", {scale:1.1}, {scale:1.0, duration:0.4, ease:"power3.out"}, 3.5);
+tl.to("#camH1", {scale:1.03, duration:0.759, ease:"none"}, 3.9);
+// produto herói: cantoneiras de mira em volta da garrafa inteira no "MODUS" + punch
+tl.to("#camH1", {scale:1.065, duration:0.12, ease:"power2.out"}, 4.659);
+tl.to("#camH1", {scale:1.05, duration:0.3, ease:"power2.inOut"}, 4.779);
+tl.fromTo("#kH0",{x:-36,y:-36,opacity:0},{x:0,y:0,opacity:1,duration:0.22,ease:"back.out(2)"},4.619);
+tl.fromTo("#kH1",{x:36,y:-36,opacity:0},{x:0,y:0,opacity:1,duration:0.22,ease:"back.out(2)"},4.649);
+tl.fromTo("#kH2",{x:-36,y:36,opacity:0},{x:0,y:0,opacity:1,duration:0.22,ease:"back.out(2)"},4.679);
+tl.fromTo("#kH3",{x:36,y:36,opacity:0},{x:0,y:0,opacity:1,duration:0.22,ease:"back.out(2)"},4.709);
+tl.to(["#kH0","#kH1","#kH2","#kH3"],{opacity:0,duration:0.2,ease:"power1.in"},5.55);
+tl.to("#camH1", {scale:1.075, duration:1.581, ease:"none"}, 5.079);
+// zoom com desfoque e corte (pula o giro proibido do H)
+tl.to("#camH1", {scale:1.22, filter:"blur(12px)", duration:0.14, ease:"power2.in"}, 6.66);
+
+// ================= APRESENTAÇÃO 2 (clipe H 4,40-7,955 s) =================
+tl.fromTo("#camH2", {scale:1.18, filter:"blur(12px)"}, {scale:1.0, filter:"blur(0px)", duration:0.22, ease:"power3.out"}, 6.8);
+tl.to("#camH2", {scale:1.06, duration:0.1, ease:"power3.out"}, 7.026);
+tl.to("#camH2", {scale:1.04, duration:0.3, ease:"power2.inOut"}, 7.126);
+tl.fromTo("#t2a", {scale:1.8, opacity:0, transformOrigin:"50% 55%"}, {scale:1, opacity:1, duration:0.26, ease:"back.out(1.7)"}, 6.906);
+tl.fromTo("#t2b", {x:60, opacity:0}, {x:0, opacity:1, duration:0.22, ease:"power3.out"}, 7.245);
+tl.to("#camH2", {scale:1.05, duration:1.136, ease:"none"}, 7.426);
+// "tampa com vedação": anel cobalto desenha em volta da tampa (garrafa parada na mesa) + etiqueta
+tl.fromTo("#t2c", {clipPath:"inset(0% 100% 0% 0% round 40px)"}, {clipPath:"inset(0% 0% 0% 0% round 40px)", duration:0.3, ease:"power3.out"}, 8.013);
+tl.to(["#anB", "#an"], {attr:{"stroke-dashoffset":0}, duration:0.45, ease:"power2.inOut"}, 8.043);
+tl.to("#camH2", {scale:1.09, duration:0.1, ease:"power3.out"}, 8.562);
+tl.to("#camH2", {scale:1.075, duration:0.3, ease:"power2.inOut"}, 8.662);
+tl.to("#camH2", {scale:1.1, duration:0.08, ease:"power3.out"}, 9.352);
+tl.to("#camH2", {scale:1.085, duration:0.3, ease:"power2.inOut"}, 9.432);
+tl.fromTo(["#anB", "#an"], {opacity:1}, {opacity:0, duration:0.2, ease:"power1.in", immediateRender:false}, 10.0);
+tl.to("#camH2", {scale:1.11, duration:1.448, ease:"none"}, 9.732);
+tl.fromTo("#rod span", {scale:1.08}, {scale:1, duration:0.3, ease:"back.out(2)", transformOrigin:"0% 50%", immediateRender:false}, 10.083);
+tl.to(["#t2a", "#t2b", "#t2c"], {x:-80, opacity:0, duration:0.14, ease:"power2.in"}, 11.14);
+// chicote lateral e corte
+tl.to("#camH2", {x:-120, scale:1.3, filter:"blur(14px)", duration:0.12, ease:"power2.in"}, 11.18);
+
+// ================= APRESENTAÇÃO 3 (clipe G 4,50-6,75 s) =================
+tl.fromTo("#camG3", {x:140, scale:1.3, filter:"blur(14px)"}, {x:0, scale:1.02, filter:"blur(0px)", duration:0.2, ease:"power3.out"}, 11.3);
+tl.to("#camG3", {scale:1.04, duration:0.305, ease:"none"}, 11.5);
+tl.to("#camG3", {scale:1.08, duration:0.1, ease:"power3.out"}, 11.805);
+tl.to("#camG3", {scale:1.065, duration:0.3, ease:"power2.inOut"}, 11.905);
+tl.to("#camG3", {scale:1.075, duration:0.909, ease:"none"}, 12.205);
+tl.to("#camG3", {scale:1.11, duration:0.1, ease:"power3.out"}, 13.114);
+tl.to("#camG3", {scale:1.095, duration:0.3, ease:"power2.inOut"}, 13.214);
+tl.fromTo("#rod", {opacity:0}, {opacity:1, duration:0.2, ease:"power1.out"}, 3.55);
+
+// passada seca 2 (direita -> esquerda; cobre a tela no corte de 13,95 s)
+tl.fromTo("#wb2", {x:1400}, {x:-2900, duration:0.36, ease:"power1.inOut"}, 13.77);
+
+// ================= CTA (clipe I 1,00-6,00 s): mais calma =================
+tl.fromTo("#camI", {scale:1.08}, {scale:1.0, duration:0.5, ease:"power2.out"}, 13.95);
+tl.to("#camI", {scale:1.035, duration:2.191, ease:"none"}, 14.45);
+tl.fromTo("#kI0",{x:-36,y:-36,opacity:0},{x:0,y:0,opacity:1,duration:0.22,ease:"back.out(2)"},14.926);
+tl.fromTo("#kI1",{x:36,y:-36,opacity:0},{x:0,y:0,opacity:1,duration:0.22,ease:"back.out(2)"},14.956);
+tl.fromTo("#kI2",{x:-36,y:36,opacity:0},{x:0,y:0,opacity:1,duration:0.22,ease:"back.out(2)"},14.986);
+tl.fromTo("#kI3",{x:36,y:36,opacity:0},{x:0,y:0,opacity:1,duration:0.22,ease:"back.out(2)"},15.016);
+tl.to(["#kI0","#kI1","#kI2","#kI3"],{opacity:0,duration:0.2,ease:"power1.in"},15.95);
+tl.fromTo("#swI-b", {x:0, rotation:16}, {x:1100, rotation:16, duration:0.75, ease:"power1.inOut"}, 15.4);
+// "Toque": título + botão com seta para baixo/esquerda + ondas
+tl.to("#camI", {scale:1.065, duration:0.1, ease:"power3.out"}, 16.641);
+tl.to("#camI", {scale:1.05, duration:0.35, ease:"power2.inOut"}, 16.741);
+tl.to("#camI", {scale:1.075, duration:2.409, ease:"none"}, 17.091);
+tl.fromTo("#t3a", {scale:1.8, opacity:0, transformOrigin:"50% 55%"}, {scale:1, opacity:1, duration:0.26, ease:"back.out(1.7)"}, 16.611);
+tl.fromTo("#t3b", {x:60, opacity:0}, {x:0, opacity:1, duration:0.22, ease:"power3.out"}, 16.904);
+tl.fromTo("#t3c", {clipPath:"inset(0% 100% 0% 0% round 40px)"}, {clipPath:"inset(0% 0% 0% 0% round 40px)", duration:0.3, ease:"power3.out"}, 18.042);
+tl.fromTo("#tq-b", {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.24, ease:"back.out(2.2)"}, 16.641);
+tl.fromTo("#tq-s", {x:0, y:0}, {x:-7, y:7, duration:0.22, yoyo:true, repeat:9, ease:"sine.inOut"}, 16.941);
+tl.fromTo("#tq-o1", {scale:0.6, opacity:0}, {keyframes:[{opacity:0.95, duration:0.02}, {scale:2.0, opacity:0, duration:0.63}], ease:"power2.out"}, 16.641);
+tl.fromTo("#tq-o2", {scale:0.6, opacity:0}, {keyframes:[{opacity:0.95, duration:0.02}, {scale:2.0, opacity:0, duration:0.63}], ease:"power2.out"}, 17.384);
+tl.fromTo("#tq-o3", {scale:0.6, opacity:0}, {keyframes:[{opacity:0.95, duration:0.02}, {scale:2.0, opacity:0, duration:0.63}], ease:"power2.out"}, 18.728);
+
+// ================= legenda =================
+tl.fromTo("#lg-int-0-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},0.218);
+tl.fromTo("#lg-int-0-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},0.654);
+tl.fromTo("#lg-int-0-2h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},0.755);
+tl.fromTo("#lg-int-0-2b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},0.785);
+tl.fromTo("#lg-int-0-2",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},0.725);
+tl.fromTo("#lg-int-0-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},0.208);
+tl.fromTo("#lg-int-1-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},1.09);
+tl.fromTo("#lg-int-1-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},1.215);
+tl.fromTo("#lg-int-1-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},1.245);
+tl.fromTo("#lg-int-1-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},1.185);
+tl.fromTo("#lg-int-1-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},1.08);
+tl.fromTo("#lg-int-2-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},1.692);
+tl.fromTo("#lg-int-2-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},1.751);
+tl.fromTo("#lg-int-2-2",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},2.046);
+tl.fromTo("#lg-int-2-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},1.682);
+tl.fromTo("#lg-int-3-0h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},2.335);
+tl.fromTo("#lg-int-3-0b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},2.365);
+tl.fromTo("#lg-int-3-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},2.305);
+tl.fromTo("#lg-int-3-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},2.588);
+tl.fromTo("#lg-int-3-2",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},2.683);
+tl.fromTo("#lg-int-3-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},2.295);
+tl.fromTo("#lg-apr-0-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},3.768);
+tl.fromTo("#lg-apr-0-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},4.204);
+tl.fromTo("#lg-apr-0-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},3.758);
+tl.fromTo("#lg-apr-1-0h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},4.659);
+tl.fromTo("#lg-apr-1-0b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},4.689);
+tl.fromTo("#lg-apr-1-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},4.629);
+tl.fromTo("#lg-apr-1-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},4.619);
+tl.fromTo("#lg-apr-2-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},5.277);
+tl.fromTo("#lg-apr-2-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},5.267);
+tl.fromTo("#lg-apr-3-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},5.832);
+tl.fromTo("#lg-apr-3-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},5.956);
+tl.fromTo("#lg-apr-3-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},5.986);
+tl.fromTo("#lg-apr-3-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},5.926);
+tl.fromTo("#lg-apr-3-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},5.822);
+tl.fromTo("#lg-apr-4-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},6.374);
+tl.fromTo("#lg-apr-4-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},6.527);
+tl.fromTo("#lg-apr-4-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},6.364);
+tl.fromTo("#lg-apr-5-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},6.704);
+tl.fromTo("#lg-apr-5-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},6.946);
+tl.fromTo("#lg-apr-5-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},6.976);
+tl.fromTo("#lg-apr-5-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},6.916);
+tl.fromTo("#lg-apr-5-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},6.694);
+tl.fromTo("#lg-apr-6-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},7.235);
+tl.fromTo("#lg-apr-6-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},7.376);
+tl.fromTo("#lg-apr-6-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},7.225);
+tl.fromTo("#lg-apr-7-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},7.907);
+tl.fromTo("#lg-apr-7-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},8.043);
+tl.fromTo("#lg-apr-7-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},8.073);
+tl.fromTo("#lg-apr-7-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},8.013);
+tl.fromTo("#lg-apr-7-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},7.897);
+tl.fromTo("#lg-apr-8-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},8.379);
+tl.fromTo("#lg-apr-8-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},8.562);
+tl.fromTo("#lg-apr-8-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},8.592);
+tl.fromTo("#lg-apr-8-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},8.532);
+tl.fromTo("#lg-apr-8-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},8.369);
+tl.fromTo("#lg-apr-9-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},9.004);
+tl.fromTo("#lg-apr-9-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},9.352);
+tl.fromTo("#lg-apr-9-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},9.382);
+tl.fromTo("#lg-apr-9-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},9.322);
+tl.fromTo("#lg-apr-9-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},8.994);
+tl.fromTo("#lg-apr-10-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},10.053);
+tl.fromTo("#lg-apr-10-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},10.442);
+tl.fromTo("#lg-apr-10-2",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},10.454);
+tl.fromTo("#lg-apr-10-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},10.043);
+tl.fromTo("#lg-apr-11-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},11.468);
+tl.fromTo("#lg-apr-11-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},11.805);
+tl.fromTo("#lg-apr-11-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},11.835);
+tl.fromTo("#lg-apr-11-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},11.775);
+tl.fromTo("#lg-apr-11-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},11.458);
+tl.fromTo("#lg-apr-12-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},12.565);
+tl.fromTo("#lg-apr-12-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},12.683);
+tl.fromTo("#lg-apr-12-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},12.555);
+tl.fromTo("#lg-apr-13-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},12.978);
+tl.fromTo("#lg-apr-13-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},13.114);
+tl.fromTo("#lg-apr-13-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},13.144);
+tl.fromTo("#lg-apr-13-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},13.084);
+tl.fromTo("#lg-apr-13-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},12.968);
+tl.fromTo("#lg-cta-0-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},14.217);
+tl.fromTo("#lg-cta-0-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},14.866);
+tl.fromTo("#lg-cta-0-2h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},14.966);
+tl.fromTo("#lg-cta-0-2b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},14.996);
+tl.fromTo("#lg-cta-0-2",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},14.936);
+tl.fromTo("#lg-cta-0-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},14.207);
+tl.fromTo("#lg-cta-1-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},15.373);
+tl.fromTo("#lg-cta-1-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},15.491);
+tl.fromTo("#lg-cta-1-2",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},15.703);
+tl.fromTo("#lg-cta-1-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},15.363);
+tl.fromTo("#lg-cta-2-0h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},16.641);
+tl.fromTo("#lg-cta-2-0b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},16.671);
+tl.fromTo("#lg-cta-2-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},16.611);
+tl.fromTo("#lg-cta-2-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},16.601);
+tl.fromTo("#lg-cta-3-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},16.894);
+tl.fromTo("#lg-cta-3-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},17.018);
+tl.fromTo("#lg-cta-3-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},17.048);
+tl.fromTo("#lg-cta-3-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},16.988);
+tl.fromTo("#lg-cta-3-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},16.884);
+tl.fromTo("#lg-cta-4-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},17.354);
+tl.fromTo("#lg-cta-4-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},17.344);
+tl.fromTo("#lg-cta-5-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},18.003);
+tl.fromTo("#lg-cta-5-1h",{scaleX:0},{scaleX:1,duration:0.14,ease:"power3.out"},18.092);
+tl.fromTo("#lg-cta-5-1b",{color:"#0F1317"},{color:"#F6F4EE",duration:0.08,ease:"none"},18.122);
+tl.fromTo("#lg-cta-5-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},18.062);
+tl.fromTo("#lg-cta-5-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},17.993);
+tl.fromTo("#lg-cta-6-0",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},18.604);
+tl.fromTo("#lg-cta-6-1",{opacity:0.2,y:12},{opacity:1,y:0,duration:0.11,ease:"power2.out"},18.698);
+tl.fromTo("#lg-cta-6-p",{scale:0.93,y:10},{scale:1,y:0,duration:0.15,ease:"back.out(2.2)"},18.594);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

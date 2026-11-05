@@ -1,0 +1,34 @@
+{
+ "codigo": "bodysplash",
+ "lote": "C",
+ "descricao_produto": "(sem clipe novo: combinação cruzada dos clipes do lote B + arte do vendedor FotoStudio.jpeg)",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "E",
+   "fala": "Tá usando o mesmo cheiro de manhã e de noite?",
+   "titulo": "Um cheiro só?",
+   "linha": "de manhã e de noite",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "D",
+   "fala": "Kit Body Man, da Primacial. Pro dia, Enigma e Midtown. Pra noite, Barbarius. Leve, pra borrifar na pele e renovar sempre que quiser.",
+   "titulo": "Dia e noite",
+   "linha": "num kit só",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "cta",
+   "clipe": "F",
+   "fala": "Dia e noite no mesmo kit. Toca no produto pra ver.",
+   "titulo": "Toque no produto",
+   "linha": "e confira no TikTok Shop",
+   "rodape": "",
+   "prompt": ""
+  }
+ ]
+}

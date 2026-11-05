@@ -1,0 +1,83 @@
+{
+ "codigo": "extensao",
+ "lote": "F",
+ "tipo": "rotacao sem clipe novo (0 credito)",
+ "descricao_produto": "(sem clipe novo: rotacao com clipes O e N do lote E, G do lote C e J do lote D; video curto de ~11 s, formato do body splash D encurtado: pergunta de escolha no quadro 0, letreiro por corte na apresentacao, CTA de comentario antes do toque)",
+ "opcao_escolhida": 1,
+ "angulo": "Vertical ou horizontal? A propria imagem e a pergunta: no clipe O os dedos giram a extensao de vertical para deitada (intro) e de volta para vertical (CTA). Apresentacao em tour de tres cortes: USB (N), botao liga/desliga com LED acendendo (G), plugue entrando na tomada (J)",
+ "angulo_reserva": "Mesa ou criado-mudo? Mesma ordem de trechos e mesma apresentacao; CTA 'Comenta onde ficaria e toca no produto.'",
+ "duracao_prevista": "cerca de 10,8 s (intro 2,4 + apresentacao 5,25 + CTA 3,15)",
+ "ordem_trechos": "O 1,5-3,9 | N 0,9-3,2 > G 0,75-2,2 > J 1,5-3,0 | O 4,7-7,85 (tudo a 1,0x, tela cheia)",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "O",
+   "trecho": "O 1,5-3,9 s (lote E, papel amarelo, vista de cima; 1,0x; dedos giram a extensao de vertical ate deitada). 'vertical' com a extensao ainda vertical, 'horizontal' com ela quase deitada. PROIBIDO O 3,95-4,65 s. Total 2,4 s",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Você prefere vertical ou horizontal?",
+   "titulo": "EM PÉ OU DEITADA?",
+   "linha": "vertical ou horizontal",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "N",
+   "complemento": "G 0,75-2,2 s (lote C, criado-mudo de nogueira a noite: dedo aperta o botao, LED vermelho acende em G 2,0 s; subir a mao) e J 1,5-3,0 s (lote D, mesa preta de setup com neon: mao encaixa o plugue na 1a tomada)",
+   "trecho": "N 0,9-3,2 s (lote E, cobalto; dedos empurram a extensao, sobe e desce; fala 'Extensao filtro de linha com USB') -> G 0,75-2,2 s ('Botao liga e desliga'; LED acende no 'desliga'; se precisar, estender G ate 2,35 s) -> J 1,5-3,0 s ('Cinco tomadas'). Tudo a 1,0x, ~5,2 s",
+   "letreiro": "um por corte, no ritmo da fala: 4 USB (N) -> LIGA/DESLIGA (G) -> 5 TOMADAS (J)",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Extensão filtro de linha com USB. Botão liga e desliga. Cinco tomadas.",
+   "titulo": "EXTENSÃO COM USB",
+   "linha": "tipo C • liga/desliga",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "cta",
+   "clipe": "J",
+   "trecho": "ATENCAO: a CTA usa O 4,7-7,85 s (lote E, papel amarelo; 1,0x; extensao gira de volta ate ficar vertical), NAO o J. O campo clipe = J so para o preparar.py subir o J da apresentacao. Nao emendar O 3,9 direto em O 4,7. Total 3,15 s",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Comenta qual prefere e toca no produto pra conferir.",
+   "fala_reserva_curta": "Comenta qual prefere e toca no produto.",
+   "titulo": "COMENTA A SUA",
+   "linha": "e toca no produto",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  }
+ ],
+ "opcao_2": [
+  {
+   "parte": "intro",
+   "clipe": "O",
+   "fala": "Fica na mesa ou no criado-mudo?",
+   "titulo": "MESA OU CABECEIRA?",
+   "linha": "onde fica a sua?",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "N",
+   "complemento": "G 0,75-2,2 s e J 1,5-3,0 s",
+   "letreiro": "4 USB -> LIGA/DESLIGA -> 5 TOMADAS",
+   "fala": "Extensão filtro de linha com USB. Botão liga e desliga. Cinco tomadas.",
+   "titulo": "EXTENSÃO COM USB",
+   "linha": "tipo C • liga/desliga",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "cta",
+   "clipe": "J",
+   "fala": "Comenta onde ficaria e toca no produto.",
+   "titulo": "ONDE FICARIA?",
+   "linha": "comenta e toca no produto",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  }
+ ]
+}

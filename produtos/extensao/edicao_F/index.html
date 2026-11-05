@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Archivo Giro";src:local("Archivo Black Regular"),local("ArchivoBlack-Regular"),local("Archivo Black")}
+@font-face{font-family:"Pop Giro";font-weight:800;src:local("Poppins ExtraBold"),local("Poppins-ExtraBold")}
+:root{--tinta:#0F1733;--tang:#FF8A1F;--creme:#FFF5E6}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0F1733}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#0F1733;font-family:"Pop Giro";font-weight:800}
+.clip{position:absolute;inset:0}
+.lay{position:absolute;inset:0}
+.cam{position:absolute;inset:0;overflow:hidden;z-index:1}
+.full{width:100%;height:100%;object-fit:cover}
+#camO1{transform-origin:50% 45%}
+#camN{transform-origin:35% 58%}
+#camG{transform-origin:35% 41%}
+#camJ{transform-origin:60% 42%}
+#camO2{transform-origin:50% 45%}
+/* degradê só no alto (para em 22 %: não tinge a extensão) */
+.topo{z-index:3;background:linear-gradient(to bottom,rgba(15,23,51,.62) 0,rgba(15,23,51,.3) 12%,rgba(15,23,51,0) 22%)}
+.flash{z-index:13;background:#FFFFFF;opacity:0}
+/* transição: painel opaco gira 90° em torno de um canto, borda dura tangerina */
+.sw{z-index:9;overflow:hidden}
+.pan{position:absolute;display:block;width:2400px;height:2400px;background:var(--tinta);box-shadow:inset 0 0 0 26px var(--tang)}
+.pan.bl{left:0;top:-480px;transform-origin:0 2400px}
+.pan.tr{left:-1320px;top:0;transform-origin:2400px 0}
+/* títulos */
+.titulo{z-index:10}
+.tt{position:absolute;display:block;font-family:"Archivo Giro";font-weight:400;line-height:1;white-space:nowrap;color:var(--creme);
+  -webkit-text-stroke:10px var(--tinta);paint-order:stroke fill;text-shadow:0 8px 22px rgba(0,0,0,.45);letter-spacing:1px}
+.tt .t{color:var(--tang)}
+.mask{position:absolute;left:50px;width:868px;overflow:hidden;display:flex;justify-content:center;padding-top:6px}
+.pill{position:absolute;display:block;white-space:nowrap;background:var(--tinta);color:var(--creme);font-family:"Pop Giro";font-weight:800;
+  font-size:34px;line-height:1;padding:12px 26px 14px;border-radius:12px;box-shadow:inset 0 0 0 4px var(--tang),0 10px 24px rgba(0,0,0,.4)}
+.pill b{font-weight:800;color:var(--tang)}
+/* mostrador 90° */
+.dial{position:absolute;display:block}
+.dial svg{display:block;width:100%;height:100%;overflow:visible}
+/* letreiro que vira 90° a cada corte */
+#slot{position:absolute;left:164px;top:322px;width:640px;height:98px;display:block;border-radius:14px;background:var(--tang);
+  box-shadow:0 0 0 6px var(--tinta),0 14px 30px rgba(0,0,0,.45);overflow:hidden}
+#slot b{position:absolute;left:0;top:0;width:640px;height:98px;display:block;font-family:"Archivo Giro";font-weight:400;font-size:64px;
+  line-height:98px;text-align:center;color:var(--tinta);letter-spacing:2px;opacity:0}
+/* CTA: chips da enquete + botão com seta para baixo/esquerda */
+.chip{position:absolute;top:276px;display:block;background:var(--tinta);color:var(--creme);font-family:"Archivo Giro";font-weight:400;
+  font-size:50px;line-height:1;padding:16px 28px 18px;border-radius:14px;box-shadow:inset 0 0 0 5px var(--tang),0 12px 26px rgba(0,0,0,.45)}
+#toque{z-index:12}
+#tq-b{position:absolute;left:56px;top:1410px;width:116px;height:116px;display:block;border-radius:50%;background:var(--tang);
+  box-shadow:0 0 0 7px var(--tinta),0 12px 26px rgba(0,0,0,.5)}
+#tq-b svg{display:block;width:116px;height:116px}
+#tq-o{position:absolute;left:56px;top:1410px;width:116px;height:116px;display:block;border:8px solid var(--tang);border-radius:50%;opacity:0}
+/* legenda: branco com contorno tinta; palavra-chave numa etiqueta tangerina que deita (-90° -> 0°) */
+.legenda{z-index:11}
+.cap{position:absolute;display:flex;justify-content:center;align-items:flex-start;gap:20px;flex-wrap:nowrap}
+.pal{position:relative;display:block;font-family:"Pop Giro";font-weight:800;font-size:74px;line-height:1.12;white-space:nowrap;color:#FFFFFF;
+  -webkit-text-stroke:8px var(--tinta);paint-order:stroke fill;text-shadow:0 8px 18px rgba(0,0,0,.5)}
+.pal.ch{color:var(--tinta);-webkit-text-stroke:0;text-shadow:none;padding:0 14px}
+.tag{position:absolute;left:0;right:0;top:6px;bottom:2px;display:block;border-radius:12px;background:var(--tang);transform-origin:0% 100%;
+  box-shadow:0 0 0 5px var(--tinta),0 10px 22px rgba(0,0,0,.45)}
+.tx{position:relative;z-index:1;display:block;font-style:normal}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="11.76" data-width="1080" data-height="1920">
+  <!-- INTRO: O 1,50-3,90 (dedos giram a extensão de em pé até deitada) -->
+  <div id="camO1" class="cam"><video id="vO1" class="clip full" data-start="0" data-duration="2.4" data-media-start="1.5" data-track-index="0" src="assets/clipe_O.mp4" muted playsinline></video></div>
+  <!-- APRESENTAÇÃO: N (empurra, sobe/desce) -> G (botão, LED) -> J (plugue na 1ª tomada) -->
+  <div id="camN" class="cam"><video id="vN" class="clip full" data-start="2.4" data-duration="2.78" data-media-start="0.9" data-track-index="1" src="assets/clipe_N.mp4" muted playsinline></video></div>
+  <div id="camG" class="cam"><video id="vG" class="clip full" data-start="5.18" data-duration="1.8" data-media-start="0.6" data-track-index="0" src="assets/clipe_G.mp4" muted playsinline></video></div>
+  <div id="camJ" class="cam"><video id="vJ" class="clip full" data-start="6.98" data-duration="1.65" data-media-start="1.5" data-track-index="1" src="assets/clipe_J.mp4" muted playsinline></video></div>
+  <!-- CTA: O 4,70-7,83 (gira de volta até ficar em pé; separado do 1º trecho de O pela apresentação) -->
+  <div id="camO2" class="cam"><video id="vO2" class="clip full" data-start="8.63" data-duration="3.13" data-media-start="4.7" data-track-index="0" src="assets/clipe_O.mp4" muted playsinline></video></div>
+
+  <div id="topo" class="clip topo" data-start="0" data-duration="11.76" data-track-index="2"></div>
+  <div id="sw1" class="clip sw" data-start="2.23" data-duration="0.34" data-track-index="9"><i id="sw1-p" class="pan bl"></i></div>
+  <div id="sw2" class="clip sw" data-start="5.01" data-duration="0.34" data-track-index="8"><i id="sw2-p" class="pan tr"></i></div>
+  <div id="sw3" class="clip sw" data-start="6.81" data-duration="0.34" data-track-index="9"><i id="sw3-p" class="pan bl"></i></div>
+  <div id="sw4" class="clip sw" data-start="8.46" data-duration="0.34" data-track-index="8"><i id="sw4-p" class="pan bl"></i></div>
+
+  <!-- intro: "EM PÉ / OU DEITADA?" no quadro 0; o ponteiro do mostrador vai de 12 h a 3 h junto com a extensão -->
+  <div id="t1" class="clip titulo" data-start="0" data-duration="2.4" data-track-index="3">
+    <div id="t1-b" class="lay">
+      <div id="t1-a" class="tt" style="left:60px;top:150px;font-size:150px">EM PÉ</div>
+      <span id="d1" class="dial" style="left:668px;top:162px;width:132px;height:132px"><svg viewBox="0 0 132 132">
+        <circle cx="66" cy="66" r="56" fill="#0F1733" stroke="#FF8A1F" stroke-width="10"/>
+        <circle cx="66" cy="10" r="6" fill="#FFF5E6"/><circle cx="122" cy="66" r="6" fill="#FFF5E6"/>
+        <g id="d1-h"><path d="M66 66 L66 26" stroke="#FFF5E6" stroke-width="12" stroke-linecap="round"/></g>
+        <circle cx="66" cy="66" r="9" fill="#FF8A1F"/></svg></span>
+      <div id="t1-c" class="tt" style="left:60px;top:322px;font-size:100px">OU <span class="t">DEITADA?</span></div>
+    </div>
+  </div>
+
+  <!-- apresentação: título + linha + letreiro que vira a cada corte -->
+  <div id="t2" class="clip titulo" data-start="2.4" data-duration="6.23" data-track-index="4">
+    <div id="t2-b" class="lay">
+      <div class="mask" style="top:160px;height:92px"><div id="t2-a" class="tt" style="position:relative;font-size:72px">EXTENSÃO <span class="t">COM USB</span></div></div>
+      <div style="position:absolute;left:50px;width:868px;top:256px;display:flex;justify-content:center"><span id="t2-p" class="pill" style="position:relative;font-size:34px;padding:10px 24px 12px">tipo C <b>•</b> liga/desliga</span></div>
+      <span id="slot"><b id="s1">4 USB</b><b id="s2">LIGA/DESLIGA</b><b id="s3">5 TOMADAS</b></span>
+    </div>
+  </div>
+
+  <!-- CTA: "COMENTA A SUA", enquete EM PÉ / DEITADA com o ponteiro voltando, "e toca no produto" -->
+  <div id="t3" class="clip titulo" data-start="8.63" data-duration="3.13" data-track-index="5">
+    <div class="mask" style="top:150px;height:104px"><div id="t3-a" class="tt" style="position:relative;font-size:86px">COMENTA <span class="t">A SUA</span></div></div>
+    <span id="c1" class="chip" style="left:150px">EM PÉ</span>
+    <span id="d2" class="dial" style="left:418px;top:268px;width:104px;height:104px"><svg viewBox="0 0 132 132">
+      <circle cx="66" cy="66" r="56" fill="#0F1733" stroke="#FF8A1F" stroke-width="10"/>
+      <circle cx="66" cy="10" r="6" fill="#FFF5E6"/><circle cx="122" cy="66" r="6" fill="#FFF5E6"/>
+      <g id="d2-h"><path d="M66 66 L66 26" stroke="#FFF5E6" stroke-width="12" stroke-linecap="round"/></g>
+      <circle cx="66" cy="66" r="9" fill="#FF8A1F"/></svg></span>
+    <span id="c2" class="chip" style="left:546px">DEITADA</span>
+    <div style="position:absolute;left:50px;width:868px;top:282px;display:flex;justify-content:center"><span id="t3-p" class="pill" style="position:relative;font-size:44px;padding:12px 28px 14px;opacity:0">e <b>toca</b> no produto</span></div>
+  </div>
+  <div id="toque" class="clip" data-start="10.142" data-duration="1.618" data-track-index="6">
+    <i id="tq-o"></i>
+    <span id="tq-b"><svg id="tq-s" viewBox="0 0 116 116"><path d="M78 38 L40 76 M38 48 L38 78 L68 78" fill="none" stroke="#0F1733" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </div>
+
+  <div id="fl1" class="clip flash" data-start="0" data-duration="0.12" data-track-index="7"></div>
+
+  <div id="leg-int-0" class="clip legenda" data-start="0.158" data-duration="0.625" data-track-index="12"><div id="leg-int-0-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-int-0-0" class="pal"><em class="tx">Você</em></span><span id="leg-int-0-1" class="pal"><em class="tx">prefere</em></span></div></div>
+  <div id="leg-int-1" class="clip legenda" data-start="0.783" data-duration="0.766" data-track-index="12"><div id="leg-int-1-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-int-1-0" class="pal ch"><i id="leg-int-1-0-t" class="tag"></i><em class="tx">vertical</em></span></div></div>
+  <div id="leg-int-2" class="clip legenda" data-start="1.549" data-duration="0.851" data-track-index="12"><div id="leg-int-2-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-int-2-0" class="pal"><em class="tx">ou</em></span><span id="leg-int-2-1" class="pal ch"><i id="leg-int-2-1-t" class="tag"></i><em class="tx">horizontal?</em></span></div></div>
+  <div id="leg-apr-0" class="clip legenda" data-start="2.688" data-duration="0.531" data-track-index="12"><div id="leg-apr-0-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-apr-0-0" class="pal"><em class="tx">Extensão</em></span></div></div>
+  <div id="leg-apr-1" class="clip legenda" data-start="3.219" data-duration="0.813" data-track-index="12"><div id="leg-apr-1-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-apr-1-0" class="pal"><em class="tx">filtro</em></span><span id="leg-apr-1-1" class="pal"><em class="tx">de</em></span><span id="leg-apr-1-2" class="pal"><em class="tx">linha</em></span></div></div>
+  <div id="leg-apr-2" class="clip legenda" data-start="4.032" data-duration="1.191" data-track-index="12"><div id="leg-apr-2-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-apr-2-0" class="pal"><em class="tx">com</em></span><span id="leg-apr-2-1" class="pal ch"><i id="leg-apr-2-1-t" class="tag"></i><em class="tx">USB.</em></span></div></div>
+  <div id="leg-apr-3" class="clip legenda" data-start="5.223" data-duration="0.46" data-track-index="12"><div id="leg-apr-3-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-apr-3-0" class="pal"><em class="tx">Botão</em></span></div></div>
+  <div id="leg-apr-4" class="clip legenda" data-start="5.683" data-duration="1.58" data-track-index="12"><div id="leg-apr-4-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-apr-4-0" class="pal"><em class="tx">liga</em></span><span id="leg-apr-4-1" class="pal"><em class="tx">e</em></span><span id="leg-apr-4-2" class="pal ch"><i id="leg-apr-4-2-t" class="tag"></i><em class="tx">desliga.</em></span></div></div>
+  <div id="leg-apr-5" class="clip legenda" data-start="7.263" data-duration="1.366" data-track-index="12"><div id="leg-apr-5-c" class="cap" style="left:40px;width:878px;top:1450px"><span id="leg-apr-5-0" class="pal"><em class="tx">Cinco</em></span><span id="leg-apr-5-1" class="pal ch"><i id="leg-apr-5-1-t" class="tag"></i><em class="tx">tomadas.</em></span></div></div>
+  <div id="leg-cta-0" class="clip legenda" data-start="8.729" data-duration="0.424" data-track-index="12"><div id="leg-cta-0-c" class="cap" style="left:196px;width:722px;top:1450px"><span id="leg-cta-0-0" class="pal ch"><i id="leg-cta-0-0-t" class="tag"></i><em class="tx">Comenta</em></span></div></div>
+  <div id="leg-cta-1" class="clip legenda" data-start="9.153" data-duration="0.838" data-track-index="12"><div id="leg-cta-1-c" class="cap" style="left:196px;width:722px;top:1450px"><span id="leg-cta-1-0" class="pal"><em class="tx">qual</em></span><span id="leg-cta-1-1" class="pal"><em class="tx">prefere</em></span></div></div>
+  <div id="leg-cta-2" class="clip legenda" data-start="9.991" data-duration="0.436" data-track-index="12"><div id="leg-cta-2-c" class="cap" style="left:196px;width:722px;top:1450px"><span id="leg-cta-2-0" class="pal"><em class="tx">e</em></span><span id="leg-cta-2-1" class="pal ch"><i id="leg-cta-2-1-t" class="tag"></i><em class="tx">toca</em></span></div></div>
+  <div id="leg-cta-3" class="clip legenda" data-start="10.427" data-duration="0.507" data-track-index="12"><div id="leg-cta-3-c" class="cap" style="left:196px;width:722px;top:1450px"><span id="leg-cta-3-0" class="pal"><em class="tx">no</em></span><span id="leg-cta-3-1" class="pal"><em class="tx">produto</em></span></div></div>
+  <div id="leg-cta-4" class="clip legenda" data-start="10.934" data-duration="0.826" data-track-index="12"><div id="leg-cta-4-c" class="cap" style="left:196px;width:722px;top:1450px"><span id="leg-cta-4-0" class="pal"><em class="tx">pra</em></span><span id="leg-cta-4-1" class="pal"><em class="tx">conferir.</em></span></div></div>
+
+  <audio id="voz-intro" data-start="0.15" data-duration="2.48" data-track-index="13" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="2.68" data-duration="5.976" data-track-index="13" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="8.71" data-duration="3.05" data-track-index="13" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-1" data-start="0" data-duration="0.8" data-track-index="14" data-volume="0.6" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-wc-1" data-start="2.4" data-duration="0.4" data-track-index="15" data-volume="0.34" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-wc-2" data-start="5.06" data-duration="0.4" data-track-index="14" data-volume="0.36" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-wc-3" data-start="6.96" data-duration="0.4" data-track-index="15" data-volume="0.34" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-subida-1" data-start="8.13" data-duration="0.5" data-media-start="0.9" data-track-index="14" data-volume="0.34" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-clique-1" data-start="10.142" data-duration="0.05" data-track-index="15" data-volume="0.5" src="assets/sfx/clique.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// ---- INTRO (O 1,50-3,90): flash fraco + punch-in + tremor no quadro 0; título bate; ponteiro 12 h -> 3 h ----
+tl.fromTo("#fl1", {opacity:0.25}, {opacity:0, duration:0.1, ease:"power1.out"}, 0);
+tl.fromTo("#camO1", {scale:1.18}, {scale:1.0, duration:0.4, ease:"power3.out"}, 0);
+tl.to("#camO1", {scale:1.045, duration:1.8, ease:"none"}, 0.4);
+tl.fromTo("#camO1", {x:0, y:0}, {keyframes:[{x:16, y:-9, duration:0.05}, {x:-13, y:7, duration:0.06}, {x:9, y:-5, duration:0.06}, {x:-5, y:3, duration:0.07}, {x:0, y:0, duration:0.08}], ease:"none", immediateRender:false}, 0.02);
+tl.fromTo("#t1-a", {scale:1.08, transformOrigin:"0% 60%"}, {scale:1, duration:0.3, ease:"back.out(1.7)"}, 0);
+tl.fromTo("#t1-c", {x:-24}, {x:0, duration:0.28, ease:"power3.out"}, 0);
+tl.fromTo("#d1", {scale:0.8}, {scale:1, duration:0.32, ease:"back.out(1.8)"}, 0);
+tl.fromTo("#d1-h", {rotation:0, svgOrigin:"66 66"}, {rotation:90, svgOrigin:"66 66", duration:2.15, ease:"sine.inOut"}, 0.12);
+tl.fromTo("#t1-a", {scale:1}, {scale:1.08, duration:0.12, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 0.793);
+tl.fromTo("#t1-c", {scale:1, transformOrigin:"0% 60%"}, {scale:1.08, duration:0.12, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 1.725);
+tl.to("#t1-b", {rotation:12, x:60, opacity:0, duration:0.15, ease:"power2.in", transformOrigin:"0% 0%"}, 2.23);
+
+// ---- transições: painel gira 90° em torno do canto ----
+tl.fromTo("#sw1-p",{rotation:-90},{rotation:0,duration:0.15,ease:"power2.in"},2.23);
+tl.to("#sw1-p",{rotation:90,duration:0.15,ease:"power2.out"},2.42);
+tl.fromTo("#sw2-p",{rotation:-90},{rotation:0,duration:0.15,ease:"power2.in"},5.01);
+tl.to("#sw2-p",{rotation:90,duration:0.15,ease:"power2.out"},5.2);
+tl.fromTo("#sw3-p",{rotation:-90},{rotation:0,duration:0.15,ease:"power2.in"},6.81);
+tl.to("#sw3-p",{rotation:90,duration:0.15,ease:"power2.out"},7.0);
+tl.fromTo("#sw4-p",{rotation:90},{rotation:0,duration:0.15,ease:"power2.in"},8.46);
+tl.to("#sw4-p",{rotation:-90,duration:0.15,ease:"power2.out"},8.65);
+
+// ---- APRESENTAÇÃO ----
+// N: entra levemente aberta; punch no "USB"
+tl.fromTo("#camN", {scale:1.08}, {scale:1.02, duration:0.3, ease:"power3.out"}, 2.4);
+tl.to("#camN", {scale:1.05, duration:1.589, ease:"none"}, 2.7);
+tl.to("#camN", {scale:1.11, duration:0.13, ease:"power2.out"}, 4.292);
+tl.to("#camN", {scale:1.08, duration:0.4, ease:"power2.inOut"}, 4.422);
+tl.to("#camN", {scale:1.09, duration:0.358, ease:"none"}, 4.822);
+// G (produto herói): a câmera fecha no botão e no LED; punch quando o LED acende, no "desliga"
+tl.fromTo("#camG", {scale:1.03}, {scale:1.1, duration:0.543, ease:"power2.inOut"}, 5.18);
+tl.to("#camG", {scale:1.13, duration:0.814, ease:"none"}, 5.723);
+tl.to("#camG", {scale:1.21, duration:0.14, ease:"power2.out"}, 6.54);
+tl.to("#camG", {scale:1.19, duration:0.3, ease:"none"}, 6.68);
+// J: punch no "Cinco"
+tl.fromTo("#camJ", {scale:1.08}, {scale:1.02, duration:0.2, ease:"power3.out"}, 6.98);
+tl.to("#camJ", {scale:1.04, duration:0.08, ease:"none"}, 7.18);
+tl.to("#camJ", {scale:1.1, duration:0.13, ease:"power2.out"}, 7.263);
+tl.to("#camJ", {scale:1.08, duration:1.237, ease:"power2.out"}, 7.393);
+// título, linha e letreiro (vira 90° em cada corte)
+tl.fromTo("#t2-a", {yPercent:110}, {yPercent:0, duration:0.3, ease:"power3.out"}, 2.688);
+tl.fromTo("#t2-p", {clipPath:"inset(0% 100% 0% 0% round 12px)"}, {clipPath:"inset(0% 0% 0% 0% round 12px)", duration:0.28, ease:"power3.out"}, 3.229);
+tl.fromTo("#slot", {rotation:-90, opacity:0, transformOrigin:"0% 100%"}, {rotation:0, opacity:1, duration:0.26, ease:"back.out(1.5)"}, 4.272);
+tl.fromTo("#s1", {opacity:0}, {opacity:1, duration:0.05, ease:"none"}, 4.272);
+tl.to("#s1", {rotationX:90, transformPerspective:600, duration:0.12, ease:"power2.in"}, 5.11);
+tl.fromTo("#s2", {opacity:1, rotationX:-90, transformPerspective:600}, {opacity:1, rotationX:0, duration:0.2, ease:"back.out(1.6)", immediateRender:false}, 5.23);
+tl.set("#s1", {opacity:0}, 5.23);
+tl.to("#s2", {rotationX:90, transformPerspective:600, duration:0.12, ease:"power2.in"}, 6.91);
+tl.fromTo("#s3", {opacity:1, rotationX:-90, transformPerspective:600}, {opacity:1, rotationX:0, duration:0.2, ease:"back.out(1.6)", immediateRender:false}, 7.03);
+tl.set("#s2", {opacity:0}, 7.03);
+tl.fromTo("#slot", {scale:1}, {scale:1.07, duration:0.12, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 7.283);
+tl.to("#t2-b", {rotation:-10, x:-80, opacity:0, duration:0.15, ease:"power2.in", transformOrigin:"0% 0%"}, 8.46);
+
+// ---- CTA (O 4,70-7,83): título, enquete com ponteiro voltando a 12 h, botão em "toca" ----
+tl.fromTo("#camO2", {scale:1.07}, {scale:1.0, duration:0.3, ease:"power3.out"}, 8.63);
+tl.to("#camO2", {scale:1.03, duration:1.209, ease:"none"}, 8.93);
+tl.to("#camO2", {scale:1.05, duration:0.24, ease:"power2.out"}, 10.142);
+tl.to("#camO2", {scale:1.06, duration:1.378, ease:"none"}, 10.382);
+tl.fromTo("#t3-a", {yPercent:110}, {yPercent:0, duration:0.3, ease:"power3.out"}, 8.69);
+tl.fromTo("#c1", {rotation:-90, opacity:0, transformOrigin:"0% 100%"}, {rotation:0, opacity:1, duration:0.24, ease:"back.out(1.6)"}, 9.153);
+tl.fromTo("#d2", {scale:0.4, opacity:0}, {scale:1, opacity:1, duration:0.22, ease:"back.out(2)"}, 9.293);
+tl.fromTo("#c2", {rotation:-90, opacity:0, transformOrigin:"0% 100%"}, {rotation:0, opacity:1, duration:0.24, ease:"back.out(1.6)"}, 9.393);
+tl.fromTo("#d2-h", {rotation:90, svgOrigin:"66 66"}, {rotation:0, svgOrigin:"66 66", duration:1.362, ease:"sine.inOut"}, 8.63);
+tl.to(["#c1", "#d2", "#c2"], {rotationX:90, transformPerspective:600, duration:0.12, ease:"power2.in"}, 10.022);
+tl.set(["#c1", "#d2", "#c2"], {opacity:0}, 10.142);
+tl.fromTo("#t3-p", {opacity:1, rotationX:-90, transformPerspective:600}, {opacity:1, rotationX:0, duration:0.22, ease:"back.out(1.6)", immediateRender:false}, 10.142);
+tl.fromTo("#tq-b", {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.24, ease:"back.out(2.2)"}, 10.142);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.9, opacity:0, duration:0.6, ease:"power2.out"}, 10.142);
+tl.fromTo("#tq-s", {x:0, y:0}, {x:-7, y:7, duration:0.22, yoyo:true, repeat:3, ease:"sine.inOut"}, 10.442);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.9, opacity:0, duration:0.6, ease:"power2.out", immediateRender:false}, 11.092);
+
+// ---- legenda ----
+tl.fromTo("#leg-int-0-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},0.158);
+tl.fromTo("#leg-int-0-1",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},0.392);
+tl.fromTo("#leg-int-1-0-t",{rotation:-90},{rotation:0,duration:0.2,ease:"back.out(1.6)"},0.783);
+tl.fromTo("#leg-int-1-0",{opacity:0},{opacity:1,duration:0.06,ease:"none"},0.783);
+tl.fromTo("#leg-int-2-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},1.549);
+tl.fromTo("#leg-int-2-1-t",{rotation:-90},{rotation:0,duration:0.2,ease:"back.out(1.6)"},1.725);
+tl.fromTo("#leg-int-2-1",{opacity:0},{opacity:1,duration:0.06,ease:"none"},1.725);
+tl.fromTo("#leg-apr-0-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},2.688);
+tl.fromTo("#leg-apr-1-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},3.219);
+tl.fromTo("#leg-apr-1-1",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},3.653);
+tl.fromTo("#leg-apr-1-2",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},3.736);
+tl.fromTo("#leg-apr-2-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},4.032);
+tl.fromTo("#leg-apr-2-1-t",{rotation:-90},{rotation:0,duration:0.2,ease:"back.out(1.6)"},4.302);
+tl.fromTo("#leg-apr-2-1",{opacity:0},{opacity:1,duration:0.06,ease:"none"},4.302);
+tl.fromTo("#leg-apr-3-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},5.223);
+tl.fromTo("#leg-apr-4-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},5.683);
+tl.fromTo("#leg-apr-4-1",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},6.247);
+tl.fromTo("#leg-apr-4-2-t",{rotation:-90},{rotation:0,duration:0.2,ease:"back.out(1.6)"},6.354);
+tl.fromTo("#leg-apr-4-2",{opacity:0},{opacity:1,duration:0.06,ease:"none"},6.354);
+tl.fromTo("#leg-apr-5-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},7.263);
+tl.fromTo("#leg-apr-5-1-t",{rotation:-90},{rotation:0,duration:0.2,ease:"back.out(1.6)"},7.685);
+tl.fromTo("#leg-apr-5-1",{opacity:0},{opacity:1,duration:0.06,ease:"none"},7.685);
+tl.fromTo("#leg-cta-0-0-t",{rotation:-90},{rotation:0,duration:0.2,ease:"back.out(1.6)"},8.729);
+tl.fromTo("#leg-cta-0-0",{opacity:0},{opacity:1,duration:0.06,ease:"none"},8.729);
+tl.fromTo("#leg-cta-1-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},9.153);
+tl.fromTo("#leg-cta-1-1",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},9.364);
+tl.fromTo("#leg-cta-2-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},9.991);
+tl.fromTo("#leg-cta-2-1-t",{rotation:-90},{rotation:0,duration:0.2,ease:"back.out(1.6)"},10.142);
+tl.fromTo("#leg-cta-2-1",{opacity:0},{opacity:1,duration:0.06,ease:"none"},10.142);
+tl.fromTo("#leg-cta-3-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},10.427);
+tl.fromTo("#leg-cta-3-1",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},10.531);
+tl.fromTo("#leg-cta-4-0",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},10.934);
+tl.fromTo("#leg-cta-4-1",{opacity:0,y:16},{opacity:1,y:0,duration:0.11,ease:"power2.out"},11.05);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

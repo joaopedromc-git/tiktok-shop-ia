@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Archivo Black";src:local("Archivo Black"),local("Archivo Black Regular"),local("ArchivoBlack-Regular")}
+@font-face{font-family:"Inter";font-weight:100 900;src:local("Inter"),local("Inter Regular")}
+:root{--asf:#14161A;--ama:#FFD21F;--txt:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#14161A}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#14161A;font-family:"Inter";font-weight:800}
+.clip{position:absolute;inset:0}
+.cam{position:absolute;inset:0;overflow:hidden;z-index:1}
+.full{width:100%;height:100%;object-fit:cover}
+#camD{transform-origin:55% 48%}
+#camA{transform-origin:50% 42%}
+#camE{transform-origin:30% 45%}
+#camF{transform-origin:45% 50%}
+/* calor no painel (quadro inteiro, nada em volta da garrafinha de plástico) e luz que varre a tela quando a garrafa sobe */
+#calor{z-index:2}
+#calor-b{position:absolute;inset:0;display:block;opacity:0;
+  background:linear-gradient(to bottom,rgba(255,170,40,.36) 0,rgba(255,120,30,.2) 45%,rgba(255,90,20,.06) 100%)}
+#luz{z-index:2;overflow:hidden}
+#luz-b{position:absolute;left:0;top:-340px;width:430px;height:2600px;display:block;
+  background:linear-gradient(to right,rgba(255,244,205,0) 0,rgba(255,244,205,.6) 50%,rgba(255,244,205,0) 100%)}
+.vinheta{z-index:3;background:radial-gradient(ellipse 94% 68% at 50% 50%,rgba(0,0,0,0) 62%,rgba(10,11,13,.4) 100%)}
+.topo{z-index:3;background:linear-gradient(to bottom,rgba(20,22,26,.5) 0,rgba(20,22,26,.24) 12%,rgba(20,22,26,0) 24%)}
+/* títulos grandes (gancho e CTA): Archivo Black, branco + amarelo de sinalização, contorno de asfalto */
+.titulo{z-index:6}
+.tg{position:absolute;left:62px;top:196px;width:856px;display:block}
+.tt{display:block;font-family:"Archivo Black";font-weight:400;font-size:128px;line-height:1;letter-spacing:-1px;text-align:center;white-space:nowrap;
+  color:var(--txt);-webkit-text-stroke:14px #14161A;paint-order:stroke fill;text-shadow:0 9px 0 #14161A,0 18px 30px rgba(0,0,0,.45)}
+.tt.am{color:var(--ama)}
+/* faixa de estrada: tira de asfalto com tracejado amarelo correndo */
+.road{position:absolute;left:170px;top:472px;width:640px;height:26px;display:block;border-radius:7px;background:#14161A;overflow:hidden;
+  box-shadow:0 6px 14px rgba(0,0,0,.4)}
+.dash{position:absolute;left:0;top:9px;width:640px;height:8px;display:block;
+  background-image:linear-gradient(to right,#FFD21F 0,#FFD21F 58px,rgba(255,210,31,0) 58px,rgba(255,210,31,0) 96px);
+  background-size:96px 8px;background-repeat:repeat-x;background-position:0px 0px}
+/* placas: asfalto com filete branco (informação) e amarela com filete de asfalto (o dado que importa) */
+.placas{z-index:6}
+.pl{position:absolute;display:block;border-radius:18px;white-space:nowrap;text-align:center;
+  box-shadow:inset 0 0 0 5px #14161A,inset 0 0 0 8px rgba(255,255,255,.92),0 10px 24px rgba(0,0,0,.42)}
+.pl.esc{background:#14161A;color:var(--txt)}
+.pl.ama{background:var(--ama);color:#14161A;box-shadow:inset 0 0 0 5px #FFD21F,inset 0 0 0 8px #14161A,0 10px 24px rgba(0,0,0,.42)}
+.pl span{display:block;white-space:nowrap}
+#pa-a{left:62px;top:204px;padding:21px 34px 21px;font-size:44px;line-height:1;letter-spacing:1px}
+#pa-b{left:62px;top:300px;padding:19px 36px 21px;font-family:"Archivo Black";font-weight:400;font-size:104px;line-height:1;letter-spacing:-1px}
+#pm-a{left:28px;top:196px;width:288px;height:110px;padding-top:15px}
+#pm-a .k{font-size:22px;line-height:24px;letter-spacing:1.4px;color:rgba(255,255,255,.86)}
+#pm-m{margin-top:3px;font-family:"Archivo Black";font-weight:400;font-size:62px;line-height:62px;letter-spacing:.5px;color:var(--ama)}
+#pm-b{left:28px;top:314px;width:288px;height:120px;padding-top:16px;font-size:40px;line-height:44px}
+#pm-c{left:28px;top:314px;width:288px;height:142px;padding-top:10px}
+#pm-n{font-family:"Archivo Black";font-weight:400;font-size:94px;line-height:84px;letter-spacing:-1px}
+#pm-c .un{font-family:"Archivo Black";font-weight:400;font-size:38px;line-height:42px;letter-spacing:1px}
+.subw{position:absolute;left:62px;top:514px;width:856px;display:flex;justify-content:center}
+#t3-s{position:relative;padding:17px 30px 19px;font-size:42px;line-height:1}
+/* legenda caixa-palavra */
+.legenda{z-index:7}
+.cap{position:absolute;left:40px;width:878px;display:flex;justify-content:center;align-items:flex-start;gap:14px;flex-wrap:nowrap}
+.pal{display:block;font-family:"Inter";font-weight:800;font-size:68px;line-height:1.1;white-space:nowrap;color:var(--txt);background:#14161A;
+  padding:11px 22px 15px;border-radius:14px;box-shadow:inset 0 0 0 4px #14161A,inset 0 0 0 6px rgba(255,255,255,.8),0 8px 18px rgba(0,0,0,.4)}
+.pal.ch{background:var(--ama);color:#14161A;box-shadow:inset 0 0 0 4px #FFD21F,inset 0 0 0 6px #14161A,0 8px 18px rgba(0,0,0,.4)}
+.rodape{z-index:7}
+.rodape span{position:absolute;left:28px;top:1457px;display:block;white-space:nowrap;font-weight:600;font-size:28px;line-height:28px;
+  letter-spacing:.4px;color:rgba(255,255,255,.8);background:rgba(20,22,26,.62);padding:8px 14px;border-radius:10px}
+/* CTA: placa redonda amarela com seta para baixo/esquerda */
+#toque{z-index:8}
+#tq-b{position:absolute;left:56px;top:1392px;width:120px;height:120px;display:block;border-radius:50%;background:var(--ama);
+  box-shadow:inset 0 0 0 5px #FFD21F,inset 0 0 0 9px #14161A,0 0 0 5px rgba(20,22,26,.92),0 12px 26px rgba(0,0,0,.5)}
+#tq-b svg{display:block;width:120px;height:120px}
+#tq-o{position:absolute;left:56px;top:1392px;width:120px;height:120px;display:block;border:7px solid var(--ama);border-radius:50%;opacity:0}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="17.9" data-width="1080" data-height="1920">
+  <!-- INTRO (0-4,6 s), dois clipes. Abertura: clipe D 4,0-5,6 s em 1,0x (garrafa verde na trilha, grande e nítida) -->
+  <div id="camD" class="cam"><video id="vD" class="clip full" data-start="0" data-duration="1.6" data-media-start="4" data-track-index="0" src="assets/clipe_D.mp4" muted playsinline></video></div>
+  <!-- corte seco em 1,6 s: clipe A 2,2-5,2 s em 1,0x (painel do carro; poeira subindo e paisagem andando) -->
+  <div id="camA" class="cam"><video id="vA" class="clip full" data-start="1.6" data-duration="3" data-media-start="2.2" data-track-index="0" src="assets/clipe_A.mp4" muted playsinline></video></div>
+  <!-- APRESENTAÇÃO (4,6-13,3 s): clipe E 1,88-7,97 s em 0,7x (mão entra aos 6,2 s, fecha na alça aos 7,1 s, levanta de 8,3 a 9,8 s) -->
+  <div id="camE" class="cam"><video id="vE" class="clip full" data-start="4.6" data-duration="8.7" data-media-start="1.88" data-playback-rate="0.7" data-track-index="0" src="assets/clipe_E.mp4" muted playsinline></video></div>
+  <!-- CTA (13,3-17,9 s): clipe F 2,5-7,1 s em 1,0x -->
+  <div id="camF" class="cam"><video id="vF" class="clip full" data-start="13.3" data-duration="4.6" data-media-start="2.5" data-track-index="0" src="assets/clipe_F.mp4" muted playsinline></video></div>
+
+  <div id="calor" class="clip" data-start="1.6" data-duration="3" data-track-index="1"><i id="calor-b"></i></div>
+  <div id="luz" class="clip" data-start="8.4" data-duration="0.95" data-track-index="1"><i id="luz-b"></i></div>
+  <div id="vin" class="clip vinheta" data-start="0" data-duration="17.9" data-track-index="2"></div>
+  <div id="topo" class="clip topo" data-start="0" data-duration="17.9" data-track-index="3"></div>
+
+  <!-- gancho: atravessa o corte D -> A e sai antes da placa do painel -->
+  <div id="t1" class="clip titulo" data-start="0" data-duration="2.2" data-track-index="6">
+    <div id="t1-g" class="tg">
+      <div id="t1-l0" class="tt">VAI PEGAR</div>
+      <div id="t1-l1" class="tt am">ESTRADA?</div>
+    </div>
+    <i id="t1-r" class="road"><i id="t1-d" class="dash"></i></i>
+  </div>
+  <!-- painel: placas sobre o céu, à esquerda do retrovisor -->
+  <div id="pa" class="clip placas" data-start="2.2" data-duration="2.4" data-track-index="6">
+    <div id="pa-a" class="pl esc">ÁGUA NO PAINEL</div>
+    <div id="pa-b" class="pl ama">ESQUENTA</div>
+  </div>
+  <!-- apresentação: placas no canto superior esquerdo, ao lado da tampa (não cobrem a garrafa) -->
+  <div id="pm" class="clip placas" data-start="7.064" data-duration="6.236" data-track-index="6">
+    <div id="pm-a" class="pl esc"><span class="k">GARRAFA TÉRMICA</span><span id="pm-m">MODUS</span></div>
+    <div id="pm-b" class="pl esc"><span id="pm-b0">parede dupla</span><span id="pm-b1">a vácuo</span></div>
+    <div id="pm-c" class="pl ama"><span id="pm-n">2,4</span><span class="un">LITROS*</span></div>
+  </div>
+  <div id="rodape" class="clip rodape" data-start="4.6" data-duration="8.7" data-track-index="7"><span id="rodape-s">*Dados do fabricante</span></div>
+  <!-- CTA -->
+  <div id="t3" class="clip titulo" data-start="15.431" data-duration="2.469" data-track-index="6">
+    <div id="t3-g" class="tg">
+      <div id="t3-l0" class="tt">TOCA NO</div>
+      <div id="t3-l1" class="tt am">PRODUTO</div>
+    </div>
+    <i id="t3-r" class="road"><i id="t3-d" class="dash"></i></i>
+    <div class="subw"><div id="t3-s" class="pl esc">e confere a sua</div></div>
+  </div>
+  <div id="toque" class="clip" data-start="15.431" data-duration="2.469" data-track-index="8">
+    <i id="tq-o"></i>
+    <span id="tq-b"><svg id="tq-s" viewBox="0 0 120 120"><path d="M80 40 L42 78 M40 50 L40 80 L70 80" fill="none" stroke="#14161A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </div>
+
+  <div id="leg-int-0" class="clip legenda" data-start="0.258" data-duration="0.601" data-track-index="12"><div id="leg-int-0-c" class="cap" style="top:1256px"><span id="leg-int-0-0" class="pal">Vai</span><span id="leg-int-0-1" class="pal">pegar</span></div></div>
+  <div id="leg-int-1" class="clip legenda" data-start="0.859" data-duration="0.741" data-track-index="12"><div id="leg-int-1-c" class="cap" style="top:1256px"><span id="leg-int-1-0" class="pal ch">estrada?</span></div></div>
+  <div id="leg-int-2" class="clip legenda" data-start="1.778" data-duration="0.72" data-track-index="12"><div id="leg-int-2-c" class="cap" style="top:1256px"><span id="leg-int-2-0" class="pal">Água</span><span id="leg-int-2-1" class="pal">no</span><span id="leg-int-2-2" class="pal ch">painel</span></div></div>
+  <div id="leg-int-3" class="clip legenda" data-start="2.498" data-duration="0.471" data-track-index="12"><div id="leg-int-3-c" class="cap" style="top:1256px"><span id="leg-int-3-0" class="pal">do</span><span id="leg-int-3-1" class="pal">carro</span></div></div>
+  <div id="leg-int-4" class="clip legenda" data-start="2.969" data-duration="0.566" data-track-index="12"><div id="leg-int-4-c" class="cap" style="top:1256px"><span id="leg-int-4-0" class="pal ch">esquenta</span></div></div>
+  <div id="leg-int-5" class="clip legenda" data-start="3.535" data-duration="0.965" data-track-index="12"><div id="leg-int-5-c" class="cap" style="top:1256px"><span id="leg-int-5-0" class="pal">rapidinho</span></div></div>
+  <div id="leg-apr-0" class="clip legenda" data-start="4.931" data-duration="0.648" data-track-index="12"><div id="leg-apr-0-c" class="cap" style="top:1256px"><span id="leg-apr-0-0" class="pal">Essa</span><span id="leg-apr-0-1" class="pal">você</span></div></div>
+  <div id="leg-apr-1" class="clip legenda" data-start="5.579" data-duration="0.519" data-track-index="12"><div id="leg-apr-1-c" class="cap" style="top:1256px"><span id="leg-apr-1-0" class="pal">carrega</span></div></div>
+  <div id="leg-apr-2" class="clip legenda" data-start="6.098" data-duration="0.956" data-track-index="12"><div id="leg-apr-2-c" class="cap" style="top:1256px"><span id="leg-apr-2-0" class="pal">pela</span><span id="leg-apr-2-1" class="pal ch">alça</span></div></div>
+  <div id="leg-apr-3" class="clip legenda" data-start="7.054" data-duration="0.837" data-track-index="12"><div id="leg-apr-3-c" class="cap" style="top:1256px"><span id="leg-apr-3-0" class="pal">Garrafa</span><span id="leg-apr-3-1" class="pal">Térmica</span></div></div>
+  <div id="leg-apr-4" class="clip legenda" data-start="7.891" data-duration="0.673" data-track-index="12"><div id="leg-apr-4-c" class="cap" style="top:1256px"><span id="leg-apr-4-0" class="pal ch">MODUS</span></div></div>
+  <div id="leg-apr-5" class="clip legenda" data-start="8.564" data-duration="0.849" data-track-index="12"><div id="leg-apr-5-c" class="cap" style="top:1256px"><span id="leg-apr-5-0" class="pal">parede</span><span id="leg-apr-5-1" class="pal">dupla</span></div></div>
+  <div id="leg-apr-6" class="clip legenda" data-start="9.413" data-duration="0.589" data-track-index="12"><div id="leg-apr-6-c" class="cap" style="top:1256px"><span id="leg-apr-6-0" class="pal">a</span><span id="leg-apr-6-1" class="pal ch">vácuo</span></div></div>
+  <div id="leg-apr-7" class="clip legenda" data-start="10.002" data-duration="0.802" data-track-index="12"><div id="leg-apr-7-c" class="cap" style="top:1256px"><span id="leg-apr-7-0" class="pal">e</span><span id="leg-apr-7-1" class="pal ch">dois</span><span id="leg-apr-7-2" class="pal ch">litros</span></div></div>
+  <div id="leg-apr-8" class="clip legenda" data-start="10.804" data-duration="0.955" data-track-index="12"><div id="leg-apr-8-c" class="cap" style="top:1256px"><span id="leg-apr-8-0" class="pal">e</span><span id="leg-apr-8-1" class="pal ch">quatrocentos</span></div></div>
+  <div id="leg-apr-9" class="clip legenda" data-start="11.759" data-duration="0.437" data-track-index="12"><div id="leg-apr-9-c" class="cap" style="top:1256px"><span id="leg-apr-9-0" class="pal">segundo</span><span id="leg-apr-9-1" class="pal">o</span></div></div>
+  <div id="leg-apr-10" class="clip legenda" data-start="12.196" data-duration="1.035" data-track-index="12"><div id="leg-apr-10-c" class="cap" style="top:1256px"><span id="leg-apr-10-0" class="pal">fabricante</span></div></div>
+  <div id="leg-cta-0" class="clip legenda" data-start="13.608" data-duration="0.66" data-track-index="12"><div id="leg-cta-0-c" class="cap" style="top:1256px"><span id="leg-cta-0-0" class="pal">Deixa</span><span id="leg-cta-0-1" class="pal">uma</span></div></div>
+  <div id="leg-cta-1" class="clip legenda" data-start="14.268" data-duration="0.354" data-track-index="12"><div id="leg-cta-1-c" class="cap" style="top:1256px"><span id="leg-cta-1-0" class="pal">dessas</span></div></div>
+  <div id="leg-cta-2" class="clip legenda" data-start="14.622" data-duration="0.789" data-track-index="12"><div id="leg-cta-2-c" class="cap" style="top:1256px"><span id="leg-cta-2-0" class="pal">no</span><span id="leg-cta-2-1" class="pal ch">carro</span></div></div>
+  <div id="leg-cta-3" class="clip legenda" data-start="15.411" data-duration="0.39" data-track-index="12"><div id="leg-cta-3-c" class="cap" style="top:1256px"><span id="leg-cta-3-0" class="pal ch">Toca</span><span id="leg-cta-3-1" class="pal">no</span></div></div>
+  <div id="leg-cta-4" class="clip legenda" data-start="15.801" data-duration="0.636" data-track-index="12"><div id="leg-cta-4-c" class="cap" style="top:1256px"><span id="leg-cta-4-0" class="pal ch">produto</span></div></div>
+  <div id="leg-cta-5" class="clip legenda" data-start="16.437" data-duration="0.543" data-track-index="12"><div id="leg-cta-5-c" class="cap" style="top:1256px"><span id="leg-cta-5-0" class="pal">e</span><span id="leg-cta-5-1" class="pal">confere</span></div></div>
+  <div id="leg-cta-6" class="clip legenda" data-start="16.98" data-duration="0.776" data-track-index="12"><div id="leg-cta-6-c" class="cap" style="top:1256px"><span id="leg-cta-6-0" class="pal">a</span><span id="leg-cta-6-1" class="pal ch">sua</span></div></div>
+
+  <audio id="voz-intro" data-start="0.25" data-duration="4.272" data-track-index="13" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="4.9" data-duration="8.352" data-track-index="13" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="13.6" data-duration="4.2" data-track-index="13" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-1" data-start="0" data-duration="0.8" data-track-index="14" data-volume="0.6" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-whooshc-1" data-start="1.5" data-duration="0.3" data-track-index="14" data-volume="0.32" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-whooshc-2" data-start="4.5" data-duration="0.3" data-track-index="14" data-volume="0.32" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-pop-1" data-start="7.024" data-duration="0.09" data-track-index="14" data-volume="0.34" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-brilho-1" data-start="8.42" data-duration="0.9" data-track-index="14" data-volume="0.25" src="assets/sfx/brilho.wav"></audio>
+  <audio id="sfx-tique-1" data-start="10.055" data-duration="0.03" data-track-index="14" data-volume="0.42" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-subida-1" data-start="12.91" data-duration="0.39" data-media-start="1.0" data-track-index="14" data-volume="0.36" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-clique-1" data-start="15.431" data-duration="0.05" data-track-index="14" data-volume="0.5" src="assets/sfx/clique.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// ---- INTRO, abertura (clipe D): garrafa inteira no quadro 0, punch-in curto, título batendo ----
+tl.fromTo("#camD", {scale:1.08}, {scale:1, duration:0.42, ease:"power3.out"}, 0);
+tl.to("#camD", {scale:1.03, duration:1.17, ease:"none"}, 0.43);
+tl.fromTo("#t1-g", {scale:1.25, transformOrigin:"50% 50%"}, {scale:1, duration:0.32, ease:"back.out(1.8)"}, 0);
+tl.fromTo("#t1-r", {scaleX:0, transformOrigin:"50% 50%"}, {scaleX:1, duration:0.3, ease:"power3.out"}, 0.26);
+tl.fromTo("#t1-d", {backgroundPosition:"0px 0px"}, {backgroundPosition:"-384px 0px", duration:2.2, ease:"none"}, 0);
+tl.fromTo("#t1-l1", {scale:1, transformOrigin:"50% 60%"}, {scale:1.07, duration:0.13, yoyo:true, repeat:1, ease:"power2.out"}, 0.899);
+tl.to("#t1-g", {y:-70, opacity:0, duration:0.2, ease:"power2.in"}, 1.98);
+tl.to("#t1-r", {scaleX:0, duration:0.18, ease:"power2.in"}, 1.98);
+
+// ---- INTRO, painel (clipe A): corte seco, placas sobre o céu, calor subindo em "esquenta" ----
+tl.fromTo("#camA", {scale:1.13, x:0}, {scale:1.06, x:0, duration:0.36, ease:"power3.out"}, 1.6);
+tl.to("#camA", {scale:1.09, x:-10, duration:1.009, ease:"none"}, 1.97);
+tl.to("#camA", {scale:1.14, duration:0.28, ease:"power2.out"}, 2.979);
+tl.to("#camA", {scale:1.17, x:-22, duration:1.331, ease:"none"}, 3.269);
+tl.fromTo("#pa-a", {x:-700}, {x:0, duration:0.3, ease:"power3.out"}, 2.22);
+tl.fromTo("#pa-b", {opacity:0, scale:1.45, transformOrigin:"0% 50%"}, {opacity:1, scale:1, duration:0.22, ease:"back.out(1.6)"}, 2.979);
+tl.fromTo("#calor-b", {opacity:0}, {opacity:1, duration:0.7, ease:"power1.out"}, 2.979);
+tl.to("#pa-a", {x:-760, duration:0.17, ease:"power2.in"}, 4.42);
+tl.to("#pa-b", {x:-860, duration:0.17, ease:"power2.in"}, 4.43);
+
+// ---- APRESENTAÇÃO (clipe E em 0,7x): zoom máximo 1,10; nada aponta para a linha pequena da etiqueta ----
+tl.fromTo("#camE", {scale:1.06, x:0}, {scale:1, x:0, duration:0.4, ease:"power3.out"}, 4.6);
+tl.to("#camE", {scale:1.015, duration:1.318, ease:"none"}, 5.01);
+// "alça": a câmera vai para o lado da alça enquanto a mão chega
+tl.to("#camE", {scale:1.085, x:-46, duration:0.4, ease:"power2.out"}, 6.328);
+tl.to("#camE", {scale:1.095, duration:0.2, ease:"none"}, 6.738);
+tl.to("#camE", {scale:1.02, x:0, duration:0.42, ease:"power2.inOut"}, 6.948);
+tl.to("#camE", {scale:1.03, duration:1.012, ease:"none"}, 7.378);
+// produto herói: a garrafa sobe, uma luz varre a tela e a câmera fecha um pouco (vídeo rodando)
+tl.to("#camE", {scale:1.045, duration:0.5, ease:"power2.out"}, 8.4);
+tl.to("#camE", {scale:1.06, duration:4.39, ease:"none"}, 8.91);
+tl.fromTo("#luz-b", {x:-760, rotation:17}, {x:1420, rotation:17, duration:0.85, ease:"power1.inOut"}, 8.42);
+// placas ao lado da tampa
+tl.fromTo("#pm-a", {x:-420}, {x:0, duration:0.3, ease:"power3.out"}, 7.084);
+tl.fromTo("#pm-m", {scale:1, transformOrigin:"50% 55%"}, {scale:1.12, duration:0.14, yoyo:true, repeat:1, ease:"power2.out"}, 7.951);
+tl.fromTo("#pm-b", {x:-420}, {x:0, duration:0.28, ease:"power3.out"}, 8.564);
+tl.to("#pm-b", {x:-420, duration:0.16, ease:"power2.in"}, 9.965);
+tl.fromTo("#pm-c", {opacity:0, scale:0.55, transformOrigin:"50% 0%"}, {opacity:1, scale:1, duration:0.26, ease:"back.out(1.9)"}, 10.125);
+tl.fromTo("#pm-n", {scale:1, transformOrigin:"50% 60%"}, {scale:1.14, duration:0.15, yoyo:true, repeat:1, ease:"power2.out"}, 11.038);
+
+// ---- CTA (clipe F em 1,0x): mais calma; o título só entra em "Toca" ----
+tl.fromTo("#camF", {scale:1.09}, {scale:1.045, duration:0.4, ease:"power3.out"}, 13.3);
+tl.to("#camF", {scale:1.03, duration:1.711, ease:"none"}, 13.71);
+tl.to("#camF", {scale:1.012, duration:0.1, ease:"power2.in"}, 15.431);
+tl.to("#camF", {scale:1.032, duration:0.18, ease:"power2.out"}, 15.541);
+tl.to("#camF", {scale:1, duration:2.169, ease:"none"}, 15.731);
+tl.fromTo("#t3-g", {opacity:0, scale:1.25, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:0.28, ease:"back.out(1.8)"}, 15.431);
+tl.fromTo("#t3-r", {scaleX:0, transformOrigin:"50% 50%"}, {scaleX:1, duration:0.3, ease:"power3.out"}, 15.631);
+tl.fromTo("#t3-d", {backgroundPosition:"0px 0px"}, {backgroundPosition:"-384px 0px", duration:2.469, ease:"none"}, 15.431);
+tl.fromTo("#t3-l1", {scale:1, transformOrigin:"50% 60%"}, {scale:1.07, duration:0.13, yoyo:true, repeat:1, ease:"power2.out"}, 15.861);
+tl.fromTo("#t3-s", {opacity:0, scale:0.7}, {opacity:1, scale:1, duration:0.22, ease:"back.out(2)"}, 16.518);
+tl.fromTo("#tq-b", {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.24, ease:"back.out(2.2)"}, 15.431);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.8, opacity:0, duration:0.6, ease:"power2.out"}, 15.431);
+tl.fromTo("#tq-s", {x:0, y:0}, {x:-7, y:7, duration:0.22, yoyo:true, repeat:7, ease:"sine.inOut"}, 15.731);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.8, opacity:0, duration:0.6, ease:"power2.out", immediateRender:false}, 16.331);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.8, opacity:0, duration:0.6, ease:"power2.out", immediateRender:false}, 17.131);
+
+// ---- legenda ----
+tl.fromTo("#leg-int-0-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},0.258);
+tl.fromTo("#leg-int-0-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},0.492);
+tl.fromTo("#leg-int-1-0",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},0.859);
+tl.fromTo("#leg-int-2-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},1.778);
+tl.fromTo("#leg-int-2-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},2.119);
+tl.fromTo("#leg-int-2-2",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},2.213);
+tl.fromTo("#leg-int-3-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},2.498);
+tl.fromTo("#leg-int-3-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},2.614);
+tl.fromTo("#leg-int-4-0",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},2.969);
+tl.fromTo("#leg-int-5-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},3.535);
+tl.fromTo("#leg-apr-0-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},4.931);
+tl.fromTo("#leg-apr-0-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},5.271);
+tl.fromTo("#leg-apr-1-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},5.579);
+tl.fromTo("#leg-apr-2-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},6.098);
+tl.fromTo("#leg-apr-2-1",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},6.368);
+tl.fromTo("#leg-apr-3-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},7.054);
+tl.fromTo("#leg-apr-3-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},7.5);
+tl.fromTo("#leg-apr-4-0",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},7.891);
+tl.fromTo("#leg-apr-5-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},8.564);
+tl.fromTo("#leg-apr-5-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},9.022);
+tl.fromTo("#leg-apr-6-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},9.413);
+tl.fromTo("#leg-apr-6-1",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},9.47);
+tl.fromTo("#leg-apr-7-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},10.002);
+tl.fromTo("#leg-apr-7-1",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},10.095);
+tl.fromTo("#leg-apr-7-2",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},10.425);
+tl.fromTo("#leg-apr-8-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},10.804);
+tl.fromTo("#leg-apr-8-1",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},10.908);
+tl.fromTo("#leg-apr-9-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},11.759);
+tl.fromTo("#leg-apr-9-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},12.194);
+tl.fromTo("#leg-apr-10-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},12.196);
+tl.fromTo("#leg-cta-0-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},13.608);
+tl.fromTo("#leg-cta-0-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},14.054);
+tl.fromTo("#leg-cta-1-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},14.268);
+tl.fromTo("#leg-cta-2-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},14.622);
+tl.fromTo("#leg-cta-2-1",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},14.762);
+tl.fromTo("#leg-cta-3-0",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},15.411);
+tl.fromTo("#leg-cta-3-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},15.704);
+tl.fromTo("#leg-cta-4-0",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},15.801);
+tl.fromTo("#leg-cta-5-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},16.437);
+tl.fromTo("#leg-cta-5-1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},16.518);
+tl.fromTo("#leg-cta-6-0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.2)"},16.98);
+tl.fromTo("#leg-cta-6-1",{opacity:0,scale:0.6},{opacity:1,scale:1.06,duration:0.14,ease:"back.out(2.2)"},17.037);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

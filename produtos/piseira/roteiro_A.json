@@ -1,0 +1,35 @@
+{
+  "codigo": "piseira",
+  "lote": "A",
+  "descricao_produto": "PRODUCT: one single long rectangular knitted bed runner (foot-of-bed throw) in solid sand beige (warm light beige, one uniform color, no second color, no stripes of another color). Proportion about 220 cm long by 60 cm wide, roughly 3.7 times longer than wide. Soft medium-thick tricot knit with matte yarn. Knit pattern: raised braided cable columns (slim plaited cables) alternating with wider bands of fine ribbed knit; the cables and the ribs run across the short width of the runner, from one long edge to the other, and repeat evenly along the whole length. The two long edges are slightly wavy, with a soft gentle ripple. The two short ends are plain, with no fringe, no tassels, no pom-poms. No logo, no tag, no label, no print, no embroidery. It lies flat across the foot of a double bed, perpendicular to the mattress length, and hangs down evenly over both sides of the bed.",
+  "partes": [
+    {
+      "parte": "intro",
+      "clipe": "A",
+      "fala": "Cama arrumada e quarto sem graça? O segredo está no pé da cama.",
+      "titulo": "Quarto sem graça?",
+      "linha": "Olha o pé da cama",
+      "rodape": "",
+      "prompt": "The video starts exactly on the attached photo. Everything in the room stays exactly as in the photo: the sand beige knitted bed runner lying across the foot of the bed keeps the same shape, position, slim braided cables, ribbed bands and wavy edges in every frame. Nothing moves, nothing is added, removed or changed. CAMERA: one slow, smooth dolly-in toward the foot of the bed with a gentle tilt down, ending with the knitted runner filling the lower half of the frame and its braided cables clearly visible. Soft natural light. No people, no hands. Single continuous 8-second shot, vertical 9:16, photorealistic. No text, no captions, no letters, no extra logos, no product changes, no morphing.",
+      "modo_flow": "foto IMG_1239 como primeiro quadro (image-to-video)"
+    },
+    {
+      "parte": "apresentacao",
+      "clipe": "B",
+      "fala": "Essa peseira de tricô com tranças muda o visual do quarto. São duzentos e vinte por sessenta centímetros, segundo o fabricante, para cama de casal ou sofá.",
+      "titulo": "Peseira de tricô",
+      "linha": "220 x 60 cm • casal ou queen",
+      "rodape": "*Dados do fabricante",
+      "prompt": "Use the attached product photo as the exact reference: keep shape, colors, logo, labels and every detail identical. PRODUCT: one single long rectangular knitted bed runner (foot-of-bed throw) in solid sand beige (warm light beige, one uniform color, no second color, no stripes of another color). Proportion about 220 cm long by 60 cm wide, roughly 3.7 times longer than wide. Soft medium-thick tricot knit with matte yarn. Knit pattern: raised braided cable columns (chunky plaited cables) alternating with wider bands of fine ribbed knit; the cables and the ribs run across the short width of the runner, from one long edge to the other, and repeat evenly along the whole length. The two long edges are slightly wavy, with a soft gentle ripple. The two short ends are plain, with no fringe, no tassels, no pom-poms. No logo, no tag, no label, no print, no embroidery. It lies flat across the foot of a double bed, perpendicular to the mattress length, and hangs down evenly over both sides of the bed. SCENE: a bright, clean bedroom in soft daylight, off-white walls, light grey carpet, a double bed made with a plain smooth white duvet and plain white pillows only (no decorative cushions, no knitted cushions, no other throws or blankets anywhere). The sand beige runner lies across the foot of the bed, complete and identical from the first to the last frame, the near end hanging down the side of the bed. CAMERA: three-quarter view from the near foot corner of the bed, about chest height, one short slow orbit of about 30 degrees around the foot corner, keeping the whole runner in frame. ACTION: a woman's hand and forearm only (no face) slowly glides along the top of the runner, following one braided cable from the far long edge toward the near long edge, without lifting or folding the runner. Single continuous 8-second shot, vertical 9:16, photorealistic, natural colors. No text, no captions, no letters, no extra logos, no product changes, no morphing, no people talking to camera."
+    },
+    {
+      "parte": "cta",
+      "clipe": "C",
+      "fala": "Escolhe a sua cor: toca no produto aqui no vídeo e confere as opções.",
+      "titulo": "Escolha sua cor",
+      "linha": "Toque no produto e confira",
+      "rodape": "",
+      "prompt": "Use the attached product photo as the exact reference: keep shape, colors, logo, labels and every detail identical. PRODUCT: one single long rectangular knitted bed runner (foot-of-bed throw) in solid sand beige (warm light beige, one uniform color, no second color, no stripes of another color). Proportion about 220 cm long by 60 cm wide, roughly 3.7 times longer than wide. Soft medium-thick tricot knit with matte yarn. Knit pattern: raised braided cable columns (chunky plaited cables) alternating with wider bands of fine ribbed knit; the cables and the ribs run across the short width of the runner, from one long edge to the other, and repeat evenly along the whole length. The two long edges are slightly wavy, with a soft gentle ripple. The two short ends are plain, with no fringe, no tassels, no pom-poms. No logo, no tag, no label, no print, no embroidery. It lies flat across the foot of a double bed, perpendicular to the mattress length, and hangs down evenly over both sides of the bed. SCENE: a cozy bedroom in the evening, warm light from two small round pendant lamps beside the bed, warm beige walls, a double bed made with a plain smooth white duvet and plain white pillows only (no decorative cushions, no knitted cushions, no other throws or blankets anywhere). The sand beige runner lies across the foot of the bed, complete and identical from the first to the last frame, with both hanging ends in view. CAMERA: static, front view from the foot of the bed at mattress height, the whole runner in frame. ACTION: a woman's hand and forearm only (no face) gently presses into the knit at the center of the runner and slowly smooths it flat toward one side, then rests still; the runner keeps the same shape and position. Single continuous 8-second shot, vertical 9:16, photorealistic, warm natural colors. No text, no captions, no letters, no extra logos, no product changes, no morphing, no people talking to camera."
+    }
+  ]
+}

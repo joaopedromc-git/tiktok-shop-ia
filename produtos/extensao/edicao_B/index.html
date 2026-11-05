@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+:root{--base:#0B0F1A;--neon:#3DF5A7;--texto:#F2F5FF}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0B0F1A}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#0B0F1A}
+.clip{position:absolute;inset:0}
+.cam{position:absolute;inset:0;overflow:hidden}
+.full{width:100%;height:100%;object-fit:cover}
+#camD,#camE1,#camE2,#camR,#camF{z-index:1}
+#camE2{transform-origin:540px 1450px}
+#camF{transform-origin:533px 891px}
+/* cartão do produto herói: quadro nítido do E, contorno neon, fundo do próprio quadro desfocado + grade */
+.hero{z-index:2;overflow:hidden}
+.hbg{position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover}
+.htint{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 35%,rgba(11,15,26,.35) 0,rgba(11,15,26,.88) 100%)}
+.hgrid{position:absolute;inset:0;background:
+  repeating-linear-gradient(0deg,rgba(61,245,167,.075) 0 2px,rgba(0,0,0,0) 2px 64px),
+  repeating-linear-gradient(90deg,rgba(61,245,167,.075) 0 2px,rgba(0,0,0,0) 2px 64px)}
+.hcard{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0;overflow:hidden}
+.himg{position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover}
+.hsw{position:absolute;inset:0;mix-blend-mode:screen;overflow:hidden}
+.hsw i{position:absolute;left:0;top:0;width:100%;height:100%;display:block;
+  background:linear-gradient(115deg,rgba(61,245,167,0) 38%,rgba(190,255,225,.42) 50%,rgba(61,245,167,0) 62%)}
+.hedge{position:absolute;border:5px solid var(--neon);border-radius:35px;
+  box-shadow:0 0 28px rgba(61,245,167,.75),0 0 80px rgba(61,245,167,.3),inset 0 0 24px rgba(61,245,167,.35)}
+.ring{position:absolute;border:6px solid var(--neon);border-radius:50%;box-shadow:0 0 22px rgba(61,245,167,.9),inset 0 0 14px rgba(61,245,167,.5)}
+.brk{position:absolute;border:5px solid var(--neon);border-radius:14px;box-shadow:0 0 20px rgba(61,245,167,.85),inset 0 0 12px rgba(61,245,167,.4)}
+.dig{position:absolute;display:block;font-family:"Bebas Neue";font-weight:400;font-size:52px;line-height:1;color:var(--neon);
+  text-shadow:0 0 14px rgba(61,245,167,.9),0 2px 6px rgba(0,0,0,.8)}
+.ring,.brk,.dig,.etq,.lead,.hedge{opacity:0}
+.lead{position:absolute;height:6px;background:var(--neon);border-radius:3px;box-shadow:0 0 12px var(--neon)}
+.etq{position:absolute;left:40px;width:310px;height:110px;display:flex;justify-content:flex-end;align-items:center}
+.etq.dir{width:300px;justify-content:center}
+.etq span{display:block;font-family:"Bebas Neue";font-weight:400;font-size:84px;line-height:1;color:var(--texto);white-space:nowrap;
+  background:rgba(11,15,26,.9);border:3px solid rgba(61,245,167,.85);border-radius:14px;padding:8px 20px 4px;
+  box-shadow:0 0 26px rgba(61,245,167,.35),0 10px 24px rgba(0,0,0,.5)}
+.etq em{font-style:normal;color:var(--neon);text-shadow:0 0 14px rgba(61,245,167,.8)}
+/* luz e moldura */
+.vinheta{z-index:3;background:radial-gradient(ellipse 85% 62% at 50% 50%,rgba(0,0,0,0) 58%,rgba(0,0,0,.42) 100%)}
+.topo{z-index:3;background:linear-gradient(to bottom,rgba(11,15,26,.66) 0,rgba(11,15,26,.36) 15%,rgba(11,15,26,0) 30%)}
+.flash{z-index:9;background:#FFFFFF}
+.flashn{z-index:9;background:radial-gradient(ellipse at 50% 45%,rgba(190,255,225,.9) 0,rgba(61,245,167,.55) 45%,rgba(61,245,167,0) 80%)}
+#wipe{z-index:9;overflow:hidden}
+#wipe i{position:absolute;left:0;top:0;width:1080px;height:300px;display:block;
+  background:linear-gradient(to bottom,rgba(61,245,167,0) 0,rgba(61,245,167,.55) 60%,#CFFFE9 82%,rgba(61,245,167,0) 100%)}
+/* mira (cantos) */
+.mira{z-index:5}
+.vf{position:absolute;display:block}
+.vf i{position:absolute;width:74px;height:74px;display:block;border-color:var(--neon);border-style:solid;
+  filter:drop-shadow(0 0 10px rgba(61,245,167,.85))}
+.vf .c1{left:0;top:0;border-width:7px 0 0 7px;border-radius:16px 0 0 0}
+.vf .c2{right:0;top:0;border-width:7px 7px 0 0;border-radius:0 16px 0 0}
+.vf .c3{left:0;bottom:0;border-width:0 0 7px 7px;border-radius:0 0 0 16px}
+.vf .c4{right:0;bottom:0;border-width:0 7px 7px 0;border-radius:0 0 16px 0}
+/* títulos: Bebas Neue, alinhados à esquerda, palavra-chave neon com brilho */
+.titulo{z-index:5}
+.bloco{position:absolute;left:64px;display:block}
+.tl{display:block;font-family:"Bebas Neue";font-weight:400;color:var(--texto);line-height:.9;white-space:nowrap;letter-spacing:2px;
+  text-shadow:0 6px 0 rgba(11,15,26,.85),0 12px 30px rgba(0,0,0,.5)}
+.tl.neon{color:var(--neon);text-shadow:0 0 22px rgba(61,245,167,.65),0 6px 0 rgba(11,15,26,.85),0 12px 30px rgba(0,0,0,.5)}
+.mask{position:absolute;left:64px;overflow:hidden;display:block}
+.barra{position:absolute;left:64px;height:8px;background:var(--neon);border-radius:4px;box-shadow:0 0 16px var(--neon);display:block}
+.pilula{position:absolute;left:64px;display:block;font-family:"Inter";font-weight:800;font-size:46px;line-height:1;color:var(--base);
+  background:var(--neon);border-radius:999px;padding:14px 30px 16px;white-space:nowrap;box-shadow:0 0 30px rgba(61,245,167,.55)}
+/* legenda caixa-palavra: vidro escuro com fio neon; palavra-chave na etiqueta verde-neon */
+.legenda{z-index:7}
+.cap{position:absolute;left:40px;width:860px;display:flex;justify-content:center;align-items:flex-start;gap:14px;flex-wrap:nowrap}
+.pal{display:block;font-family:"Inter";font-weight:800;font-size:72px;line-height:1.08;color:var(--texto);white-space:nowrap;
+  background:rgba(11,15,26,.9);border:2px solid rgba(61,245,167,.38);border-radius:16px;padding:4px 22px 10px;
+  box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.pal.k{color:var(--base);background:var(--neon);border-color:var(--neon);box-shadow:0 0 30px rgba(61,245,167,.6),0 8px 22px rgba(0,0,0,.4)}
+/* CTA */
+#tap{z-index:6}
+.onda{position:absolute;left:383px;top:741px;width:300px;height:300px;display:block;border-radius:50%;border:8px solid var(--neon);
+  box-shadow:0 0 30px rgba(61,245,167,.8)}
+#cta{z-index:8}
+#cta-b{position:absolute;left:48px;top:1446px;display:flex;align-items:center;gap:18px;font-family:"Bebas Neue";font-weight:400;
+  font-size:66px;line-height:1;color:var(--base);background:var(--neon);padding:12px 40px 10px 14px;border-radius:999px;white-space:nowrap;
+  box-shadow:0 0 44px rgba(61,245,167,.6),0 10px 24px rgba(0,0,0,.45)}
+#cta-b svg{display:block;width:72px;height:72px}
+#cta-o{position:absolute;left:40px;top:1432px;width:110px;height:110px;display:block;border:5px solid var(--neon);border-radius:50%}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="19.45" data-width="1080" data-height="1920">
+  <!-- INTRO: clipe D só no trecho limpo 2,0-6,5 s (0,3-1,6 s tem falha de imagem) -->
+  <div id="camD" class="cam"><video id="vD" class="clip full" data-start="0" data-duration="4.5" data-media-start="2.0" data-track-index="0" src="assets/clipe_D.mp4" muted playsinline></video></div>
+  <!-- APRESENTAÇÃO: clipe E em 0,77x; cartão herói (quadro 4,75 s) nos dois trechos de portas -->
+  <div id="camE1" class="cam"><video id="vE1" class="clip full" data-start="4.5" data-duration="1.5" data-media-start="0" data-playback-rate="0.77" data-track-index="0" src="assets/clipe_E.mp4" muted playsinline></video></div>
+  <div id="h1" class="clip hero" data-start="6.0" data-duration="2.1" data-track-index="1">
+    <img id="h1-bg" class="hbg" src="assets/e_quadro.jpg" alt="" />
+    <div id="h1-tint" class="htint"></div>
+    <div id="h1-grid" class="hgrid"></div>
+    <div id="h1-card" class="hcard"><img id="h1-img" class="himg" src="assets/e_quadro.jpg" alt="Extensão filtro de linha" /><div id="h1-sw" class="hsw"><i id="h1-swi"></i></div></div>
+    <div id="h1-edge" class="hedge" style="left:378px;top:237px;width:539px;height:905px"></div>
+    <div id="h1-bring" class="ring" style="left:443px;top:352px;width:158px;height:158px"></div>
+    <div id="h1-bu" class="brk" style="left:475px;top:634px;width:93px;height:208px"></div>
+    <div id="h1-bc" class="brk" style="left:483px;top:850px;width:72px;height:42px"></div>
+    <div id="h1-bs" class="brk" style="left:610px;top:332px;width:246px;height:678px"></div>
+    <b id="h1-d0" class="dig" style="left:862px;top:366px">1</b><b id="h1-d1" class="dig" style="left:862px;top:484px">2</b><b id="h1-d2" class="dig" style="left:862px;top:602px">3</b><b id="h1-d3" class="dig" style="left:862px;top:723px">4</b><b id="h1-d4" class="dig" style="left:862px;top:921px">5</b>
+    <div id="h1-lb" class="lead" style="left:350px;top:428px;width:93px"></div>
+    <div id="h1-lu" class="lead" style="left:350px;top:735px;width:125px"></div>
+    <div id="h1-lc" class="lead" style="left:350px;top:868px;width:133px"></div>
+    <div id="h1-eb" class="etq" style="top:376px"><span style="font-size:66px">LIGA/DESLIGA</span></div>
+    <div id="h1-eu" class="etq" style="top:683px"><span><em id="h1-nu">4</em> USB</span></div>
+    <div id="h1-ec" class="etq" style="top:816px"><span>TIPO-C</span></div>
+    <div id="h1-es" class="etq dir" style="top:1150px;left:583px"><span style="font-size:76px"><em>5</em> TOMADAS</span></div>
+  </div>
+  <div id="camE2" class="cam"><video id="vE2" class="clip full" data-start="8.1" data-duration="2.78" data-media-start="1.155" data-playback-rate="0.77" data-track-index="0" src="assets/clipe_E.mp4" muted playsinline></video></div>
+  <div id="h2" class="clip hero" data-start="10.88" data-duration="3.42" data-track-index="1">
+    <img id="h2-bg" class="hbg" src="assets/e_quadro.jpg" alt="" />
+    <div id="h2-tint" class="htint"></div>
+    <div id="h2-grid" class="hgrid"></div>
+    <div id="h2-card" class="hcard"><img id="h2-img" class="himg" src="assets/e_quadro.jpg" alt="Extensão filtro de linha" /><div id="h2-sw" class="hsw"><i id="h2-swi"></i></div></div>
+    <div id="h2-edge" class="hedge" style="left:378px;top:237px;width:539px;height:905px"></div>
+    <div id="h2-bring" class="ring" style="left:443px;top:352px;width:158px;height:158px"></div>
+    <div id="h2-bu" class="brk" style="left:475px;top:634px;width:93px;height:208px"></div>
+    <div id="h2-bc" class="brk" style="left:483px;top:850px;width:72px;height:42px"></div>
+    <div id="h2-bs" class="brk" style="left:610px;top:332px;width:246px;height:678px"></div>
+    <b id="h2-d0" class="dig" style="left:862px;top:366px">1</b><b id="h2-d1" class="dig" style="left:862px;top:484px">2</b><b id="h2-d2" class="dig" style="left:862px;top:602px">3</b><b id="h2-d3" class="dig" style="left:862px;top:723px">4</b><b id="h2-d4" class="dig" style="left:862px;top:921px">5</b>
+    <div id="h2-lb" class="lead" style="left:350px;top:428px;width:93px"></div>
+    <div id="h2-lu" class="lead" style="left:350px;top:735px;width:125px"></div>
+    <div id="h2-lc" class="lead" style="left:350px;top:868px;width:133px"></div>
+    <div id="h2-eb" class="etq" style="top:376px"><span style="font-size:66px">LIGA/DESLIGA</span></div>
+    <div id="h2-eu" class="etq" style="top:683px"><span><em id="h2-nu">4</em> USB</span></div>
+    <div id="h2-ec" class="etq" style="top:816px"><span>TIPO-C</span></div>
+    <div id="h2-es" class="etq dir" style="top:1150px;left:583px"><span style="font-size:76px"><em>5</em> TOMADAS</span></div>
+  </div>
+  <!-- CTA: clipe F 1,40-2,96 s invertido (aproxima) em 0,77x, depois quadro 0,25 s congelado -->
+  <div id="camR" class="cam"><video id="vR" class="clip full" data-start="14.3" data-duration="1.6" data-media-start="0" data-playback-rate="0.77" data-track-index="0" src="assets/f_rev.mp4" muted playsinline></video></div>
+  <div id="camF" class="cam"><img id="iF" class="clip full" data-start="15.9" data-duration="3.55" data-track-index="0" src="assets/f_quadro.jpg" alt="Extensão filtro de linha" /></div>
+
+  <div id="vin" class="clip vinheta" data-start="0" data-duration="19.45" data-track-index="2"></div>
+  <div id="topo" class="clip topo" data-start="0" data-duration="19.45" data-track-index="3"></div>
+  <div id="wipe" class="clip" data-start="4.34" data-duration="0.34" data-track-index="4"><i id="wipe-i"></i></div>
+  <div id="flash1" class="clip flashn" data-start="6.0" data-duration="0.22" data-track-index="4"></div>
+  <div id="flash2" class="clip flashn" data-start="10.88" data-duration="0.22" data-track-index="4"></div>
+  <div id="flash3" class="clip flash" data-start="14.3" data-duration="0.14" data-track-index="4"></div>
+
+  <!-- mira (cantos neon) no clipe E e na aproximação da CTA -->
+  <div id="vfE" class="clip mira" data-start="4.5" data-duration="1.5" data-track-index="5">
+    <div id="vfE-b" class="vf" style="left:300px;top:495px;width:460px;height:840px"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>
+  </div>
+  <div id="vfC" class="clip mira" data-start="14.3" data-duration="3.15" data-track-index="5">
+    <div id="vfC-b" class="vf" style="left:318px;top:478px;width:430px;height:826px"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>
+  </div>
+
+  <!-- títulos -->
+  <div id="ti" class="clip titulo" data-start="0" data-duration="4.4" data-track-index="6">
+    <div id="ti-b" class="bloco" style="top:192px">
+      <div id="ti-l0" class="tl" style="font-size:160px">FILA DO</div>
+      <div id="ti-l1" class="tl neon" style="font-size:160px">CARREGADOR?</div>
+    </div>
+    <div id="ti-p" class="pilula" style="top:440px">todo mundo sem bateria</div>
+  </div>
+  <div id="ta" class="clip titulo" data-start="4.55" data-duration="1.45" data-track-index="6">
+    <div class="mask" style="top:192px;height:132px"><div id="ta-l0" class="tl" style="font-size:140px">CARREGA</div></div>
+    <div class="mask" style="top:318px;height:132px"><div id="ta-l1" class="tl neon" style="font-size:140px">TUDO JUNTO</div></div>
+    <i id="ta-bar" class="barra" style="top:458px;width:400px"></i>
+  </div>
+  <div id="tc" class="clip titulo" data-start="15.9" data-duration="1.55" data-track-index="6">
+    <div id="tc-b" class="bloco" style="top:192px">
+      <div id="tc-l0" class="tl" style="font-size:150px">TOQUE NA</div>
+      <div id="tc-l1" class="tl neon" style="font-size:150px">EXTENSÃO</div>
+    </div>
+  </div>
+  <div id="tap" class="clip" data-start="16.05" data-duration="0.8" data-track-index="6"><i id="tap1" class="onda"></i><i id="tap2" class="onda"></i></div>
+  <div id="cta" class="clip" data-start="17.45" data-duration="2.0" data-track-index="6">
+    <i id="cta-o"></i>
+    <span id="cta-b"><svg viewBox="0 0 72 72"><circle cx="36" cy="36" r="34" fill="#0B0F1A"/><path d="M50 22 L24 48 M23 30 L23 49 L42 49" fill="none" stroke="#3DF5A7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>CONFIRA NO TIKTOK SHOP</span>
+  </div>
+
+  <div id="leg-intro-0" class="clip legenda" data-start="0.267" data-duration="0.861" data-track-index="7"><div class="cap" style="top:1290px"><span id="leg-intro-0-0" class="pal">Fim</span><span id="leg-intro-0-1" class="pal">do</span><span id="leg-intro-0-2" class="pal">dia</span></div></div>
+  <div id="leg-intro-1" class="clip legenda" data-start="1.128" data-duration="0.519" data-track-index="7"><div class="cap" style="top:1290px"><span id="leg-intro-1-0" class="pal">todo</span><span id="leg-intro-1-1" class="pal">mundo</span></div></div>
+  <div id="leg-intro-2" class="clip legenda" data-start="1.647" data-duration="0.884" data-track-index="7"><div class="cap" style="top:1290px"><span id="leg-intro-2-0" class="pal">sem</span><span id="leg-intro-2-1" class="pal k">bateria</span></div></div>
+  <div id="leg-intro-3" class="clip legenda" data-start="2.531" data-duration="0.484" data-track-index="7"><div class="cap" style="top:1290px"><span id="leg-intro-3-0" class="pal">e</span><span id="leg-intro-3-1" class="pal k">brigando</span></div></div>
+  <div id="leg-intro-4" class="clip legenda" data-start="3.015" data-duration="0.483" data-track-index="7"><div class="cap" style="top:1290px"><span id="leg-intro-4-0" class="pal">pelo</span><span id="leg-intro-4-1" class="pal">mesmo</span></div></div>
+  <div id="leg-intro-5" class="clip legenda" data-start="3.498" data-duration="1.002" data-track-index="7"><div class="cap" style="top:1290px"><span id="leg-intro-5-0" class="pal k">carregador?</span></div></div>
+  <div id="leg-apresentacao-0" class="clip legenda" data-start="4.77" data-duration="0.507" data-track-index="7"><div class="cap" style="top:1362px"><span id="leg-apresentacao-0-0" class="pal k">Extensão</span></div></div>
+  <div id="leg-apresentacao-1" class="clip legenda" data-start="5.277" data-duration="0.731" data-track-index="7"><div class="cap" style="top:1362px"><span id="leg-apresentacao-1-0" class="pal">filtro</span><span id="leg-apresentacao-1-1" class="pal">de</span><span id="leg-apresentacao-1-2" class="pal">linha</span></div></div>
+  <div id="leg-apresentacao-2" class="clip legenda" data-start="6.008" data-duration="1.109" data-track-index="7"><div class="cap" style="top:1300px"><span id="leg-apresentacao-2-0" class="pal">com</span><span id="leg-apresentacao-2-1" class="pal">quatro</span><span id="leg-apresentacao-2-2" class="pal k">USB</span></div></div>
+  <div id="leg-apresentacao-3" class="clip legenda" data-start="7.117" data-duration="0.236" data-track-index="7"><div class="cap" style="top:1300px"><span id="leg-apresentacao-3-0" class="pal">e</span><span id="leg-apresentacao-3-1" class="pal">uma</span></div></div>
+  <div id="leg-apresentacao-4" class="clip legenda" data-start="7.353" data-duration="0.778" data-track-index="7"><div class="cap" style="top:1300px"><span id="leg-apresentacao-4-0" class="pal k">tipo-C</span></div></div>
+  <div id="leg-apresentacao-5" class="clip legenda" data-start="8.131" data-duration="0.424" data-track-index="7"><div class="cap" style="top:1352px"><span id="leg-apresentacao-5-0" class="pal">cada</span><span id="leg-apresentacao-5-1" class="pal">um</span></div></div>
+  <div id="leg-apresentacao-6" class="clip legenda" data-start="8.555" data-duration="0.979" data-track-index="7"><div class="cap" style="top:1352px"><span id="leg-apresentacao-6-0" class="pal k">carrega</span><span id="leg-apresentacao-6-1" class="pal">o</span><span id="leg-apresentacao-6-2" class="pal">seu</span></div></div>
+  <div id="leg-apresentacao-7" class="clip legenda" data-start="9.534" data-duration="0.578" data-track-index="7"><div class="cap" style="top:1352px"><span id="leg-apresentacao-7-0" class="pal">sem</span><span id="leg-apresentacao-7-1" class="pal k">esperar</span></div></div>
+  <div id="leg-apresentacao-8" class="clip legenda" data-start="10.112" data-duration="0.764" data-track-index="7"><div class="cap" style="top:1352px"><span id="leg-apresentacao-8-0" class="pal">a</span><span id="leg-apresentacao-8-1" class="pal">vez</span></div></div>
+  <div id="leg-apresentacao-9" class="clip legenda" data-start="10.876" data-duration="0.46" data-track-index="7"><div class="cap" style="top:1300px"><span id="leg-apresentacao-9-0" class="pal">Sobram</span></div></div>
+  <div id="leg-apresentacao-10" class="clip legenda" data-start="11.336" data-duration="0.849" data-track-index="7"><div class="cap" style="top:1300px"><span id="leg-apresentacao-10-0" class="pal">cinco</span><span id="leg-apresentacao-10-1" class="pal k">tomadas</span></div></div>
+  <div id="leg-apresentacao-11" class="clip legenda" data-start="12.185" data-duration="0.496" data-track-index="7"><div class="cap" style="top:1300px"><span id="leg-apresentacao-11-0" class="pal">e</span><span id="leg-apresentacao-11-1" class="pal">botão</span></div></div>
+  <div id="leg-apresentacao-12" class="clip legenda" data-start="12.681" data-duration="1.619" data-track-index="7"><div class="cap" style="top:1300px"><span id="leg-apresentacao-12-0" class="pal k">liga</span><span id="leg-apresentacao-12-1" class="pal">e</span><span id="leg-apresentacao-12-2" class="pal">desliga</span></div></div>
+  <div id="leg-cta-0" class="clip legenda" data-start="14.629" data-duration="0.413" data-track-index="7"><div class="cap" style="top:1318px"><span id="leg-cta-0-0" class="pal">Quer</span><span id="leg-cta-0-1" class="pal">ver</span></div></div>
+  <div id="leg-cta-1" class="clip legenda" data-start="15.042" data-duration="1.002" data-track-index="7"><div class="cap" style="top:1318px"><span id="leg-cta-1-0" class="pal">de</span><span id="leg-cta-1-1" class="pal k">pertinho?</span></div></div>
+  <div id="leg-cta-2" class="clip legenda" data-start="16.044" data-duration="0.389" data-track-index="7"><div class="cap" style="top:1318px"><span id="leg-cta-2-0" class="pal k">Toque</span><span id="leg-cta-2-1" class="pal">na</span></div></div>
+  <div id="leg-cta-3" class="clip legenda" data-start="16.433" data-duration="0.437" data-track-index="7"><div class="cap" style="top:1318px"><span id="leg-cta-3-0" class="pal k">extensão</span></div></div>
+  <div id="leg-cta-4" class="clip legenda" data-start="16.87" data-duration="0.577" data-track-index="7"><div class="cap" style="top:1318px"><span id="leg-cta-4-0" class="pal">do</span><span id="leg-cta-4-1" class="pal">vídeo</span></div></div>
+  <div id="leg-cta-5" class="clip legenda" data-start="17.447" data-duration="0.531" data-track-index="7"><div class="cap" style="top:1318px"><span id="leg-cta-5-0" class="pal">e</span><span id="leg-cta-5-1" class="pal k">confira</span></div></div>
+  <div id="leg-cta-6" class="clip legenda" data-start="17.978" data-duration="1.472" data-track-index="7"><div class="cap" style="top:1318px"><span id="leg-cta-6-0" class="pal">no</span><span id="leg-cta-6-1" class="pal k">TikTok</span><span id="leg-cta-6-2" class="pal k">Shop</span></div></div>
+
+  <audio id="voz-intro" data-start="0.25" data-duration="4.2" data-track-index="8" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="4.75" data-duration="9.48" data-track-index="8" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="14.6" data-duration="4.728" data-track-index="8" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-000" data-start="0" data-duration="0.8" data-track-index="9" data-volume="0.6" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-pop-162" data-start="1.62" data-duration="0.09" data-track-index="9" data-volume="0.35" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-whoosh-436" data-start="4.36" data-duration="0.55" data-track-index="9" data-volume="0.4" src="assets/sfx/whoosh.wav"></audio>
+  <audio id="sfx-whooshc-588" data-start="5.88" data-duration="0.3" data-track-index="9" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-tique-730" data-start="7.3" data-duration="0.03" data-track-index="9" data-volume="0.42" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-whooshc-1080" data-start="10.8" data-duration="0.3" data-track-index="9" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-tique-1230" data-start="12.3" data-duration="0.03" data-track-index="9" data-volume="0.42" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-subida-1390" data-start="13.9" data-duration="0.4" data-media-start="1.0" data-track-index="9" data-volume="0.38" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-clique-1607" data-start="16.07" data-duration="0.05" data-track-index="9" data-volume="0.5" src="assets/sfx/clique.wav"></audio>
+  <audio id="sfx-pop-1745" data-start="17.45" data-duration="0.09" data-track-index="9" data-volume="0.3" src="assets/sfx/pop.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const SAI = (sel, t) => tl.to(sel, {y:-50, opacity:0, duration:0.18, ease:"power2.in"}, t);
+
+// ---- INTRO: gancho. Extensão inteira + 3 celulares no quadro 0, punch-in 1,12->1 e título gigante batendo ----
+tl.fromTo("#camD", {scale:1.12}, {scale:1, duration:0.4, ease:"power3.out"}, 0);
+tl.to("#camD", {scale:1.025, duration:4.1, ease:"none"}, 0.4);
+tl.fromTo("#ti-l0", {scale:1.15, transformOrigin:"0% 50%"}, {scale:1, duration:0.32, ease:"back.out(1.7)"}, 0);
+tl.fromTo("#ti-l1", {scale:1.15, transformOrigin:"0% 50%"}, {scale:1, duration:0.32, ease:"back.out(1.7)"}, 0.04);
+tl.to("#ti-b", {scale:0.74, transformOrigin:"0% 0%", duration:0.3, ease:"power3.inOut"}, 1.5);
+tl.fromTo("#ti-p", {opacity:0, y:-24, scale:0.8, transformOrigin:"0% 50%"}, {opacity:1, y:-22, scale:1, duration:0.24, ease:"back.out(2)"}, 1.62);
+tl.to("#ti-l1", {scale:1.07, transformOrigin:"0% 50%", duration:0.16, yoyo:true, repeat:1, ease:"sine.inOut"}, 3.25);
+SAI("#ti-b", 4.16);
+SAI("#ti-p", 3.05);
+
+// passagem: barra neon varre de cima a baixo e corta para o E
+tl.fromTo("#wipe-i", {y:-320}, {y:1940, duration:0.34, ease:"power2.inOut"}, 4.34);
+
+// ---- APRESENTAÇÃO ----
+tl.fromTo("#camE1", {scale:1.08}, {scale:1, duration:0.4, ease:"power3.out"}, 4.5);
+tl.to("#camE1", {scale:1.02, duration:1.1, ease:"none"}, 4.9);
+tl.fromTo("#vfE-b", {scale:1.3, opacity:0}, {scale:1, opacity:1, duration:0.3, ease:"power3.out"}, 4.6);
+tl.to("#vfE-b", {scale:0.97, duration:0.12, yoyo:true, repeat:1, ease:"sine.inOut"}, 4.9);
+tl.fromTo("#ta-l0", {yPercent:105}, {yPercent:0, duration:0.3, ease:"power3.out"}, 4.6);
+tl.fromTo("#ta-l1", {yPercent:105}, {yPercent:0, duration:0.3, ease:"power3.out"}, 4.72);
+tl.fromTo("#ta-bar", {scaleX:0, transformOrigin:"0% 50%"}, {scaleX:1, duration:0.3, ease:"power2.out"}, 4.6);
+tl.to("#ta-l0", {yPercent:-105, duration:0.2, ease:"power2.in"}, 5.75);
+tl.to("#ta-l1", {yPercent:-105, duration:0.2, ease:"power2.in"}, 5.78);
+tl.to("#ta-bar", {scaleX:0, transformOrigin:"100% 50%", duration:0.18, ease:"power2.in"}, 5.8);
+
+// cartão herói 1: "com quatro USB e uma tipo cê"
+tl.fromTo("#flash1", {opacity:0.7}, {opacity:0, duration:0.2}, 6.0);
+tl.fromTo("#h1-card",{x:0,y:0,scale:1,clipPath:"inset(0px 0px 0px 0px round 0px)"},{x:285,y:110,scale:0.62,clipPath:"inset(205px 60px 255px 150px round 56px)",duration:0.42,ease:"power3.inOut"},6.0);
+tl.fromTo("#h1-bg",{filter:"blur(0px) brightness(1)",scale:1},{filter:"blur(28px) brightness(0.42)",scale:1.12,duration:0.42,ease:"power2.out"},6.0);
+tl.fromTo("#h1-tint",{opacity:0},{opacity:1,duration:0.4},6.0);
+tl.fromTo("#h1-grid",{opacity:0,y:-40},{opacity:1,y:0,duration:0.5,ease:"power2.out"},6.1);
+tl.fromTo("#h1-edge",{opacity:0,scale:1.04},{opacity:1,scale:1,duration:0.22,ease:"power2.out"},6.36);
+tl.fromTo("#h1-card",{filter:"brightness(1)"},{filter:"brightness(1.04)",duration:1.6,ease:"none",immediateRender:false},6.45);
+tl.fromTo("#h1-bu",{opacity:0,scale:1.5},{opacity:1,scale:1,duration:0.2,ease:"back.out(2)"},6.18);
+tl.fromTo("#h1-lu",{scaleX:0,opacity:1,transformOrigin:"100% 50%"},{scaleX:1,opacity:1,duration:0.16,ease:"power2.out"},6.26);
+tl.fromTo("#h1-eu",{opacity:0,x:-40},{opacity:1,x:0,duration:0.2,ease:"back.out(1.8)"},6.3);
+tl.set("#h1-nu",{textContent:"0"},6.1);
+tl.set("#h1-nu",{textContent:"1"},6.3);
+tl.set("#h1-nu",{textContent:"2"},6.4);
+tl.set("#h1-nu",{textContent:"3"},6.5);
+tl.set("#h1-nu",{textContent:"4"},6.62);
+tl.fromTo("#h1-nu",{scale:1.5},{scale:1,duration:0.25,ease:"back.out(2.5)",immediateRender:false},6.62);
+tl.fromTo("#h1-bc",{opacity:0,scale:1.5},{opacity:1,scale:1,duration:0.2,ease:"back.out(2)"},7.3);
+tl.fromTo("#h1-lc",{scaleX:0,opacity:1,transformOrigin:"100% 50%"},{scaleX:1,opacity:1,duration:0.16,ease:"power2.out"},7.38);
+tl.fromTo("#h1-ec",{opacity:0,x:-40},{opacity:1,x:0,duration:0.2,ease:"back.out(1.8)"},7.42);
+tl.to(["#h1-bu","#h1-lu","#h1-eu","#h1-bc","#h1-lc","#h1-ec"], {opacity:0, duration:0.14}, 7.94);
+
+// volta ao vídeo: zoom lento e punch-in em "sem esperar a vez"
+tl.fromTo("#camE2", {scale:1}, {scale:1.03, duration:1.42, ease:"none"}, 8.1);
+tl.to("#camE2", {scale:1.06, duration:0.24, ease:"power3.out"}, 9.52);
+tl.to("#camE2", {scale:1.07, duration:1.12, ease:"none"}, 9.76);
+
+// cartão herói 2: "Sobram cinco tomadas e botão liga e desliga" + resumo
+tl.fromTo("#flash2", {opacity:0.7}, {opacity:0, duration:0.2}, 10.88);
+tl.fromTo("#h2-card",{x:0,y:0,scale:1,clipPath:"inset(0px 0px 0px 0px round 0px)"},{x:285,y:110,scale:0.62,clipPath:"inset(205px 60px 255px 150px round 56px)",duration:0.42,ease:"power3.inOut"},10.88);
+tl.fromTo("#h2-bg",{filter:"blur(0px) brightness(1)",scale:1},{filter:"blur(28px) brightness(0.42)",scale:1.12,duration:0.42,ease:"power2.out"},10.88);
+tl.fromTo("#h2-tint",{opacity:0},{opacity:1,duration:0.4},10.88);
+tl.fromTo("#h2-grid",{opacity:0,y:-40},{opacity:1,y:0,duration:0.5,ease:"power2.out"},10.98);
+tl.fromTo("#h2-edge",{opacity:0,scale:1.04},{opacity:1,scale:1,duration:0.22,ease:"power2.out"},11.24);
+tl.fromTo("#h2-card",{filter:"brightness(1)"},{filter:"brightness(1.04)",duration:1.6,ease:"none",immediateRender:false},11.33);
+tl.fromTo("#h2-bs", {opacity:0, scale:1.08}, {opacity:1, scale:1, duration:0.22, ease:"back.out(2)"}, 11.3);
+tl.fromTo("#h2-d0",{opacity:0,scale:1.8},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.5)"},11.37);
+tl.fromTo("#h2-d1",{opacity:0,scale:1.8},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.5)"},11.45);
+tl.fromTo("#h2-d2",{opacity:0,scale:1.8},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.5)"},11.53);
+tl.fromTo("#h2-d3",{opacity:0,scale:1.8},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.5)"},11.61);
+tl.fromTo("#h2-d4",{opacity:0,scale:1.8},{opacity:1,scale:1,duration:0.14,ease:"back.out(2.5)"},11.69);
+tl.fromTo("#h2-es", {opacity:0, y:30}, {opacity:1, y:0, duration:0.22, ease:"back.out(1.8)"}, 11.72);
+tl.fromTo("#h2-bring",{opacity:0,scale:1.5},{opacity:1,scale:1,duration:0.2,ease:"back.out(2)"},12.3);
+tl.fromTo("#h2-lb",{scaleX:0,opacity:1,transformOrigin:"100% 50%"},{scaleX:1,opacity:1,duration:0.16,ease:"power2.out"},12.38);
+tl.fromTo("#h2-eb",{opacity:0,x:-40},{opacity:1,x:0,duration:0.2,ease:"back.out(1.8)"},12.42);
+tl.fromTo("#h2-swi", {xPercent:-120}, {xPercent:120, duration:0.9, ease:"power2.inOut"}, 13.25);
+tl.fromTo(["#h2-bu","#h2-bc"],{opacity:0,scale:1.4},{opacity:1,scale:1,duration:0.2,ease:"back.out(2)",stagger:0.1},13.3);
+tl.fromTo(["#h2-lu","#h2-lc"],{scaleX:0,opacity:1,transformOrigin:"100% 50%"},{scaleX:1,duration:0.16,ease:"power2.out",stagger:0.1},13.38);
+tl.fromTo(["#h2-eu","#h2-ec"],{opacity:0,x:-40},{opacity:1,x:0,duration:0.2,ease:"back.out(1.8)",stagger:0.1},13.42);
+
+// ---- CTA: aproximação (mira fecha na extensão), toque, botão com seta para baixo/esquerda ----
+tl.fromTo("#flash3", {opacity:0.5}, {opacity:0, duration:0.12}, 14.3);
+tl.fromTo("#camR", {scale:1.03}, {scale:1.05, duration:1.6, ease:"none"}, 14.3);
+tl.fromTo("#vfC-b", {scale:1.75, opacity:0}, {scale:1, opacity:1, duration:1.7, ease:"power2.inOut"}, 14.32);
+tl.fromTo("#camF", {scale:1.04}, {scale:1.09, duration:3.55, ease:"none"}, 15.9);
+tl.fromTo("#tc-l0", {scale:1.8, opacity:0, transformOrigin:"0% 50%"}, {scale:1, opacity:1, duration:0.26, ease:"back.out(1.7)"}, 15.9);
+tl.fromTo("#tc-l1", {scale:1.8, opacity:0, transformOrigin:"0% 50%"}, {scale:1, opacity:1, duration:0.26, ease:"back.out(1.7)"}, 15.98);
+tl.to("#tc-b", {scale:0.93, transformOrigin:"0% 50%", duration:0.08, ease:"power2.in"}, 16.06);
+tl.to("#tc-b", {scale:1, duration:0.25, ease:"back.out(3)"}, 16.14);
+tl.fromTo("#tap1", {scale:0.15, opacity:1}, {scale:1.2, opacity:0, duration:0.6, ease:"power2.out"}, 16.07);
+tl.fromTo("#tap2", {scale:0.15, opacity:0.8}, {scale:0.9, opacity:0, duration:0.55, ease:"power2.out"}, 16.2);
+tl.to("#vfC-b", {opacity:0, duration:0.25}, 17.2);
+SAI("#tc-b", 17.27);
+tl.fromTo("#cta-b", {scale:0.6, opacity:0, transformOrigin:"10% 50%"}, {scale:1, opacity:1, duration:0.26, ease:"back.out(2.2)"}, 17.45);
+tl.to("#cta-b", {scale:1.04, duration:0.38, yoyo:true, repeat:3, ease:"sine.inOut"}, 17.75);
+tl.fromTo("#cta-o", {scale:0.3, opacity:0.95}, {scale:1.7, opacity:0, duration:0.6, ease:"power2.out"}, 17.5);
+tl.fromTo("#cta-o", {scale:0.3, opacity:0.95}, {scale:1.7, opacity:0, duration:0.6, ease:"power2.out", immediateRender:false}, 18.4);
+
+// ---- legenda caixa-palavra ----
+tl.fromTo("#leg-intro-0-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},0.267);
+tl.fromTo("#leg-intro-0-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},0.479);
+tl.fromTo("#leg-intro-0-2",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},0.609);
+tl.fromTo("#leg-intro-1-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},1.128);
+tl.fromTo("#leg-intro-1-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},1.364);
+tl.fromTo("#leg-intro-2-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},1.647);
+tl.fromTo("#leg-intro-2-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},1.895);
+tl.fromTo("#leg-intro-3-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},2.531);
+tl.fromTo("#leg-intro-3-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},2.578);
+tl.fromTo("#leg-intro-4-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},3.015);
+tl.fromTo("#leg-intro-4-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},3.18);
+tl.fromTo("#leg-intro-5-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},3.498);
+tl.fromTo("#leg-apresentacao-0-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},4.77);
+tl.fromTo("#leg-apresentacao-1-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},5.277);
+tl.fromTo("#leg-apresentacao-1-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},5.666);
+tl.fromTo("#leg-apresentacao-1-2",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},5.749);
+tl.fromTo("#leg-apresentacao-2-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},6.008);
+tl.fromTo("#leg-apresentacao-2-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},6.22);
+tl.fromTo("#leg-apresentacao-2-2",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},6.574);
+tl.fromTo("#leg-apresentacao-3-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},7.117);
+tl.fromTo("#leg-apresentacao-3-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},7.235);
+tl.fromTo("#leg-apresentacao-4-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},7.353);
+tl.fromTo("#leg-apresentacao-5-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},8.131);
+tl.fromTo("#leg-apresentacao-5-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},8.426);
+tl.fromTo("#leg-apresentacao-6-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},8.555);
+tl.fromTo("#leg-apresentacao-6-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},8.968);
+tl.fromTo("#leg-apresentacao-6-2",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},9.004);
+tl.fromTo("#leg-apresentacao-7-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},9.534);
+tl.fromTo("#leg-apresentacao-7-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},9.735);
+tl.fromTo("#leg-apresentacao-8-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},10.112);
+tl.fromTo("#leg-apresentacao-8-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},10.183);
+tl.fromTo("#leg-apresentacao-9-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},10.876);
+tl.fromTo("#leg-apresentacao-10-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},11.336);
+tl.fromTo("#leg-apresentacao-10-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},11.725);
+tl.fromTo("#leg-apresentacao-11-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},12.185);
+tl.fromTo("#leg-apresentacao-11-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},12.291);
+tl.fromTo("#leg-apresentacao-12-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},12.681);
+tl.fromTo("#leg-apresentacao-12-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},13.176);
+tl.fromTo("#leg-apresentacao-12-2",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},13.27);
+tl.fromTo("#leg-cta-0-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},14.629);
+tl.fromTo("#leg-cta-0-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},14.853);
+tl.fromTo("#leg-cta-1-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},15.042);
+tl.fromTo("#leg-cta-1-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},15.148);
+tl.fromTo("#leg-cta-2-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},16.044);
+tl.fromTo("#leg-cta-2-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},16.327);
+tl.fromTo("#leg-cta-3-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},16.433);
+tl.fromTo("#leg-cta-4-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},16.87);
+tl.fromTo("#leg-cta-4-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},16.976);
+tl.fromTo("#leg-cta-5-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},17.447);
+tl.fromTo("#leg-cta-5-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},17.53);
+tl.fromTo("#leg-cta-6-0",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},17.978);
+tl.fromTo("#leg-cta-6-1",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},18.096);
+tl.fromTo("#leg-cta-6-2",{opacity:0,y:22,scale:0.86},{opacity:1,y:0,scale:1,duration:0.11,ease:"back.out(2.2)"},18.568);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

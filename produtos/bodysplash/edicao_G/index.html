@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+:root{--marinho:#0F1B30;--giz:#EEE8DA;--gravata:#D3263A;--gravata-claro:#F04457}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0F1B30}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#0F1B30;font-family:"Poppins";font-weight:800}
+.clip{position:absolute;inset:0}
+.cam{position:absolute;inset:0;overflow:hidden;z-index:1}
+.full{width:100%;height:100%;object-fit:cover}
+#camA{transform-origin:50% 0%}
+#camG{transform-origin:243px 715px}
+#camH1,#camH2{transform-origin:50% 0%}
+#camI{transform-origin:9% 50%}
+/* tecido risca-de-giz */
+.risca{background-color:var(--marinho);
+  background-image:repeating-linear-gradient(90deg,rgba(238,232,218,.085) 0 2px,transparent 2px 18px)}
+/* títulos: faixas de etiqueta costurada, uma por linha */
+.titulo{z-index:6}
+.ln{position:absolute;left:44px;display:flex;align-items:flex-start}
+.band{position:relative;display:flex;align-items:center;gap:22px;padding:4px 34px 8px 46px;box-shadow:0 8px 22px rgba(6,10,20,.35)}
+.band .tab{position:absolute;left:0;top:0;bottom:0;width:18px;display:block;
+  background:repeating-linear-gradient(135deg,var(--gravata) 0 10px,#F2E9DA 10px 13px,var(--gravata) 13px 22px)}
+.band .st{position:absolute;left:28px;right:10px;top:7px;bottom:7px;display:block;
+  border-top:3px dashed rgba(238,232,218,.55);border-bottom:3px dashed rgba(238,232,218,.55)}
+.tt{display:block;font-family:"DM Serif Display";font-size:96px;line-height:1;white-space:nowrap;color:var(--giz);letter-spacing:1px}
+.tt .s{color:var(--gravata-claro)}
+.mask{overflow:hidden}
+/* linha de apoio (etiqueta fina) */
+.lin{position:absolute;left:44px;top:392px;display:flex}
+.lin .band{padding:4px 26px 6px 40px;gap:16px}
+.lin .band .tab{width:12px}
+.lt{display:block;font-family:"Poppins";font-weight:700;font-size:32px;line-height:1.1;white-space:nowrap;color:var(--giz)}
+.lt .s{color:var(--gravata-claro)}
+/* caixinha de checklist (giz) com visto vermelho */
+.cx{position:relative;flex:0 0 auto;display:block;width:34px;height:34px;border:3px solid rgba(238,232,218,.85);border-radius:4px}
+.cx svg{position:absolute;left:-4px;top:-14px;width:50px;height:50px;display:block}
+.cx.g{width:62px;height:62px;border-width:5px;border-radius:6px}
+.cx.g svg{left:-8px;top:-28px;width:92px;height:92px}
+/* transição 1: painel risca-de-giz opaco */
+.wipe{z-index:18;overflow:hidden}
+#wp1{position:absolute;left:0;top:0;width:1140px;height:1920px;display:block;border-right:16px solid var(--gravata)}
+#wp1 i{position:absolute;right:14px;top:0;width:0;height:1920px;display:block;border-right:4px dashed rgba(238,232,218,.7)}
+/* transição 2: lapelas */
+.lap{position:absolute;left:0;top:0;width:1080px;height:1920px;display:block}
+/* brilho nas tampas (faixa acima dos rótulos) */
+.brilho{z-index:3}
+.br-m{position:absolute;left:0;width:1080px;overflow:hidden;display:block;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 72%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 72%,transparent 100%)}
+.br-b{position:absolute;left:0;top:-300px;width:240px;height:1100px;display:block;
+  background:linear-gradient(to right,rgba(255,255,255,0) 0,rgba(255,255,255,.85) 50%,rgba(255,255,255,0) 100%)}
+/* CTA: seta pespontada (fita vermelha + costura de giz) na margem esquerda, ponta para o produto marcado */
+#seta{z-index:8}
+#gv{position:absolute;left:8px;top:600px;width:80px;height:912px;display:block}
+#gv-o{position:absolute;left:-18px;top:1446px;width:80px;height:80px;display:block;border:5px solid var(--gravata-claro);border-radius:50%;opacity:0;
+  box-shadow:0 0 0 3px rgba(238,232,218,.7)}
+/* legenda karaokê em etiqueta costurada */
+.legenda{z-index:9}
+.cap{position:absolute;left:44px;display:flex;align-items:flex-start;gap:20px;flex-wrap:nowrap;padding:6px 28px 12px 30px;
+  background-color:var(--marinho);background-image:repeating-linear-gradient(90deg,rgba(238,232,218,.085) 0 2px,transparent 2px 18px);
+  box-shadow:0 8px 22px rgba(6,10,20,.35)}
+.cap .cst{position:absolute;left:8px;right:8px;top:7px;bottom:7px;display:block;border:3px dashed rgba(238,232,218,.4);border-radius:4px}
+.pal{position:relative;display:block;font-family:"Poppins";font-weight:800;font-size:76px;line-height:1.06;white-space:nowrap;color:var(--giz);transform-origin:50% 60%}
+.tx{display:block;font-style:normal}
+.ul{position:absolute;left:2px;right:2px;bottom:4px;height:0;display:block;border-bottom:5px dashed var(--gravata-claro);transform-origin:0 50%}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="18.82" data-width="1080" data-height="1920">
+  <!-- INTRO 0-2,95: A 5,55-7,97 (0,82x); antes de 5,5 s é proibido -->
+  <div id="camA" class="cam"><video id="vA" class="clip full" data-start="0" data-duration="2.95" data-media-start="5.55" data-playback-rate="0.82" data-track-index="0" src="assets/clipe_A.mp4" muted playsinline></video></div>
+  <!-- 2,95-9,85: G 0-5,52 (0,8x), um plano contínuo: vapor -> dedo na válvula -> nuvem de vapor -->
+  <div id="camG" class="cam"><video id="vG" class="clip full" data-start="2.95" data-duration="6.9" data-media-start="0" data-playback-rate="0.8" data-track-index="0" src="assets/clipe_G.mp4" muted playsinline></video></div>
+  <!-- 9,85-11,95: H 0-1,79 (0,85x). H 2,1-4,9 nunca entra. -->
+  <div id="camH1" class="cam"><video id="vH1" class="clip full" data-start="9.85" data-duration="2.1" data-media-start="0" data-playback-rate="0.85" data-track-index="0" src="assets/clipe_H.mp4" muted playsinline></video></div>
+  <!-- 11,95-14,55: H 5,3-7,9 (1x), cortina; antes de 5,3 o preto do Enigma ainda está acinzentado -->
+  <div id="camH2" class="cam"><video id="vH2" class="clip full" data-start="11.95" data-duration="2.6" data-media-start="5.3" data-track-index="0" src="assets/clipe_H.mp4" muted playsinline></video></div>
+  <!-- CTA 14,55-fim: I 2,6-6,87 (1x) -->
+  <div id="camI" class="cam"><video id="vI" class="clip full" data-start="14.55" data-duration="4.27" data-media-start="2.6" data-track-index="0" src="assets/clipe_I.mp4" muted playsinline></video></div>
+
+  <!-- produto herói no H2: brilho só na faixa das tampas (y 560-930; rótulos começam em ~950) -->
+  <div id="brilho1" class="clip brilho" data-start="12.783" data-duration="0.85" data-track-index="3"><span class="br-m" style="top:560px;height:370px"><i id="br1" class="br-b"></i></span></div>
+
+  <!-- INTRO: FALTA / O QUÊ? + checklist -->
+  <div id="t1" class="clip titulo" data-start="0" data-duration="3.95" data-track-index="6">
+    <div class="ln" style="top:168px"><div id="t1-a" class="band risca"><i class="tab"></i><i class="st"></i><span class="tt">FALTA</span></div></div>
+    <div class="ln" style="top:280px"><div id="t1-b" class="band risca"><i class="tab"></i><i class="st"></i><span class="tt">O <span class="s">QUÊ?</span></span></div></div>
+    <div id="t1-l" class="lin"><div class="band risca"><i class="tab"></i>
+      <span class="cx"><svg viewBox="0 0 50 50"><path id="ck1" d="M8 26 L20 38 L44 8" fill="none" stroke="#F04457" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lt">roupa escolhida</span>
+      <span class="cx"><svg viewBox="0 0 50 50"><path id="ck2" d="M8 26 L20 38 L44 8" fill="none" stroke="#F04457" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lt">barba feita</span>
+    </div></div>
+  </div>
+
+  <!-- APRESENTAÇÃO: O ÚLTIMO / PASSO (entra em "o último") + linha em "pronto" -->
+  <div id="t2" class="clip titulo" data-start="6.193" data-duration="8.357" data-track-index="7">
+    <div class="ln mask" style="top:168px"><div id="t2-a" class="band risca"><i class="tab"></i><i class="st"></i><span class="tt">O ÚLTIMO</span></div></div>
+    <div class="ln mask" style="top:280px"><div id="t2-b" class="band risca"><i class="tab"></i><i class="st"></i><span class="tt"><span class="s">PASSO</span></span></div></div>
+    <div id="t2-l" class="lin"><div class="band risca"><i class="tab"></i><span class="lt">pronto pra <span class="s">qualquer ocasião</span></span></div></div>
+  </div>
+
+  <!-- CTA: FECHE O / VISUAL + caixinha que ganha o visto no fim; linha em "toque" -->
+  <div id="t3" class="clip titulo" data-start="14.55" data-duration="4.27" data-track-index="8">
+    <div class="ln mask" style="top:168px"><div id="t3-a" class="band risca"><i class="tab"></i><i class="st"></i><span class="tt">FECHE O</span></div></div>
+    <div class="ln mask" style="top:280px"><div id="t3-b" class="band risca"><i class="tab"></i><i class="st"></i><span class="tt"><span class="s">VISUAL</span></span>
+      <span class="cx g"><svg viewBox="0 0 50 50"><path id="ck3" d="M8 26 L20 38 L44 8" fill="none" stroke="#F04457" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+    <div id="t3-l" class="lin"><div class="band risca"><i class="tab"></i><span class="lt">toque no <span class="s">produto do vídeo</span></span></div></div>
+  </div>
+  <div id="seta" class="clip" data-start="16.015" data-duration="2.805" data-track-index="11">
+    <svg id="gv" viewBox="0 0 80 912">
+      <path d="M44 0 L44 828 L16 884" fill="none" stroke="#0F1B30" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M44 0 L44 828 L16 884" fill="none" stroke="#D3263A" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M44 6 L44 828 L16 884" fill="none" stroke="#EEE8DA" stroke-width="4" stroke-dasharray="14 10" stroke-linecap="round"/>
+      <path d="M14 830 L14 886 L70 886" fill="none" stroke="#0F1B30" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 830 L14 886 L70 886" fill="none" stroke="#D3263A" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 836 L14 886 L64 886" fill="none" stroke="#EEE8DA" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/>
+    </svg>
+    <i id="gv-o"></i>
+  </div>
+
+  <div id="wipe1" class="clip wipe" data-start="9.7" data-duration="0.32" data-track-index="14"><i id="wp1" class="risca"><i></i></i></div>
+  <div id="wipe2" class="clip wipe" data-start="14.4" data-duration="0.34" data-track-index="15">
+    <svg id="lapL" class="lap" viewBox="0 0 1080 1920">
+      <defs><pattern id="psL" width="18" height="10" patternUnits="userSpaceOnUse"><rect width="18" height="10" fill="#0F1B30"/><rect width="2" height="10" fill="#26324A"/></pattern></defs>
+      <path d="M0 0 L560 0 L640 1920 L0 1920 Z" fill="url(#psL)"/>
+      <path d="M560 0 L640 1920" stroke="#D3263A" stroke-width="16"/>
+      <path d="M532 0 L612 1920" stroke="#EEE8DA" stroke-opacity="0.6" stroke-width="4" stroke-dasharray="18 12"/>
+    </svg>
+    <svg id="lapR" class="lap" viewBox="0 0 1080 1920">
+      <defs><pattern id="psR" width="18" height="10" patternUnits="userSpaceOnUse"><rect width="18" height="10" fill="#0F1B30"/><rect width="2" height="10" fill="#26324A"/></pattern></defs>
+      <path d="M520 0 L1080 0 L1080 1920 L440 1920 Z" fill="url(#psR)"/>
+      <path d="M520 0 L440 1920" stroke="#D3263A" stroke-width="16"/>
+      <path d="M548 0 L468 1920" stroke="#EEE8DA" stroke-opacity="0.6" stroke-width="4" stroke-dasharray="18 12"/>
+    </svg>
+  </div>
+
+  <div id="leg-int-0" class="clip legenda" data-start="0.139" data-duration="1.156" data-track-index="12"><div id="leg-int-0-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-int-0-0" class="pal"><em class="tx">Roupa</em></span><span id="leg-int-0-1" class="pal"><em class="tx">escolhida,</em></span></div></div>
+  <div id="leg-int-1" class="clip legenda" data-start="1.295" data-duration="1.178" data-track-index="12"><div id="leg-int-1-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-int-1-0" class="pal"><em class="tx">barba</em></span><span id="leg-int-1-1" class="pal"><em class="tx">feita.</em></span></div></div>
+  <div id="leg-int-2" class="clip legenda" data-start="2.473" data-duration="0.613" data-track-index="12"><div id="leg-int-2-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-int-2-0" class="pal"><em class="tx">E</em></span><span id="leg-int-2-1" class="pal"><em class="tx">aí,</em></span></div></div>
+  <div id="leg-int-3" class="clip legenda" data-start="3.086" data-duration="0.844" data-track-index="12"><div id="leg-int-3-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-int-3-0" class="pal k"><em class="tx">falta</em><i id="leg-int-3-0u" class="ul"></i></span><span id="leg-int-3-1" class="pal"><em class="tx">o</em></span><span id="leg-int-3-2" class="pal k"><em class="tx">quê?</em><i id="leg-int-3-2u" class="ul"></i></span></div></div>
+  <div id="leg-apr-0" class="clip legenda" data-start="4.237" data-duration="0.92" data-track-index="12"><div id="leg-apr-0-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-0-0" class="pal"><em class="tx">Kit</em></span><span id="leg-apr-0-1" class="pal k"><em class="tx">Body</em><i id="leg-apr-0-1u" class="ul"></i></span><span id="leg-apr-0-2" class="pal k"><em class="tx">Man,</em><i id="leg-apr-0-2u" class="ul"></i></span></div></div>
+  <div id="leg-apr-1" class="clip legenda" data-start="5.157" data-duration="1.026" data-track-index="12"><div id="leg-apr-1-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-1-0" class="pal"><em class="tx">da</em></span><span id="leg-apr-1-1" class="pal"><em class="tx">Primacial:</em></span></div></div>
+  <div id="leg-apr-2" class="clip legenda" data-start="6.183" data-duration="0.554" data-track-index="12"><div id="leg-apr-2-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-2-0" class="pal"><em class="tx">o</em></span><span id="leg-apr-2-1" class="pal k"><em class="tx">último</em><i id="leg-apr-2-1u" class="ul"></i></span></div></div>
+  <div id="leg-apr-3" class="clip legenda" data-start="6.737" data-duration="0.319" data-track-index="12"><div id="leg-apr-3-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-3-0" class="pal k"><em class="tx">passo</em><i id="leg-apr-3-0u" class="ul"></i></span></div></div>
+  <div id="leg-apr-4" class="clip legenda" data-start="7.056" data-duration="0.955" data-track-index="12"><div id="leg-apr-4-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-4-0" class="pal"><em class="tx">da</em></span><span id="leg-apr-4-1" class="pal"><em class="tx">produção.</em></span></div></div>
+  <div id="leg-apr-5" class="clip legenda" data-start="8.011" data-duration="1.096" data-track-index="12"><div id="leg-apr-5-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-5-0" class="pal"><em class="tx">Saiu</em></span><span id="leg-apr-5-1" class="pal"><em class="tx">do</em></span><span id="leg-apr-5-2" class="pal"><em class="tx">banho,</em></span></div></div>
+  <div id="leg-apr-6" class="clip legenda" data-start="9.107" data-duration="0.814" data-track-index="12"><div id="leg-apr-6-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-6-0" class="pal k"><em class="tx">borrifou,</em><i id="leg-apr-6-0u" class="ul"></i></span></div></div>
+  <div id="leg-apr-7" class="clip legenda" data-start="9.921" data-duration="0.578" data-track-index="12"><div id="leg-apr-7-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-7-0" class="pal"><em class="tx">tá</em></span><span id="leg-apr-7-1" class="pal k"><em class="tx">pronto</em><i id="leg-apr-7-1u" class="ul"></i></span></div></div>
+  <div id="leg-apr-8" class="clip legenda" data-start="10.499" data-duration="0.59" data-track-index="12"><div id="leg-apr-8-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-8-0" class="pal"><em class="tx">pra</em></span><span id="leg-apr-8-1" class="pal"><em class="tx">qualquer</em></span></div></div>
+  <div id="leg-apr-9" class="clip legenda" data-start="11.089" data-duration="0.861" data-track-index="12"><div id="leg-apr-9-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-9-0" class="pal k"><em class="tx">ocasião.</em><i id="leg-apr-9-0u" class="ul"></i></span></div></div>
+  <div id="leg-apr-10" class="clip legenda" data-start="11.95" data-duration="0.885" data-track-index="12"><div id="leg-apr-10-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-10-0" class="pal k"><em class="tx">Três</em><i id="leg-apr-10-0u" class="ul"></i></span><span id="leg-apr-10-1" class="pal"><em class="tx">no</em></span><span id="leg-apr-10-2" class="pal"><em class="tx">kit,</em></span></div></div>
+  <div id="leg-apr-11" class="clip legenda" data-start="12.835" data-duration="0.577" data-track-index="12"><div id="leg-apr-11-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-11-0" class="pal"><em class="tx">pra</em></span><span id="leg-apr-11-1" class="pal k"><em class="tx">variar</em><i id="leg-apr-11-1u" class="ul"></i></span></div></div>
+  <div id="leg-apr-12" class="clip legenda" data-start="13.412" data-duration="1.018" data-track-index="12"><div id="leg-apr-12-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-apr-12-0" class="pal"><em class="tx">todo</em></span><span id="leg-apr-12-1" class="pal"><em class="tx">dia.</em></span></div></div>
+  <div id="leg-cta-0" class="clip legenda" data-start="14.788" data-duration="0.507" data-track-index="12"><div id="leg-cta-0-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-cta-0-0" class="pal"><em class="tx">Pra</em></span><span id="leg-cta-0-1" class="pal"><em class="tx">fechar</em></span></div></div>
+  <div id="leg-cta-1" class="clip legenda" data-start="15.295" data-duration="0.66" data-track-index="12"><div id="leg-cta-1-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-cta-1-0" class="pal"><em class="tx">o</em></span><span id="leg-cta-1-1" class="pal k"><em class="tx">visual,</em><i id="leg-cta-1-1u" class="ul"></i></span></div></div>
+  <div id="leg-cta-2" class="clip legenda" data-start="15.955" data-duration="0.378" data-track-index="12"><div id="leg-cta-2-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-cta-2-0" class="pal k"><em class="tx">toque</em><i id="leg-cta-2-0u" class="ul"></i></span><span id="leg-cta-2-1" class="pal"><em class="tx">no</em></span></div></div>
+  <div id="leg-cta-3" class="clip legenda" data-start="16.333" data-duration="0.389" data-track-index="12"><div id="leg-cta-3-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-cta-3-0" class="pal k"><em class="tx">produto</em><i id="leg-cta-3-0u" class="ul"></i></span></div></div>
+  <div id="leg-cta-4" class="clip legenda" data-start="16.722" data-duration="0.613" data-track-index="12"><div id="leg-cta-4-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-cta-4-0" class="pal"><em class="tx">do</em></span><span id="leg-cta-4-1" class="pal"><em class="tx">vídeo</em></span></div></div>
+  <div id="leg-cta-5" class="clip legenda" data-start="17.335" data-duration="0.531" data-track-index="12"><div id="leg-cta-5-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-cta-5-0" class="pal"><em class="tx">e</em></span><span id="leg-cta-5-1" class="pal"><em class="tx">confira</em></span></div></div>
+  <div id="leg-cta-6" class="clip legenda" data-start="17.866" data-duration="0.808" data-track-index="12"><div id="leg-cta-6-t" class="cap" style="top:444px"><i class="cst"></i><span id="leg-cta-6-0" class="pal"><em class="tx">o</em></span><span id="leg-cta-6-1" class="pal k"><em class="tx">kit.</em><i id="leg-cta-6-1u" class="ul"></i></span></div></div>
+
+  <audio id="voz-intro" data-start="0.15" data-duration="3.888" data-track-index="16" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="4.25" data-duration="10.272" data-track-index="16" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="14.8" data-duration="3.912" data-track-index="16" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-1" data-start="0" data-duration="0.8" data-track-index="17" data-volume="0.6" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-whoosh-1" data-start="2.95" data-duration="0.3" data-track-index="18" data-volume="0.34" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-whoosh-2" data-start="6.043" data-duration="0.3" data-track-index="18" data-volume="0.26" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-whoosh-3" data-start="9.79" data-duration="0.3" data-track-index="18" data-volume="0.32" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-subida-1" data-start="14.2" data-duration="0.35" data-media-start="1.05" data-track-index="18" data-volume="0.34" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-clique-1" data-start="16.015" data-duration="0.05" data-track-index="17" data-volume="0.5" src="assets/sfx/clique.wav"></audio>
+  <audio id="sfx-pop-1" data-start="18.404" data-duration="0.09" data-track-index="17" data-volume="0.34" src="assets/sfx/pop.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+tl.set(["#ck1", "#ck2", "#ck3"], {attr:{"stroke-dasharray":"60 60", "stroke-dashoffset":60}}, 0);
+
+// ---- INTRO (A): punch 1,6 -> 1,38; frascos sobem na fumaça; título bate ----
+tl.fromTo("#camA", {scale:1.6}, {scale:1.38, duration:0.4, ease:"power3.out"}, 0);
+tl.to("#camA", {scale:1.12, duration:2.55, ease:"none"}, 0.4);
+tl.fromTo("#t1-a", {scale:1.6, opacity:0.7, transformOrigin:"0% 50%"}, {scale:1, opacity:1, duration:0.28, ease:"back.out(1.6)"}, 0);
+tl.fromTo("#t1-b", {scale:1.9, opacity:0, transformOrigin:"0% 50%"}, {scale:1, opacity:1, duration:0.28, ease:"back.out(1.6)"}, 0.12);
+tl.fromTo("#t1-l", {opacity:0, x:-24}, {opacity:1, x:0, duration:0.22, ease:"power3.out"}, 0.3);
+tl.to("#ck1", {attr:{"stroke-dashoffset":0}, duration:0.18, ease:"power2.out"}, 1.107);
+tl.to("#ck2", {attr:{"stroke-dashoffset":0}, duration:0.18, ease:"power2.out"}, 2.204);
+// corte seco A -> G (2,95, entre "aí" e "falta"): punch no vapor
+tl.fromTo("#camG", {scale:1.14}, {scale:1.02, duration:0.3, ease:"power3.out"}, 2.95);
+tl.to("#camG", {scale:1.05, duration:2.843, ease:"none"}, 3.25);
+tl.fromTo("#t1-b", {scale:1}, {scale:1.07, duration:0.14, yoyo:true, repeat:1, ease:"power2.out", transformOrigin:"0% 50%", immediateRender:false}, 3.146);
+tl.to(["#t1-a", "#t1-b", "#t1-l"], {x:-1000, opacity:0, duration:0.16, stagger:0.03, ease:"power2.in"}, 3.75);
+
+// ---- APRESENTAÇÃO (G): produto herói = dedo apertando a válvula em "o último passo" ----
+tl.to("#camG", {scale:1.24, duration:0.36, ease:"power3.inOut"}, 6.093);
+tl.to("#camG", {scale:1.28, duration:1.568, ease:"none"}, 6.453);
+tl.fromTo("#t2-a", {yPercent:110}, {yPercent:0, duration:0.28, ease:"power3.out"}, 6.193);
+tl.fromTo("#t2-b", {yPercent:110}, {yPercent:0, duration:0.28, ease:"power3.out"}, 6.313);
+tl.set("#t2-l", {opacity:0}, 0);
+// "Saiu do banho": recua para a nuvem de vapor
+tl.to("#camG", {scale:1.03, duration:0.4, ease:"power3.inOut"}, 8.021);
+tl.to("#camG", {scale:1.07, duration:0.746, ease:"none"}, 8.421);
+tl.to("#camG", {scale:1.1, duration:0.14, ease:"power2.out"}, 9.167);
+tl.to("#camG", {scale:1.12, duration:0.543, ease:"none"}, 9.307);
+// passagem G -> H: painel risca-de-giz opaco da esquerda para a direita (cobre tudo no corte)
+tl.fromTo("#wp1", {x:-1160}, {x:-30, duration:0.15, ease:"power2.in"}, 9.7);
+tl.to("#wp1", {x:1120, duration:0.16, ease:"power2.out"}, 9.85);
+
+// ---- H1: mão desce até o Barbarius ("pronto pra qualquer ocasião") ----
+tl.fromTo("#camH1", {scale:1.12}, {scale:1.06, duration:0.3, ease:"power3.out"}, 9.85);
+tl.to("#camH1", {scale:1.09, duration:0.999, ease:"none"}, 10.15);
+tl.to("#camH1", {scale:1.12, duration:0.14, ease:"power2.out"}, 11.149);
+tl.to("#camH1", {scale:1.13, duration:0.661, ease:"none"}, 11.289);
+tl.fromTo("#t2-l", {opacity:0, x:-24}, {opacity:1, x:0, duration:0.22, ease:"power3.out", immediateRender:false}, 10.087);
+
+// ---- H2: "Três no kit" = os três grandes juntos, brilho só nas tampas ----
+tl.fromTo("#camH2", {scale:1.14}, {scale:1.05, duration:0.26, ease:"power3.out"}, 11.95);
+tl.to("#camH2", {scale:1.08, duration:1.604, ease:"none"}, 12.21);
+tl.to("#camH2", {scale:1.1, duration:0.14, ease:"power2.out"}, 13.814);
+tl.to("#camH2", {scale:1.11, duration:0.596, ease:"none"}, 13.954);
+tl.fromTo("#br1", {x:-420, rotation:16}, {x:1300, rotation:16, duration:0.75, ease:"power1.inOut"}, 12.783);
+tl.fromTo("#t2-b", {scale:1}, {scale:1.06, duration:0.14, yoyo:true, repeat:1, ease:"power2.out", transformOrigin:"0% 50%", immediateRender:false}, 13.048);
+tl.to(["#t2-a", "#t2-b"], {yPercent:-110, opacity:0, duration:0.16, ease:"power2.in"}, 14.25);
+tl.to("#t2-l", {opacity:0, duration:0.14, ease:"none"}, 14.25);
+// passagem para a CTA: lapelas fecham (cobrem tudo no corte) e abrem
+tl.fromTo("#lapL", {x:-720}, {x:0, duration:0.15, ease:"power2.in"}, 14.4);
+tl.fromTo("#lapR", {x:720}, {x:0, duration:0.15, ease:"power2.in"}, 14.4);
+tl.to("#lapL", {x:-720, duration:0.18, ease:"power2.out"}, 14.55);
+tl.to("#lapR", {x:720, duration:0.18, ease:"power2.out"}, 14.55);
+
+// ---- CTA (I): mais calma; FECHE O VISUAL no respiro; seta pespontada aponta o produto marcado em "toque" ----
+tl.fromTo("#camI", {scale:1.03}, {scale:1.0, duration:0.4, ease:"power2.out"}, 14.55);
+tl.to("#camI", {scale:1.015, duration:1.065, ease:"none"}, 14.95);
+tl.to("#camI", {scale:1.03, duration:0.3, ease:"power2.out"}, 16.015);
+tl.fromTo("#t3-a", {yPercent:110}, {yPercent:0, duration:0.3, ease:"power3.out"}, 14.63);
+tl.fromTo("#t3-b", {yPercent:110}, {yPercent:0, duration:0.3, ease:"power3.out"}, 14.75);
+tl.fromTo("#t3-b", {scale:1}, {scale:1.05, duration:0.14, yoyo:true, repeat:1, ease:"power2.out", transformOrigin:"0% 50%", immediateRender:false}, 15.39);
+tl.fromTo("#t3-l", {opacity:0, x:-24}, {opacity:1, x:0, duration:0.22, ease:"power3.out"}, 16.015);
+tl.fromTo("#gv", {clipPath:"inset(0% 0% 100% 0%)"}, {clipPath:"inset(0% 0% 0% 0%)", duration:0.38, ease:"power2.inOut"}, 16.015);
+tl.fromTo("#gv-o", {scale:0.5, opacity:0.95}, {scale:1.6, opacity:0, duration:0.6, ease:"power2.out"}, 16.395);
+tl.fromTo("#gv", {x:0, y:0}, {x:-4, y:8, duration:0.26, yoyo:true, repeat:7, ease:"sine.inOut", immediateRender:false}, 16.615);
+tl.fromTo("#gv-o", {scale:0.5, opacity:0.95}, {scale:1.6, opacity:0, duration:0.6, ease:"power2.out", immediateRender:false}, 17.466);
+// fecho: a caixinha do VISUAL ganha o visto (checklist da intro completo)
+tl.to("#ck3", {attr:{"stroke-dashoffset":0}, duration:0.2, ease:"power2.out"}, 18.404);
+
+// ---- legenda ----
+tl.fromTo("#leg-int-0-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},0.179);
+tl.fromTo("#leg-int-0-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},0.51);
+tl.fromTo("#leg-int-0-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},0.139);
+tl.fromTo("#leg-int-1-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},1.335);
+tl.fromTo("#leg-int-1-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},1.712);
+tl.fromTo("#leg-int-1-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},1.295);
+tl.fromTo("#leg-int-2-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},2.513);
+tl.fromTo("#leg-int-2-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},2.619);
+tl.fromTo("#leg-int-2-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},2.473);
+tl.fromTo("#leg-int-3-0",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},3.126);
+tl.fromTo("#leg-int-3-0u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},3.126);
+tl.fromTo("#leg-int-3-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},3.397);
+tl.fromTo("#leg-int-3-2",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},3.444);
+tl.fromTo("#leg-int-3-2u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},3.444);
+tl.fromTo("#leg-int-3-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},3.086);
+tl.fromTo("#leg-apr-0-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},4.277);
+tl.fromTo("#leg-apr-0-1",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},4.466);
+tl.fromTo("#leg-apr-0-1u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},4.466);
+tl.fromTo("#leg-apr-0-2",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},4.678);
+tl.fromTo("#leg-apr-0-2u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},4.678);
+tl.fromTo("#leg-apr-0-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},4.237);
+tl.fromTo("#leg-apr-1-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},5.197);
+tl.fromTo("#leg-apr-1-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},5.315);
+tl.fromTo("#leg-apr-1-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},5.157);
+tl.fromTo("#leg-apr-2-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},6.223);
+tl.fromTo("#leg-apr-2-1",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},6.376);
+tl.fromTo("#leg-apr-2-1u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},6.376);
+tl.fromTo("#leg-apr-2-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},6.183);
+tl.fromTo("#leg-apr-3-0",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},6.777);
+tl.fromTo("#leg-apr-3-0u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},6.777);
+tl.fromTo("#leg-apr-3-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},6.737);
+tl.fromTo("#leg-apr-4-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},7.096);
+tl.fromTo("#leg-apr-4-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},7.19);
+tl.fromTo("#leg-apr-4-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},7.056);
+tl.fromTo("#leg-apr-5-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},8.051);
+tl.fromTo("#leg-apr-5-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},8.511);
+tl.fromTo("#leg-apr-5-2",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},8.617);
+tl.fromTo("#leg-apr-5-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},8.011);
+tl.fromTo("#leg-apr-6-0",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},9.147);
+tl.fromTo("#leg-apr-6-0u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},9.147);
+tl.fromTo("#leg-apr-6-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},9.107);
+tl.fromTo("#leg-apr-7-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},9.961);
+tl.fromTo("#leg-apr-7-1",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},10.067);
+tl.fromTo("#leg-apr-7-1u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},10.067);
+tl.fromTo("#leg-apr-7-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},9.921);
+tl.fromTo("#leg-apr-8-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},10.539);
+tl.fromTo("#leg-apr-8-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},10.68);
+tl.fromTo("#leg-apr-8-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},10.499);
+tl.fromTo("#leg-apr-9-0",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},11.129);
+tl.fromTo("#leg-apr-9-0u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},11.129);
+tl.fromTo("#leg-apr-9-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},11.089);
+tl.fromTo("#leg-apr-10-0",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},11.99);
+tl.fromTo("#leg-apr-10-0u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},11.99);
+tl.fromTo("#leg-apr-10-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},12.238);
+tl.fromTo("#leg-apr-10-2",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},12.367);
+tl.fromTo("#leg-apr-10-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},11.95);
+tl.fromTo("#leg-apr-11-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},12.875);
+tl.fromTo("#leg-apr-11-1",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},13.028);
+tl.fromTo("#leg-apr-11-1u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},13.028);
+tl.fromTo("#leg-apr-11-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},12.835);
+tl.fromTo("#leg-apr-12-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},13.452);
+tl.fromTo("#leg-apr-12-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},13.794);
+tl.fromTo("#leg-apr-12-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},13.412);
+tl.fromTo("#leg-cta-0-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},14.828);
+tl.fromTo("#leg-cta-0-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},14.969);
+tl.fromTo("#leg-cta-0-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},14.788);
+tl.fromTo("#leg-cta-1-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},15.335);
+tl.fromTo("#leg-cta-1-1",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},15.37);
+tl.fromTo("#leg-cta-1-1u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},15.37);
+tl.fromTo("#leg-cta-1-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},15.295);
+tl.fromTo("#leg-cta-2-0",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},15.995);
+tl.fromTo("#leg-cta-2-0u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},15.995);
+tl.fromTo("#leg-cta-2-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},16.278);
+tl.fromTo("#leg-cta-2-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},15.955);
+tl.fromTo("#leg-cta-3-0",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},16.373);
+tl.fromTo("#leg-cta-3-0u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},16.373);
+tl.fromTo("#leg-cta-3-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},16.333);
+tl.fromTo("#leg-cta-4-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},16.762);
+tl.fromTo("#leg-cta-4-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},16.88);
+tl.fromTo("#leg-cta-4-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},16.722);
+tl.fromTo("#leg-cta-5-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},17.375);
+tl.fromTo("#leg-cta-5-1",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},17.446);
+tl.fromTo("#leg-cta-5-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},17.335);
+tl.fromTo("#leg-cta-6-0",{opacity:0.36},{opacity:1,duration:0.08,ease:"none"},17.906);
+tl.fromTo("#leg-cta-6-1",{opacity:0.36,color:"#EEE8DA",scale:1},{opacity:1,color:"#F04457",scale:1.08,duration:0.1,ease:"power2.out"},17.941);
+tl.fromTo("#leg-cta-6-1u",{scaleX:0},{scaleX:1,duration:0.18,ease:"power2.out"},17.941);
+tl.fromTo("#leg-cta-6-t",{opacity:0,y:16},{opacity:1,y:0,duration:0.12,ease:"power2.out"},17.866);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

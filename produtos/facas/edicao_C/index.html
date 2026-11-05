@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+/* nomes completos das fontes do container (o local() curto do fontes.css pode não carregar no Chromium) */
+@font-face{font-family:"Serif Presente";src:local("DM Serif Display Regular"),local("DMSerifDisplay-Regular"),local("DM Serif Display")}
+@font-face{font-family:"Mont Presente";font-weight:100 900;src:local("Montserrat Thin"),local("Montserrat-Thin"),local("Montserrat")}
+:root{--pinho:#12291F;--rosa:#FF86A8;--creme:#FFF6E9}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#12291F}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#12291F;font-family:"Mont Presente";font-weight:800}
+.clip{position:absolute;inset:0}
+.cam{position:absolute;inset:0;overflow:hidden;z-index:1}
+.full{width:100%;height:100%;object-fit:cover}
+#camF1,#camF2{transform-origin:20% 100%}
+#camD{transform-origin:52% 43%}
+#camE{transform-origin:50% 50%}
+#camB{transform-origin:50% 45%}
+/* holofote na faca que sobe da caixa (escurece em volta; nada sobre a caixa) */
+#holo{z-index:2}
+#holo-b{position:absolute;inset:0;display:block;opacity:0;
+  background:radial-gradient(ellipse 34% 30% at 52% 43%,rgba(18,41,31,0) 0,rgba(18,41,31,0) 55%,rgba(10,22,16,.55) 100%)}
+/* luz que passa pelo relevo das lâminas */
+#luz{z-index:2;overflow:hidden}
+#luz-b{position:absolute;left:0;top:-400px;width:380px;height:2700px;display:block;
+  background:linear-gradient(to right,rgba(255,246,233,0) 0,rgba(255,246,233,.42) 50%,rgba(255,246,233,0) 100%)}
+.vinheta{z-index:3;background:radial-gradient(ellipse 94% 68% at 50% 50%,rgba(0,0,0,0) 62%,rgba(10,22,16,.42) 100%)}
+.topo{z-index:3;background:linear-gradient(to bottom,rgba(18,41,31,.62) 0,rgba(18,41,31,.3) 12%,rgba(18,41,31,0) 24%)}
+/* faixa de papel de presente: verde-pinho com risca fina, fita rosa na borda de baixo (cobre o cepo do clipe F) */
+.faixa{z-index:5}
+.fx{position:absolute;left:0;top:0;width:1080px;height:480px;display:block;background-color:#12291F;
+  background-image:repeating-linear-gradient(90deg,rgba(255,246,233,.045) 0,rgba(255,246,233,.045) 3px,rgba(255,246,233,0) 3px,rgba(255,246,233,0) 34px);
+  box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.fita{position:absolute;left:0;top:462px;width:1080px;height:18px;display:block;background-color:#FF86A8;
+  background-image:linear-gradient(100deg,rgba(255,255,255,0) 0,rgba(255,255,255,0) 40%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 60%,rgba(255,255,255,0) 100%);
+  background-size:260% 100%;background-position:100% 0;
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(150,40,75,.35)}
+.filete{position:absolute;left:0;top:456px;width:1080px;height:3px;display:block;background:rgba(255,246,233,.75)}
+/* títulos: DM Serif Display creme, palavra de destaque em rosa */
+.tt{display:block;font-family:"Serif Presente";font-weight:400;line-height:1;white-space:nowrap;text-align:center;color:var(--creme);
+  letter-spacing:.5px;text-shadow:0 6px 18px rgba(0,0,0,.45)}
+.tt .r{color:var(--rosa)}
+.ta{position:absolute;left:62px;width:856px;display:block}
+.mask{position:absolute;left:62px;width:856px;overflow:hidden;display:block}
+/* etiqueta de presente: ponta à esquerda com furo, balança no fio */
+.tagw{position:absolute;left:62px;width:856px;display:flex;justify-content:center}
+.tag{position:relative;display:block;white-space:nowrap;background:var(--rosa);color:var(--pinho);font-family:"Mont Presente";font-weight:800;
+  font-size:40px;line-height:1;padding:17px 34px 19px 70px;
+  clip-path:polygon(0 50%,34px 0,100% 0,100% 100%,34px 100%);filter:drop-shadow(0 8px 14px rgba(0,0,0,.35))}
+.tag i{position:absolute;left:30px;top:50%;width:16px;height:16px;margin-top:-8px;display:block;border-radius:50%;background:var(--pinho)}
+.titulo{z-index:6}
+/* legenda contorno-pop */
+.legenda{z-index:7}
+.cap{position:absolute;left:40px;width:878px;display:flex;justify-content:center;align-items:flex-start;gap:22px;flex-wrap:nowrap}
+.pal{display:block;font-family:"Mont Presente";font-weight:800;font-size:78px;line-height:1.1;white-space:nowrap;color:#FFFFFF;
+  -webkit-text-stroke:10px #12291F;paint-order:stroke fill;text-shadow:0 8px 18px rgba(0,0,0,.5)}
+.pal.ch{color:var(--rosa)}
+/* CTA: botão rosa com seta para baixo/esquerda */
+#toque{z-index:8}
+#tq-b{position:absolute;left:56px;top:1404px;width:116px;height:116px;display:block;border-radius:50%;background:var(--rosa);
+  box-shadow:0 0 0 6px rgba(18,41,31,.92),0 0 0 9px rgba(255,246,233,.8),0 12px 26px rgba(0,0,0,.5)}
+#tq-b svg{display:block;width:116px;height:116px}
+#tq-o{position:absolute;left:56px;top:1404px;width:116px;height:116px;display:block;border:7px solid var(--rosa);border-radius:50%;opacity:0}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="15.5" data-width="1080" data-height="1920">
+  <!-- INTRO (0-4,3 s): clipe F 0-4,3 s em 1,0x, escala >= 1,30 ancorada embaixo à esquerda -->
+  <div id="camF1" class="cam"><video id="vF1" class="clip full" data-start="0" data-duration="4.3" data-media-start="0" data-track-index="0" src="assets/clipe_F.mp4" muted playsinline></video></div>
+  <!-- APRESENTAÇÃO (4,3-10,7 s): clipe D 0,5-3,2 s em 1,0x (tampa sobe, faca do chefe sobe) -->
+  <div id="camD" class="cam"><video id="vD" class="clip full" data-start="4.3" data-duration="2.7" data-media-start="0.5" data-track-index="0" src="assets/clipe_D.mp4" muted playsinline></video></div>
+  <!-- clipe E 1,58-4,17 s em 0,7x (tesoura e descascador entram deslizando) -->
+  <div id="camE" class="cam"><video id="vE" class="clip full" data-start="7" data-duration="3.7" data-media-start="1.58" data-playback-rate="0.7" data-track-index="0" src="assets/clipe_E.mp4" muted playsinline></video></div>
+  <!-- CTA (10,7-15,5 s): clipe B (lote A) 3,6-5,4 s em 1,0x (close do relevo) -->
+  <div id="camB" class="cam"><video id="vB" class="clip full" data-start="10.7" data-duration="1.8" data-media-start="3.6" data-track-index="0" src="assets/clipe_B.mp4" muted playsinline></video></div>
+  <!-- clipe F 4,3-7,0 s em 0,9x (continua de onde a intro parou) -->
+  <div id="camF2" class="cam"><video id="vF2" class="clip full" data-start="12.5" data-duration="3" data-media-start="4.3" data-playback-rate="0.9" data-track-index="0" src="assets/clipe_F.mp4" muted playsinline></video></div>
+
+  <div id="holo" class="clip" data-start="6.2" data-duration="0.8" data-track-index="1"><i id="holo-b"></i></div>
+  <div id="luz" class="clip" data-start="11.2" data-duration="0.95" data-track-index="1"><i id="luz-b"></i></div>
+  <div id="vin" class="clip vinheta" data-start="0" data-duration="15.5" data-track-index="2"></div>
+  <div id="topo" class="clip topo" data-start="4.3" data-duration="8.2" data-track-index="3"></div>
+
+  <!-- faixa da intro: título e etiqueta vão dentro dela -->
+  <div id="fa1" class="clip faixa" data-start="0" data-duration="4.56" data-track-index="4">
+    <div id="fa1-b" class="fx">
+      <i class="filete"></i><i id="fa1-f" class="fita"></i>
+      <div id="t1" class="ta" style="top:200px"><div id="t1-l" class="tt" style="font-size:128px">CASA <span id="t1-n" class="r" style="display:inline-block">NOVA?</span></div></div>
+      <div class="tagw" style="top:360px"><div id="t1-t" class="tag"><i></i>presente pra cozinha</div></div>
+    </div>
+  </div>
+
+  <!-- apresentação: título no alto da ardósia do clipe E, acima dos cabos -->
+  <div id="t2" class="clip titulo" data-start="7" data-duration="3.7" data-track-index="6">
+    <div class="mask" style="top:192px;height:92px"><div id="t2-l" class="tt" style="font-size:74px">FAQUEIRO <span class="r">COMPLETO</span></div></div>
+    <div class="tagw" style="top:300px"><div id="t2-t" class="tag" style="font-size:34px;padding:14px 30px 16px 64px"><i></i>6 peças na caixa</div></div>
+  </div>
+
+  <!-- faixa da CTA: já inteira no primeiro quadro do clipe F -->
+  <div id="fa2" class="clip faixa" data-start="12.24" data-duration="3.26" data-track-index="4">
+    <div id="fa2-b" class="fx">
+      <i class="filete"></i><i id="fa2-f" class="fita"></i>
+      <div class="mask" style="top:184px;height:106px"><div id="t3-l0" class="tt" style="font-size:100px">TOCA NO</div></div>
+      <div class="mask" style="top:284px;height:106px"><div id="t3-l1" class="tt" style="font-size:100px"><span id="t3-p" class="r" style="display:inline-block">PRODUTO</span></div></div>
+      <div class="tagw" style="top:398px"><div id="t3-t" class="tag" style="font-size:32px;padding:12px 30px 14px 62px"><i></i>e confere</div></div>
+    </div>
+  </div>
+  <div id="toque" class="clip" data-start="13.421" data-duration="2.079" data-track-index="8">
+    <i id="tq-o"></i>
+    <span id="tq-b"><svg id="tq-s" viewBox="0 0 116 116"><path d="M78 38 L40 76 M38 48 L38 78 L68 78" fill="none" stroke="#12291F" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </div>
+
+  <div id="leg-int-0" class="clip legenda" data-start="0.269" data-duration="0.707" data-track-index="12"><div id="leg-int-0-c" class="cap" style="top:1286px"><span id="leg-int-0-0" class="pal">Conhece</span><span id="leg-int-0-1" class="pal">alguém</span></div></div>
+  <div id="leg-int-1" class="clip legenda" data-start="0.976" data-duration="1.133" data-track-index="12"><div id="leg-int-1-c" class="cap" style="top:1286px"><span id="leg-int-1-0" class="pal">de</span><span id="leg-int-1-1" class="pal ch">casa</span><span id="leg-int-1-2" class="pal ch">nova?</span></div></div>
+  <div id="leg-int-2" class="clip legenda" data-start="2.109" data-duration="0.601" data-track-index="12"><div id="leg-int-2-c" class="cap" style="top:1286px"><span id="leg-int-2-0" class="pal">Olha</span><span id="leg-int-2-1" class="pal">esse</span></div></div>
+  <div id="leg-int-3" class="clip legenda" data-start="2.71" data-duration="0.542" data-track-index="12"><div id="leg-int-3-c" class="cap" style="top:1286px"><span id="leg-int-3-0" class="pal ch">presente</span></div></div>
+  <div id="leg-int-4" class="clip legenda" data-start="3.252" data-duration="0.989" data-track-index="12"><div id="leg-int-4-c" class="cap" style="top:1286px"><span id="leg-int-4-0" class="pal">pra</span><span id="leg-int-4-1" class="pal ch">cozinha</span></div></div>
+  <div id="leg-apr-0" class="clip legenda" data-start="4.558" data-duration="0.908" data-track-index="12"><div id="leg-apr-0-c" class="cap" style="top:1286px"><span id="leg-apr-0-0" class="pal">Abre</span><span id="leg-apr-0-1" class="pal">a</span><span id="leg-apr-0-2" class="pal ch">caixa</span></div></div>
+  <div id="leg-apr-1" class="clip legenda" data-start="5.466" data-duration="0.306" data-track-index="12"><div id="leg-apr-1-c" class="cap" style="top:1286px"><span id="leg-apr-1-0" class="pal">e</span><span id="leg-apr-1-1" class="pal">vem</span></div></div>
+  <div id="leg-apr-2" class="clip legenda" data-start="5.772" data-duration="0.437" data-track-index="12"><div id="leg-apr-2-c" class="cap" style="top:1286px"><span id="leg-apr-2-0" class="pal">o</span><span id="leg-apr-2-1" class="pal ch">faqueiro</span></div></div>
+  <div id="leg-apr-3" class="clip legenda" data-start="6.209" data-duration="0.814" data-track-index="12"><div id="leg-apr-3-c" class="cap" style="top:1286px"><span id="leg-apr-3-0" class="pal ch">completo</span></div></div>
+  <div id="leg-apr-4" class="clip legenda" data-start="7.023" data-duration="1.014" data-track-index="12"><div id="leg-apr-4-c" class="cap" style="top:1286px"><span id="leg-apr-4-0" class="pal">quatro</span><span id="leg-apr-4-1" class="pal ch">facas</span></div></div>
+  <div id="leg-apr-5" class="clip legenda" data-start="8.037" data-duration="0.46" data-track-index="12"><div id="leg-apr-5-c" class="cap" style="top:1286px"><span id="leg-apr-5-0" class="pal">uma</span><span id="leg-apr-5-1" class="pal ch">tesoura</span></div></div>
+  <div id="leg-apr-6" class="clip legenda" data-start="8.497" data-duration="0.849" data-track-index="12"><div id="leg-apr-6-c" class="cap" style="top:1286px"><span id="leg-apr-6-0" class="pal">multiuso</span></div></div>
+  <div id="leg-apr-7" class="clip legenda" data-start="9.346" data-duration="0.2" data-track-index="12"><div id="leg-apr-7-c" class="cap" style="top:1286px"><span id="leg-apr-7-0" class="pal">e</span><span id="leg-apr-7-1" class="pal">um</span></div></div>
+  <div id="leg-apr-8" class="clip legenda" data-start="9.546" data-duration="1.024" data-track-index="12"><div id="leg-apr-8-c" class="cap" style="top:1286px"><span id="leg-apr-8-0" class="pal ch">descascador</span></div></div>
+  <div id="leg-cta-0" class="clip legenda" data-start="11.007" data-duration="0.46" data-track-index="12"><div id="leg-cta-0-c" class="cap" style="top:1286px"><span id="leg-cta-0-0" class="pal ch">Presente</span></div></div>
+  <div id="leg-cta-1" class="clip legenda" data-start="11.467" data-duration="0.79" data-track-index="12"><div id="leg-cta-1-c" class="cap" style="top:1286px"><span id="leg-cta-1-0" class="pal">pra</span><span id="leg-cta-1-1" class="pal ch">cozinha</span></div></div>
+  <div id="leg-cta-2" class="clip legenda" data-start="12.257" data-duration="1.144" data-track-index="12"><div id="leg-cta-2-c" class="cap" style="top:1286px"><span id="leg-cta-2-0" class="pal">e</span><span id="leg-cta-2-1" class="pal">pro</span><span id="leg-cta-2-2" class="pal ch">churrasco</span></div></div>
+  <div id="leg-cta-3" class="clip legenda" data-start="13.401" data-duration="0.401" data-track-index="12"><div id="leg-cta-3-c" class="cap" style="top:1286px"><span id="leg-cta-3-0" class="pal ch">Toca</span><span id="leg-cta-3-1" class="pal">no</span></div></div>
+  <div id="leg-cta-4" class="clip legenda" data-start="13.802" data-duration="0.637" data-track-index="12"><div id="leg-cta-4-c" class="cap" style="top:1286px"><span id="leg-cta-4-0" class="pal ch">produto</span></div></div>
+  <div id="leg-cta-5" class="clip legenda" data-start="14.439" data-duration="0.988" data-track-index="12"><div id="leg-cta-5-c" class="cap" style="top:1286px"><span id="leg-cta-5-0" class="pal">e</span><span id="leg-cta-5-1" class="pal ch">confere</span></div></div>
+
+  <audio id="voz-intro" data-start="0.25" data-duration="4.032" data-track-index="13" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="4.55" data-duration="6.072" data-track-index="13" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="11" data-duration="4.464" data-track-index="13" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-1" data-start="0" data-duration="0.8" data-track-index="14" data-volume="0.6" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-pop-1" data-start="2.05" data-duration="0.09" data-track-index="14" data-volume="0.34" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-whooshc-1" data-start="4.22" data-duration="0.3" data-track-index="14" data-volume="0.32" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-whooshc-2" data-start="6.92" data-duration="0.3" data-track-index="14" data-volume="0.28" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-tique-1" data-start="8.105" data-duration="0.03" data-track-index="14" data-volume="0.4" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-tique-2" data-start="9.496" data-duration="0.03" data-track-index="14" data-volume="0.4" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-subida-1" data-start="10.32" data-duration="0.38" data-media-start="1.0" data-track-index="14" data-volume="0.36" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-clique-1" data-start="13.421" data-duration="0.05" data-track-index="14" data-volume="0.5" src="assets/sfx/clique.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// ---- INTRO (clipe F): mão fatiando desde o quadro 0; punch-in, faixa de presente desce, "CASA NOVA?" bate ----
+tl.fromTo("#camF1", {scale:1.44}, {scale:1.32, duration:0.42, ease:"power3.out"}, 0);
+tl.to("#camF1", {scale:1.345, duration:2.952, ease:"none"}, 0.42);
+tl.to("#camF1", {scale:1.375, duration:0.25, ease:"power2.out"}, 3.382);
+tl.to("#camF1", {scale:1.385, duration:0.658, ease:"none"}, 3.642);
+tl.fromTo("#fa1-b", {yPercent:-104}, {yPercent:0, duration:0.2, ease:"power3.out"}, 0);
+tl.fromTo("#t1-l", {scale:1.55, opacity:0, transformOrigin:"50% 50%"}, {scale:1, opacity:1, duration:0.3, ease:"back.out(1.9)"}, 0.06);
+tl.fromTo("#t1-n", {scale:1, transformOrigin:"50% 60%"}, {scale:1.1, duration:0.13, yoyo:true, repeat:1, ease:"power2.out"}, 1.406);
+tl.fromTo("#fa1-f", {backgroundPosition:"100% 0"}, {backgroundPosition:"0% 0", duration:1.3, ease:"power1.inOut"}, 0.2);
+// etiqueta balança no fio, presa pelo furo
+tl.fromTo("#t1-t", {opacity:0, rotation:-22, y:-30, transformOrigin:"38px 50%"}, {opacity:1, rotation:0, y:0, duration:0.75, ease:"elastic.out(1,0.45)"}, 2.06);
+tl.fromTo("#fa1-f", {backgroundPosition:"100% 0"}, {backgroundPosition:"0% 0", duration:1.2, ease:"power1.inOut", immediateRender:false}, 2.8);
+// passagem: a faixa sobe junto com o corte (cobre o cepo até o último quadro do F)
+tl.to("#fa1-b", {yPercent:-104, duration:0.24, ease:"power3.in"}, 4.3);
+
+// ---- APRESENTAÇÃO, clipe D: tampa sobe; em "faqueiro completo" a câmera fecha na faca que sobe, holofote ----
+tl.fromTo("#camD", {scale:1.1}, {scale:1, duration:0.36, ease:"power3.out"}, 4.3);
+tl.to("#camD", {scale:1.03, duration:1.62, ease:"none"}, 4.66);
+tl.to("#camD", {scale:1.12, duration:0.5, ease:"power2.out"}, 6.28);
+tl.to("#camD", {scale:1.14, duration:0.22, ease:"none"}, 6.78);
+tl.fromTo("#holo-b", {opacity:0}, {opacity:1, duration:0.4, ease:"power1.out"}, 6.22);
+
+// ---- APRESENTAÇÃO, clipe E: corte seco; título e etiqueta; zoom na tesoura e no descascador no tempo da fala ----
+tl.fromTo("#camE", {scale:1.07, x:0, y:0}, {scale:1, x:0, y:0, duration:0.34, ease:"power3.out"}, 7);
+tl.to("#camE", {scale:1.02, duration:0.775, ease:"none"}, 7.34);
+tl.to("#camE", {scale:1.1, x:-43.2, y:23.0, duration:0.45, ease:"power2.out"}, 8.115);
+tl.to("#camE", {scale:1.1, x:-41.0, y:-31.7, duration:0.45, ease:"power2.inOut"}, 9.466);
+tl.to("#camE", {scale:1.13, x:-53.3, y:-41.2, duration:0.784, ease:"none"}, 9.916);
+tl.fromTo("#t2-l", {yPercent:110}, {yPercent:0, duration:0.3, ease:"power3.out"}, 7.02);
+tl.fromTo("#t2-t", {opacity:0, rotation:-22, y:-24, transformOrigin:"34px 50%"}, {opacity:1, rotation:0, y:0, duration:0.75, ease:"elastic.out(1,0.45)"}, 7.3);
+
+// ---- CTA, clipe B: close do relevo, luz passando ----
+tl.fromTo("#camB", {scale:1.08, x:0}, {scale:1, x:0, duration:0.36, ease:"power3.out"}, 10.7);
+tl.to("#camB", {scale:1.04, x:-14, duration:1.44, ease:"none"}, 11.06);
+tl.fromTo("#luz-b", {x:-620, rotation:16}, {x:1360, rotation:16, duration:0.9, ease:"power1.inOut"}, 11.22);
+// a faixa desce sobre o fim do B e está inteira no primeiro quadro do F
+tl.fromTo("#fa2-b", {yPercent:-104}, {yPercent:0, duration:0.22, ease:"power3.out"}, 12.24);
+tl.fromTo("#fa2-f", {backgroundPosition:"100% 0"}, {backgroundPosition:"0% 0", duration:1.2, ease:"power1.inOut"}, 12.46);
+
+// ---- CTA, clipe F: mais calmo; "TOCA NO PRODUTO" sobe em "Toca", botão com seta, etiqueta em "confere" ----
+tl.fromTo("#camF2", {scale:1.37}, {scale:1.32, duration:0.4, ease:"power2.out"}, 12.5);
+tl.to("#camF2", {scale:1.335, duration:0.511, ease:"none"}, 12.9);
+tl.to("#camF2", {scale:1.36, duration:0.24, ease:"power2.out"}, 13.421);
+tl.to("#camF2", {scale:1.375, duration:1.839, ease:"none"}, 13.661);
+// o título sobe no silêncio entre "churrasco" e "Toca"
+tl.fromTo("#t3-l0", {yPercent:110}, {yPercent:0, duration:0.28, ease:"power3.out"}, 13.153);
+tl.fromTo("#t3-l1", {yPercent:110}, {yPercent:0, duration:0.28, ease:"power3.out"}, 13.223);
+tl.fromTo("#t3-p", {scale:1, transformOrigin:"50% 60%"}, {scale:1.07, duration:0.13, yoyo:true, repeat:1, ease:"power2.out"}, 13.842);
+tl.fromTo("#t3-t", {opacity:0, rotation:-22, y:-24, transformOrigin:"36px 50%"}, {opacity:1, rotation:0, y:0, duration:0.75, ease:"elastic.out(1,0.45)"}, 14.488);
+tl.fromTo("#fa2-f", {backgroundPosition:"100% 0"}, {backgroundPosition:"0% 0", duration:1.2, ease:"power1.inOut", immediateRender:false}, 13.842);
+tl.fromTo("#tq-b", {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.24, ease:"back.out(2.2)"}, 13.421);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.9, opacity:0, duration:0.6, ease:"power2.out"}, 13.421);
+tl.fromTo("#tq-s", {x:0, y:0}, {x:-7, y:7, duration:0.22, yoyo:true, repeat:7, ease:"sine.inOut"}, 13.721);
+tl.fromTo("#tq-o", {scale:0.6, opacity:0.95}, {scale:1.9, opacity:0, duration:0.6, ease:"power2.out", immediateRender:false}, 14.371);
+
+// ---- legenda ----
+tl.fromTo("#leg-int-0-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},0.269);
+tl.fromTo("#leg-int-0-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},0.692);
+tl.fromTo("#leg-int-1-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},0.976);
+tl.fromTo("#leg-int-1-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},1.093);
+tl.fromTo("#leg-int-1-2",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},1.376);
+tl.fromTo("#leg-int-2-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},2.109);
+tl.fromTo("#leg-int-2-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},2.508);
+tl.fromTo("#leg-int-3-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},2.71);
+tl.fromTo("#leg-int-4-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},3.252);
+tl.fromTo("#leg-int-4-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},3.392);
+tl.fromTo("#leg-apr-0-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},4.558);
+tl.fromTo("#leg-apr-0-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},4.815);
+tl.fromTo("#leg-apr-0-2",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},4.886);
+tl.fromTo("#leg-apr-1-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},5.466);
+tl.fromTo("#leg-apr-1-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},5.57);
+tl.fromTo("#leg-apr-2-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},5.772);
+tl.fromTo("#leg-apr-2-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},5.806);
+tl.fromTo("#leg-apr-3-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},6.209);
+tl.fromTo("#leg-apr-4-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},7.023);
+tl.fromTo("#leg-apr-4-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},7.363);
+tl.fromTo("#leg-apr-5-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},8.037);
+tl.fromTo("#leg-apr-5-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},8.165);
+tl.fromTo("#leg-apr-6-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},8.497);
+tl.fromTo("#leg-apr-7-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},9.346);
+tl.fromTo("#leg-apr-7-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},9.474);
+tl.fromTo("#leg-apr-8-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},9.546);
+tl.fromTo("#leg-cta-0-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},11.007);
+tl.fromTo("#leg-cta-1-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},11.467);
+tl.fromTo("#leg-cta-1-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},11.63);
+tl.fromTo("#leg-cta-2-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},12.257);
+tl.fromTo("#leg-cta-2-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},12.326);
+tl.fromTo("#leg-cta-2-2",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},12.503);
+tl.fromTo("#leg-cta-3-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},13.401);
+tl.fromTo("#leg-cta-3-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},13.718);
+tl.fromTo("#leg-cta-4-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},13.802);
+tl.fromTo("#leg-cta-5-0",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},14.439);
+tl.fromTo("#leg-cta-5-1",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.12,ease:"back.out(2.4)"},14.508);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+{
+ "codigo": "garrafa",
+ "lote": "F",
+ "tipo": "rotacao sem clipe novo (0 credito)",
+ "descricao_produto": "(sem clipe novo: rotacao com clipe E do lote B e clipes G, H do lote D; so a garrafa verde-militar com etiqueta preta MODUS aparece; formato do body splash D: ~14-15 s, pergunta de escolha no quadro 0, letreiro na apresentacao, CTA de comentario antes do toque)",
+ "opcao_escolhida": 1,
+ "angulo": "Qual seu role? Escolha facil entre os tres cenarios dos clipes (trabalho = escritorio G, acampamento = fogueira H, trilha = mirante E); a apresentacao entrega o que ainda nao foi ao ar: aco inox que resiste a corrosao e boca larga pra lavar rapido (segundo o fabricante)",
+ "angulo_reserva": "Onde ela combina? Mesma pergunta visual; apresentacao com o uso indicado pelo vendedor (acampamento, caminhada e escalada) + alca pratica e acabamento elegante",
+ "ordem_trechos": "G 0,8-1,8 > H 1,1-2,1 > E 3,4-4,3 | H 2,1-3,1 > G 2,5-4,5 > H 4,4-5,2 > G 4,5-6,0 (> H 5,2-5,8 so se faltar tempo) | E 4,3-8,0",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "G",
+   "complemento": "H 1,1-2,1 s (lote D, acampamento) e E 3,4-4,3 s (lote B, mirante)",
+   "trecho": "G 0,8-1,8 s (1,0x; mao entra e fecha na alca; cortar ANTES de 1,85: PROIBIDO 1,9-2,4 s) -> H 1,1-2,1 s (1,0x; mao pega a alca, fogo atras) -> E 3,4-4,3 s (1,0x; mao chega e pega a alca). Um cenario por palavra: trabalho / acampamento / trilha. Total ~2,9 s",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Trabalho, acampamento ou trilha: qual é o seu rolê?",
+   "titulo": "QUAL SEU ROLÊ?",
+   "linha": "trabalho, camping ou trilha",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "H",
+   "complemento": "G 2,5-4,5 s e G 4,5-6,0 s (lote D, escritorio)",
+   "trecho": "H 2,1-3,1 s (garrafa levantada) -> G 2,5-4,5 s (garrafa no alto inclina e volta) -> H 4,4-5,2 s (volta a mesa) -> G 4,5-6,0 s (desce a mesa); tudo a 0,9x (~6,6 s). Se faltar tempo: H 5,2-5,8 s no fim. PROIBIDO H 3,2-4,3 s e G 1,9-2,4 s",
+   "letreiro": "troca a cada ~1,6 s, no ritmo da fala: MODUS -> AÇO INOX 304* -> RESISTE À CORROSÃO* -> BOCA LARGA",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Garrafa Térmica MODUS: aço inox que resiste à corrosão, segundo o fabricante. Boca larga pra lavar rápido.",
+   "titulo": "AÇO INOX 304*",
+   "linha": "boca larga pra lavar",
+   "rodape": "*Dados do fabricante",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "cta",
+   "clipe": "E",
+   "trecho": "E 4,3-8,0 s (1,0x; mao levanta a garrafa alguns centimetros e segura). Zoom maximo 1,10x, sem destaque na linha pequena da etiqueta",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Comenta onde você usaria e toca no produto pra conferir.",
+   "titulo": "ONDE VOCÊ USARIA?",
+   "linha": "comenta e toca no produto",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  }
+ ],
+ "opcao_2": [
+  {
+   "parte": "intro",
+   "clipe": "G",
+   "complemento": "H 1,1-2,1 s e E 3,4-4,3 s",
+   "fala": "Escritório, fogueira ou mirante: onde ela combina mais?",
+   "titulo": "ONDE ELA COMBINA?",
+   "linha": "escritório, fogo ou mirante",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "H",
+   "complemento": "G 2,5-4,5 s e G 4,5-6,0 s",
+   "letreiro": "MODUS -> ACAMPAMENTO -> CAMINHADA -> ESCALADA",
+   "fala": "Garrafa Térmica MODUS: feita pra acampamento, caminhada e escalada, segundo o fabricante. Alça prática e acabamento elegante.",
+   "titulo": "FEITA PRO AR LIVRE*",
+   "linha": "alça prática",
+   "rodape": "*Dados do fabricante",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "cta",
+   "clipe": "E",
+   "fala": "Escolhe um e comenta. Depois toca no produto e confere.",
+   "titulo": "ESCOLHE UM",
+   "linha": "e toca no produto",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  }
+ ]
+}

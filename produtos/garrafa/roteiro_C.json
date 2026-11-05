@@ -1,0 +1,39 @@
+{
+ "codigo": "garrafa",
+ "lote": "C",
+ "descricao_produto": "(sem clipe novo: combinação cruzada pedida pelo operador em 13/10/2026 — clipe A do vídeo A + clipes D, E, F do vídeo B; só a garrafa verde-militar aparece)",
+ "abertura": {
+  "clipe": "D",
+  "duracao": "1,0-1,2 s",
+  "obs": "produto grande e nítido no primeiro segundo, antes de cortar para o painel do carro"
+ },
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "A",
+   "fala": "Vai pegar estrada? Água no painel do carro esquenta rapidinho.",
+   "titulo": "VAI PEGAR ESTRADA?",
+   "linha": "água no painel esquenta",
+   "rodape": "",
+   "prompt": ""
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "E",
+   "fala": "Essa você carrega pela alça. Garrafa Térmica MODUS: parede dupla a vácuo e dois litros e quatrocentos, segundo o fabricante.",
+   "titulo": "MODUS 2,4 LITROS*",
+   "linha": "parede dupla a vácuo",
+   "rodape": "*Dados do fabricante",
+   "prompt": ""
+  },
+  {
+   "parte": "cta",
+   "clipe": "F",
+   "fala": "Deixa uma dessas no carro. Toca no produto e confere a sua.",
+   "titulo": "TOCA NO PRODUTO",
+   "linha": "e confere a sua",
+   "rodape": "",
+   "prompt": ""
+  }
+ ]
+}

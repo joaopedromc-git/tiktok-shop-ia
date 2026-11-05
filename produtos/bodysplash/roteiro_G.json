@@ -1,0 +1,80 @@
+{
+ "codigo": "bodysplash",
+ "lote": "G",
+ "tipo": "rotacao sem clipe novo (0 credito)",
+ "descricao_produto": "(sem clipe novo: rotacao com o clipe A do lote A (frascos subindo da caixa entre fumaca, so 5,5-7,95 s) e os clipes G, H, I do lote F; sempre os tres frascos na ordem Enigma (rotulo preto), Midtown (prata), Barbarius (azul-marinho))",
+ "opcao_escolhida": 1,
+ "angulo": "O ultimo passo da producao: roupa escolhida, barba feita, e o que falta e o cheiro; saiu do banho, borrifou, pronto pra qualquer ocasiao (anuncio: 'estar sempre cheirosos em qualquer ocasiao'), com tres no kit pra variar. Abertura de comercial com a fumaca do clipe A e a rotina banheiro -> quarto -> terracota nos clipes G/H/I",
+ "angulo_reserva": "Esta no rotulo: as frases impressas em cada frasco (Enigma: presenca em poder; Midtown: atemporais e autoconfiantes; Barbarius: espirito indomavel)",
+ "partes": [
+  {
+   "parte": "intro",
+   "clipe": "A",
+   "complemento": "",
+   "trecho": "A (lote A) 5,5-7,95 s a ~0,72x (~3,4 s); PROIBIDO antes de 5,5 s; enquadrar nos frascos, caixa so na borda de baixo",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Roupa escolhida, barba feita. E aí, falta o quê?",
+   "titulo": "FALTA O QUÊ?",
+   "linha": "roupa escolhida, barba feita",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "G",
+   "complemento": "H 0-2,0 s e H 5,0-7,0 s (lote F, quarto)",
+   "trecho": "G 0,5-4,0 s (1x, mao aperta a valvula) -> G 4,0-5,5 s (0,8x, nuvem de vapor) -> H 0-2,0 s (0,85x, mao desce ate o Barbarius) -> H 5,0-7,0 s (1x, cortina); PROIBIDO H 2,1-4,9 s",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Kit Body Man, da Primacial: o último passo da produção. Saiu do banho, borrifou, tá pronto pra qualquer ocasião. Três no kit, pra variar todo dia.",
+   "titulo": "O ÚLTIMO PASSO",
+   "linha": "pronto pra qualquer ocasião",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "cta",
+   "clipe": "I",
+   "complemento": "",
+   "trecho": "I (lote F) 2,6-7,4 s (~4,8 s, ate 0,9x se a fala pedir); dedos pousam na tampa do Midtown em ~4 s; a mao sai em 7,5 s",
+   "modelo": "",
+   "prompt_quadro": "",
+   "fala": "Pra fechar o visual, toque no produto do vídeo e confira o kit.",
+   "titulo": "FECHE O VISUAL",
+   "linha": "toque no produto do vídeo",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  }
+ ],
+ "opcao_2": [
+  {
+   "parte": "intro",
+   "clipe": "A",
+   "fala": "Três frascos. Três jeitos diferentes de chegar.",
+   "titulo": "3 JEITOS DE CHEGAR",
+   "linha": "um kit, três assinaturas",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "apresentacao",
+   "clipe": "G",
+   "complemento": "H 0-2,0 s e H 5,0-7,0 s",
+   "fala": "Kit Body Man, da Primacial. Enigma, feito pra quem transforma presença em poder. Midtown, pra homens atemporais e autoconfiantes. Barbarius, pro espírito indomável.",
+   "titulo": "ESTÁ NO RÓTULO",
+   "linha": "poder, atemporal, indomável",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  },
+  {
+   "parte": "cta",
+   "clipe": "I",
+   "fala": "Qual assinatura é a sua? Toque no produto do vídeo e confira.",
+   "titulo": "SUA ASSINATURA",
+   "linha": "toque no produto do vídeo",
+   "rodape": "",
+   "prompt": "reaproveitado"
+  }
+ ]
+}

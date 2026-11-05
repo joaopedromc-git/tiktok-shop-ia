@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+@font-face{font-family:"DM Termo";src:local("DM Serif Display Regular"),local("DMSerifDisplay-Regular"),local("DM Serif Display")}
+@font-face{font-family:"Inter Termo";font-weight:100 900;src:local("Inter Thin"),local("Inter-Thin"),local("Inter")}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#141110}
+#root{width:100%;height:100%;position:relative;overflow:hidden;background:#141110;font-family:"Inter Termo";font-weight:800}
+.clip{position:absolute;inset:0}
+.full{width:100%;height:100%;object-fit:cover}
+/* fundo: o mesmo clipe, desfocado e escurecido (renderizado pequeno e ampliado 3x) */
+#bg{position:absolute;left:0;top:0;width:360px;height:640px;overflow:hidden;transform:scale(3);transform-origin:0 0;
+  filter:blur(7px) brightness(.42) saturate(1.1);z-index:1}
+#bg video{transform:none}
+.tint{position:absolute;inset:0;z-index:2;opacity:0}
+#tw{background:radial-gradient(ellipse 120% 70% at 15% 80%,rgba(255,91,35,.42) 0,rgba(255,91,35,0) 70%),
+  linear-gradient(to bottom,rgba(20,17,16,.15),rgba(60,20,8,.35))}
+#tc{background:radial-gradient(ellipse 120% 70% at 85% 25%,rgba(143,227,255,.32) 0,rgba(143,227,255,0) 70%),
+  linear-gradient(to bottom,rgba(8,30,44,.35),rgba(20,17,16,.15))}
+/* janela nítida */
+#win{position:absolute;top:400px;height:968px;left:117px;width:786px;overflow:hidden;border-radius:40px;z-index:5;
+  background:#141110;box-shadow:0 26px 60px rgba(0,0,0,.55)}
+.mov{position:absolute;left:0}
+#frame{position:absolute;inset:0;display:block;border-radius:40px;border:7px solid #FFF4E6;z-index:3}
+#glow{position:absolute;inset:0;display:block;border-radius:40px;border:7px solid #FF5B23;z-index:4;opacity:0}
+/* régua térmica na margem esquerda (longe da garrafa) */
+#gauge{z-index:4}
+#g-tube{position:absolute;left:38px;top:540px;width:44px;height:700px;display:block;border-radius:22px;border:5px solid #FFF4E6;
+  background:rgba(20,17,16,.55);overflow:hidden}
+#g-fill{position:absolute;left:5px;right:5px;bottom:5px;height:680px;display:block;border-radius:14px;background:#FF5B23;transform-origin:50% 100%}
+.g-tk{position:absolute;left:88px;width:18px;height:5px;display:block;border-radius:3px;background:#FFF4E6;opacity:.8}
+#g-bulb{position:absolute;left:30px;top:1232px;width:60px;height:60px;display:block;border-radius:50%;border:5px solid #FFF4E6;background:#FF5B23}
+/* títulos */
+.titulo{z-index:6}
+.row{position:absolute;left:40px;width:878px;display:flex;justify-content:center;align-items:flex-end;gap:22px;white-space:nowrap}
+.dm{display:block;font-family:"DM Termo";font-weight:400;line-height:1;color:#FFF4E6;text-shadow:0 6px 0 rgba(20,17,16,.85),0 0 30px rgba(20,17,16,.6)}
+.dm.q{color:#FF5B23} .dm.f{color:#8FE3FF}
+.pill{display:flex;align-items:center;gap:12px;white-space:nowrap;font-family:"Inter Termo";font-weight:800;font-size:40px;line-height:1;
+  padding:12px 24px 14px;border-radius:40px;background:#FFF4E6;color:#141110;box-shadow:0 8px 0 rgba(20,17,16,.6)}
+.pill.q{background:#FF5B23} .pill.f{background:#8FE3FF}
+.pill b{font-weight:900}
+/* rodapé */
+#rod{z-index:7}
+#rod span{position:absolute;left:60px;top:1498px;display:block;font-family:"Inter Termo";font-weight:600;font-size:30px;line-height:1;
+  color:rgba(255,244,230,.85);background:rgba(20,17,16,.6);padding:7px 14px 8px;border-radius:10px}
+/* legenda "etiqueta térmica" */
+.legenda{z-index:10}
+.cap{position:absolute;left:40px;width:880px;display:flex;justify-content:center;align-items:flex-start}
+.ctag{display:flex;gap:18px;align-items:center;white-space:nowrap;background:#FFF4E6;border-radius:26px;
+  padding:6px 24px 10px;box-shadow:0 10px 0 rgba(20,17,16,.7),0 18px 34px rgba(0,0,0,.45)}
+.w{position:relative;display:block;font-style:normal;font-family:"Inter Termo";font-weight:800;font-size:84px;line-height:1.1;color:#141110}
+.w b{font-weight:800}
+.w.k{padding:0 14px 4px}
+.w b{position:relative}
+.hl{position:absolute;inset:0;display:block;border-radius:16px;transform-origin:0 50%}
+.w.q .hl{background:#FF5B23} .w.f .hl{background:#8FE3FF} .w.n .hl{background:#141110}
+/* CTA */
+#toque{z-index:11}
+#tq-b{position:absolute;left:140px;top:1186px;width:124px;height:124px;display:block;border-radius:50%;background:#FF5B23;
+  box-shadow:0 0 0 8px #FFF4E6,0 14px 30px rgba(0,0,0,.5)}
+#tq-b svg{display:block;width:124px;height:124px}
+.tq-o{position:absolute;left:140px;top:1186px;width:124px;height:124px;display:block;border:7px solid #8FE3FF;border-radius:50%;opacity:0}
+/* obturador quente/frio: dois painéis opacos de bordas duras */
+.shut{z-index:12;overflow:hidden}
+.sh-t,.sh-b{position:absolute;left:0;width:1080px;height:962px;display:block}
+.sh-t{top:0;background:#FF5B23;border-bottom:10px solid #141110}
+.sh-b{top:958px;background:#8FE3FF;border-top:10px solid #141110}
+.flash{z-index:13;background:#FFF4E6;opacity:0}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="19.05" data-width="1080" data-height="1920">
+  <!-- fundo desfocado: o mesmo trecho de cada clipe, rodando junto -->
+  <div id="bg">
+    <video id="bH1" class="clip full" data-start="0" data-duration="2.679" data-media-start="0.8" data-playback-rate="0.85" data-track-index="2" src="assets/clipe_H.mp4" muted playsinline></video>
+    <video id="bH2" class="clip full" data-start="2.679" data-duration="1.521" data-media-start="4.45" data-playback-rate="0.8" data-track-index="3" src="assets/clipe_H.mp4" muted playsinline></video>
+    <video id="bE" class="clip full" data-start="4.199" data-duration="7.871" data-media-start="2.47" data-playback-rate="0.7" data-track-index="2" src="assets/clipe_E.mp4" muted playsinline></video>
+    <video id="bG" class="clip full" data-start="12.069" data-duration="1.781" data-media-start="4.6" data-track-index="3" src="assets/clipe_G.mp4" muted playsinline></video>
+    <video id="bI" class="clip full" data-start="13.849" data-duration="5.201" data-media-start="1.4" data-playback-rate="0.9" data-track-index="2" src="assets/clipe_I.mp4" muted playsinline></video>
+  </div>
+  <div id="tw" class="tint"></div>
+  <div id="tc" class="tint"></div>
+
+  <!-- janela nítida: H 0,80-3,078 (0,85x) | H 4,45-5,666 (0,80x) | E 2,47-7,979 (0,70x) | G 4,60-6,38 | I 1,40-6,08 (0,90x) -->
+  <div id="win">
+    <div id="movH1" class="mov" style="top:-248px;width:786px;height:1398px;transform-origin:50% 52.3%"><video id="vH1" class="clip full" data-start="0.0" data-duration="2.68" data-media-start="0.8" data-playback-rate="0.85" data-track-index="0" src="assets/clipe_H.mp4" muted playsinline></video></div>
+    <div id="movH2" class="mov" style="top:-248px;width:786px;height:1398px;transform-origin:50% 52.3%"><video id="vH2" class="clip full" data-start="2.68" data-duration="1.52" data-media-start="4.45" data-playback-rate="0.8" data-track-index="1" src="assets/clipe_H.mp4" muted playsinline></video></div>
+    <div id="movE" class="mov" style="top:-11px;width:616px;height:1094px;transform-origin:50% 45.2%"><video id="vE" class="clip full" data-start="4.2" data-duration="7.87" data-media-start="2.47" data-playback-rate="0.7" data-track-index="0" src="assets/clipe_E.mp4" muted playsinline></video></div>
+    <div id="movG" class="mov" style="top:-29px;width:624px;height:1110px;transform-origin:50% 46.2%"><video id="vG" class="clip full" data-start="12.07" data-duration="1.78" data-media-start="4.6" data-track-index="1" src="assets/clipe_G.mp4" muted playsinline></video></div>
+    <div id="movI" class="mov" style="top:-276px;width:797px;height:1417px;transform-origin:50% 53.6%"><video id="vI" class="clip full" data-start="13.85" data-duration="5.2" data-media-start="1.4" data-playback-rate="0.9" data-track-index="0" src="assets/clipe_I.mp4" muted playsinline></video></div>
+    <i id="frame"></i><i id="glow"></i>
+  </div>
+
+  <div id="gauge" class="clip" data-start="0" data-duration="19.05" data-track-index="4">
+    <div id="g-in">
+      <span id="g-tube"><i id="g-fill"></i></span><span id="g-bulb"></span>
+      <i class="g-tk" style="top:600px"></i><i class="g-tk" style="top:740px"></i><i class="g-tk" style="top:880px"></i><i class="g-tk" style="top:1020px"></i><i class="g-tk" style="top:1160px"></i>
+    </div>
+  </div>
+
+  <!-- títulos (faixa do alto, acima da janela) -->
+  <div id="t1" class="clip titulo" data-start="0" data-duration="4.2" data-track-index="7">
+    <div class="row" style="top:150px;height:86px"><span id="t1a" class="dm" style="font-size:86px">O CAFÉ</span></div>
+    <div class="row" style="top:150px;height:86px"><span id="t1s" class="pill">e a noite nem começou</span></div>
+    <div class="row" style="top:236px;height:156px"><span id="t1b" class="dm q" style="font-size:156px">ESFRIOU?</span></div>
+  </div>
+  <div id="t2" class="clip titulo" data-start="7.91" data-duration="5.94" data-track-index="8">
+    <div class="row" style="top:166px;height:116px"><span id="t2a" class="dm q" style="font-size:116px">QUENTE</span><span id="t2b" class="dm" style="font-size:72px;padding-bottom:10px">ou</span><span id="t2c" class="dm f" style="font-size:116px">FRIA*</span></div>
+    <div class="row" style="top:304px;height:68px"><span id="t2d" class="pill q"><b>12 h</b> quente</span><span id="t2e" class="pill f"><b>18 h</b> fria</span></div>
+  </div>
+  <div id="t3" class="clip titulo" data-start="14.099" data-duration="4.951" data-track-index="7">
+    <div class="row" style="top:150px;height:68px"><span id="t3s" class="pill">praia ou trilha?</span></div>
+    <div class="row" style="top:250px;height:104px"><span id="t3a" class="dm" style="font-size:98px">TOQUE</span><span id="t3b" class="dm f" style="font-size:98px">E CONFIRA</span></div>
+  </div>
+
+  <div id="rod" class="clip" data-start="4.2" data-duration="9.65" data-track-index="9"><span id="rod-s">*Dados do fabricante</span></div>
+
+  <div id="toque" class="clip" data-start="15.94" data-duration="3.11" data-track-index="11">
+    <i id="tq-o1" class="tq-o"></i><i id="tq-o2" class="tq-o"></i><i id="tq-o3" class="tq-o"></i>
+    <span id="tq-b"><svg id="tq-s" viewBox="0 0 124 124"><path d="M84 40 L44 80 M42 52 L42 82 L72 82" fill="none" stroke="#141110" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </div>
+
+  <div id="sh0" class="clip shut" data-start="4.02" data-duration="0.36" data-track-index="12"><span id="sht0" class="sh-t"></span><span id="shb0" class="sh-b"></span></div>
+  <div id="sh1" class="clip shut" data-start="11.89" data-duration="0.36" data-track-index="12"><span id="sht1" class="sh-t"></span><span id="shb1" class="sh-b"></span></div>
+  <div id="sh2" class="clip shut" data-start="13.67" data-duration="0.36" data-track-index="12"><span id="sht2" class="sh-t"></span><span id="shb2" class="sh-b"></span></div>
+  <div id="fl0" class="clip flash" data-start="0" data-duration="0.12" data-track-index="13"></div>
+
+  <div id="lg-int-0" class="clip legenda" data-start="0.208" data-duration="1.191" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-int-0-p" class="ctag"><em id="lg-int-0-0" class="w k q"><i id="lg-int-0-0h" class="hl"></i><b id="lg-int-0-0b">Fogueira</b></em><em id="lg-int-0-1" class="w"><b>acesa,</b></em></span></div></div>
+  <div id="lg-int-1" class="clip legenda" data-start="1.399" data-duration="0.943" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-int-1-p" class="ctag"><em id="lg-int-1-0" class="w"><b>noite</b></em><em id="lg-int-1-1" class="w k f"><i id="lg-int-1-1h" class="hl"></i><b id="lg-int-1-1b">fria,</b></em></span></div></div>
+  <div id="lg-int-2" class="clip legenda" data-start="2.342" data-duration="0.496" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-int-2-p" class="ctag"><em id="lg-int-2-0" class="w"><b>e</b></em><em id="lg-int-2-1" class="w"><b>o</b></em><em id="lg-int-2-2" class="w k q"><i id="lg-int-2-2h" class="hl"></i><b id="lg-int-2-2b">café</b></em></span></div></div>
+  <div id="lg-int-3" class="clip legenda" data-start="2.838" data-duration="0.53" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-int-3-p" class="ctag"><em id="lg-int-3-0" class="w"><b>já</b></em><em id="lg-int-3-1" class="w k f"><i id="lg-int-3-1h" class="hl"></i><b id="lg-int-3-1b">esfriou</b></em></span></div></div>
+  <div id="lg-int-4" class="clip legenda" data-start="3.368" data-duration="0.812" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-int-4-p" class="ctag"><em id="lg-int-4-0" class="w"><b>de</b></em><em id="lg-int-4-1" class="w"><b>novo?</b></em></span></div></div>
+  <div id="lg-apr-0" class="clip legenda" data-start="4.407" data-duration="0.495" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-0-p" class="ctag"><em id="lg-apr-0-0" class="w"><b>Garrafa</b></em></span></div></div>
+  <div id="lg-apr-1" class="clip legenda" data-start="4.902" data-duration="1.156" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-1-p" class="ctag"><em id="lg-apr-1-0" class="w"><b>Térmica</b></em><em id="lg-apr-1-1" class="w k n"><i id="lg-apr-1-1h" class="hl"></i><b id="lg-apr-1-1b">MODUS</b></em></span></div></div>
+  <div id="lg-apr-2" class="clip legenda" data-start="6.058" data-duration="0.377" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-2-p" class="ctag"><em id="lg-apr-2-0" class="w"><b>segundo</b></em><em id="lg-apr-2-1" class="w"><b>o</b></em></span></div></div>
+  <div id="lg-apr-3" class="clip legenda" data-start="6.435" data-duration="0.814" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-3-p" class="ctag"><em id="lg-apr-3-0" class="w"><b>fabricante,</b></em></span></div></div>
+  <div id="lg-apr-4" class="clip legenda" data-start="7.249" data-duration="0.661" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-4-p" class="ctag"><em id="lg-apr-4-0" class="w"><b>deixa</b></em><em id="lg-apr-4-1" class="w"><b>a</b></em><em id="lg-apr-4-2" class="w"><b>bebida</b></em></span></div></div>
+  <div id="lg-apr-5" class="clip legenda" data-start="7.91" data-duration="0.283" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-5-p" class="ctag"><em id="lg-apr-5-0" class="w k q"><i id="lg-apr-5-0h" class="hl"></i><b id="lg-apr-5-0b">quente</b></em></span></div></div>
+  <div id="lg-apr-6" class="clip legenda" data-start="8.193" data-duration="0.342" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-6-p" class="ctag"><em id="lg-apr-6-0" class="w"><b>por</b></em><em id="lg-apr-6-1" class="w"><b>até</b></em></span></div></div>
+  <div id="lg-apr-7" class="clip legenda" data-start="8.535" data-duration="0.707" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-7-p" class="ctag"><em id="lg-apr-7-0" class="w k q"><i id="lg-apr-7-0h" class="hl"></i><b id="lg-apr-7-0b">12</b></em><em id="lg-apr-7-1" class="w"><b>horas</b></em></span></div></div>
+  <div id="lg-apr-8" class="clip legenda" data-start="9.242" data-duration="0.554" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-8-p" class="ctag"><em id="lg-apr-8-0" class="w"><b>e</b></em><em id="lg-apr-8-1" class="w k f"><i id="lg-apr-8-1h" class="hl"></i><b id="lg-apr-8-1b">fria</b></em></span></div></div>
+  <div id="lg-apr-9" class="clip legenda" data-start="9.796" data-duration="0.342" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-9-p" class="ctag"><em id="lg-apr-9-0" class="w"><b>por</b></em><em id="lg-apr-9-1" class="w"><b>até</b></em></span></div></div>
+  <div id="lg-apr-10" class="clip legenda" data-start="10.138" data-duration="0.826" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-10-p" class="ctag"><em id="lg-apr-10-0" class="w k f"><i id="lg-apr-10-0h" class="hl"></i><b id="lg-apr-10-0b">18.</b></em></span></div></div>
+  <div id="lg-apr-11" class="clip legenda" data-start="10.964" data-duration="1.191" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-11-p" class="ctag"><em id="lg-apr-11-0" class="w k q"><i id="lg-apr-11-0h" class="hl"></i><b id="lg-apr-11-0b">Café</b></em><em id="lg-apr-11-1" class="w"><b>na</b></em><em id="lg-apr-11-2" class="w"><b>trilha,</b></em></span></div></div>
+  <div id="lg-apr-12" class="clip legenda" data-start="12.155" data-duration="0.672" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-12-p" class="ctag"><em id="lg-apr-12-0" class="w"><b>água</b></em><em id="lg-apr-12-1" class="w k f"><i id="lg-apr-12-1h" class="hl"></i><b id="lg-apr-12-1b">fria</b></em></span></div></div>
+  <div id="lg-apr-13" class="clip legenda" data-start="12.827" data-duration="0.906" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-apr-13-p" class="ctag"><em id="lg-apr-13-0" class="w"><b>no</b></em><em id="lg-apr-13-1" class="w"><b>trabalho.</b></em></span></div></div>
+  <div id="lg-cta-0" class="clip legenda" data-start="14.119" data-duration="0.967" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-cta-0-p" class="ctag"><em id="lg-cta-0-0" class="w k f"><i id="lg-cta-0-0h" class="hl"></i><b id="lg-cta-0-0b">Praia</b></em><em id="lg-cta-0-1" class="w"><b>ou</b></em><em id="lg-cta-0-2" class="w k q"><i id="lg-cta-0-2h" class="hl"></i><b id="lg-cta-0-2b">trilha</b></em></span></div></div>
+  <div id="lg-cta-1" class="clip legenda" data-start="15.086" data-duration="0.814" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-cta-1-p" class="ctag"><em id="lg-cta-1-0" class="w"><b>primeiro?</b></em></span></div></div>
+  <div id="lg-cta-2" class="clip legenda" data-start="15.9" data-duration="0.389" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-cta-2-p" class="ctag"><em id="lg-cta-2-0" class="w k n"><i id="lg-cta-2-0h" class="hl"></i><b id="lg-cta-2-0b">Toque</b></em><em id="lg-cta-2-1" class="w"><b>no</b></em></span></div></div>
+  <div id="lg-cta-3" class="clip legenda" data-start="16.289" data-duration="0.389" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-cta-3-p" class="ctag"><em id="lg-cta-3-0" class="w"><b>produto</b></em></span></div></div>
+  <div id="lg-cta-4" class="clip legenda" data-start="16.678" data-duration="0.625" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-cta-4-p" class="ctag"><em id="lg-cta-4-0" class="w"><b>do</b></em><em id="lg-cta-4-1" class="w"><b>vídeo</b></em></span></div></div>
+  <div id="lg-cta-5" class="clip legenda" data-start="17.303" data-duration="0.542" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-cta-5-p" class="ctag"><em id="lg-cta-5-0" class="w"><b>e</b></em><em id="lg-cta-5-1" class="w k n"><i id="lg-cta-5-1h" class="hl"></i><b id="lg-cta-5-1b">confira</b></em></span></div></div>
+  <div id="lg-cta-6" class="clip legenda" data-start="17.845" data-duration="1.048" data-track-index="20"><div class="cap" style="top:1378px"><span id="lg-cta-6-p" class="ctag"><em id="lg-cta-6-0" class="w"><b>os</b></em><em id="lg-cta-6-1" class="w"><b>detalhes.</b></em></span></div></div>
+
+  <audio id="voz-intro" data-start="0.2" data-duration="4.032" data-track-index="21" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="4.4" data-duration="9.384" data-track-index="21" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="14.1" data-duration="4.824" data-track-index="21" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-1" data-start="0" data-duration="0.8" data-track-index="22" data-volume="0.55" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-whooshc-1" data-start="2.6" data-duration="0.3" data-track-index="22" data-volume="0.3" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-whoosh-1" data-start="3.98" data-duration="0.55" data-track-index="22" data-volume="0.34" src="assets/sfx/whoosh.wav"></audio>
+  <audio id="sfx-brilho-1" data-start="5.92" data-duration="0.9" data-track-index="22" data-volume="0.24" src="assets/sfx/brilho.wav"></audio>
+  <audio id="sfx-tique-1" data-start="9.29" data-duration="0.03" data-track-index="22" data-volume="0.35" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-whooshc-2" data-start="11.99" data-duration="0.3" data-track-index="22" data-volume="0.28" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-subida-1" data-start="13.45" data-duration="0.4" data-media-start="1" data-track-index="22" data-volume="0.3" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-clique-1" data-start="15.94" data-duration="0.05" data-track-index="22" data-volume="0.45" src="assets/sfx/clique.wav"></audio>
+  <audio id="sfx-pop-1" data-start="18.62" data-duration="0.09" data-track-index="22" data-volume="0.25" src="assets/sfx/pop.wav"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// ---------- tinta do fundo (só no fundo desfocado): quente até o corte do G, fria depois ----------
+tl.set("#tw", {opacity:1}, 0);
+tl.set("#tc", {opacity:0}, 0);
+tl.set("#tw", {opacity:0}, 12.07);
+tl.set("#tc", {opacity:1}, 12.07);
+// largura da janela por clipe (troca escondida pelo obturador)
+tl.set("#win",{left:117,width:786},0);
+tl.set("#win",{left:202,width:616},4.2);
+tl.set("#win",{left:198,width:624},12.07);
+tl.set("#win",{left:111,width:797},13.85);
+
+// ================= INTRO: H 0,80-3,078 s (0,85x) =================
+tl.fromTo("#fl0", {opacity:0.9}, {opacity:0, duration:0.1, ease:"power1.out"}, 0);
+tl.fromTo("#win", {scale:1.12}, {scale:1.0, duration:0.4, ease:"power3.out"}, 0);
+tl.fromTo("#movH1", {scale:1.0, y:0}, {scale:1.02, duration:2.56, ease:"none"}, 0);
+// a mão levanta a garrafa (1,75-2,2 s do clipe): a câmera acompanha para a tampa nunca sair da janela
+tl.to("#movH1", {y:188, duration:0.6, ease:"sine.inOut"}, 1.08);
+tl.to("#win",{scale:1.035,duration:0.1,ease:"power3.out"},1.793);
+tl.to("#win",{scale:1.0,duration:0.3,ease:"power2.inOut"},1.893);
+// corte com desfoque (pula o giro proibido 3,2-4,3 s)
+tl.to("#movH1", {filter:"blur(14px)", duration:0.12, ease:"power2.in"}, 2.56);
+tl.fromTo("#movH2", {y:24, scale:1.04, filter:"blur(14px)"}, {y:24, scale:1.0, filter:"blur(0px)", duration:0.18, ease:"power3.out"}, 2.68);
+tl.to("#movH2", {scale:1.025, duration:1.3, ease:"none"}, 2.86);
+// título do gancho
+tl.fromTo("#t1a", {y:-40, opacity:0}, {y:0, opacity:1, duration:0.24, ease:"power3.out"}, 0.02);
+tl.fromTo("#t1b", {scale:2.1, opacity:0}, {scale:1, opacity:1, duration:0.32, ease:"back.out(1.6)"}, 0.05);
+tl.fromTo("#t1s", {opacity:0}, {opacity:0, duration:0.01}, 0);
+// "esfriou": a palavra gela (brasa -> gelo) e treme; a régua despenca
+tl.to("#t1b", {color:"#8FE3FF", duration:0.25, ease:"power1.out"}, 3.019);
+tl.fromTo("#t1b", {x:0}, {x:7, duration:0.04, yoyo:true, repeat:7, ease:"sine.inOut"}, 3.039);
+tl.to("#t1a", {y:-30, opacity:0, duration:0.16, ease:"power2.in"}, 3.391);
+tl.fromTo("#t1s", {y:30, opacity:0}, {y:0, opacity:1, duration:0.22, ease:"back.out(2)", immediateRender:false}, 3.551);
+tl.to(["#t1b", "#t1s"], {y:-30, opacity:0, duration:0.14, ease:"power2.in"}, 3.98);
+
+// régua térmica
+tl.fromTo("#g-in", {x:-120}, {x:0, duration:0.35, ease:"power3.out"}, 0.1);
+tl.fromTo("#g-fill", {scaleY:0.05, backgroundColor:"#FF5B23"}, {scaleY:0.88, duration:0.5, ease:"power2.out"}, 0.15);
+tl.fromTo("#g-bulb", {backgroundColor:"#FF5B23"}, {backgroundColor:"#8FE3FF", duration:0.3, ease:"power1.out"}, 3.019);
+tl.to("#g-fill", {scaleY:0.16, backgroundColor:"#8FE3FF", duration:0.5, ease:"power2.in"}, 3.019);
+
+tl.fromTo("#sht0",{y:-962},{keyframes:[{y:0,duration:0.17,ease:"power2.in"},{y:0,duration:0.02},{y:-962,duration:0.17,ease:"power2.out"}]},4.02);
+tl.fromTo("#shb0",{y:962},{keyframes:[{y:0,duration:0.17,ease:"power2.in"},{y:0,duration:0.02},{y:962,duration:0.17,ease:"power2.out"}]},4.02);
+
+// ================= APRESENTAÇÃO: E 2,47-7,979 s (0,70x) =================
+tl.fromTo("#movE", {scale:1.0}, {scale:1.025, duration:7.7, ease:"none"}, 4.2);
+tl.fromTo("#win", {scale:1.06}, {scale:1.0, duration:0.35, ease:"power3.out", immediateRender:false}, 4.2);
+tl.fromTo("#rod-s", {opacity:0}, {opacity:1, duration:0.2, ease:"power1.out"}, 4.25);
+// produto herói no "MODUS": a janela cresce e o contorno acende em brasa (sobre o vídeo rodando)
+tl.to("#win", {scale:1.06, duration:0.14, ease:"power3.out"}, 5.414);
+tl.to("#win", {scale:1.035, duration:0.5, ease:"power2.inOut"}, 5.554);
+tl.fromTo("#glow", {opacity:0}, {keyframes:[{opacity:1, duration:0.12}, {opacity:1, duration:0.6}, {opacity:0, duration:0.3}]}, 5.414);
+tl.to("#win", {scale:1.0, duration:0.6, ease:"power1.inOut"}, 6.298);
+tl.fromTo("#rod-s", {scale:1.1}, {scale:1, duration:0.3, ease:"back.out(2)", transformOrigin:"0% 50%", immediateRender:false}, 6.098);
+// "quente": título; régua sobe em brasa
+tl.fromTo("#t2a", {scale:1.9, opacity:0}, {scale:1, opacity:1, duration:0.28, ease:"back.out(1.7)"}, 7.92);
+tl.fromTo(["#t2b", "#t2c"], {opacity:0}, {opacity:0, duration:0.01}, 7.92);
+tl.to("#g-fill", {scaleY:1, backgroundColor:"#FF5B23", duration:0.4, ease:"power2.out"}, 7.95);
+tl.to("#g-bulb", {backgroundColor:"#FF5B23", duration:0.2}, 7.95);
+tl.to("#win",{scale:1.03,duration:0.1,ease:"power3.out"},7.95);
+tl.to("#win",{scale:1.0,duration:0.3,ease:"power2.inOut"},8.05);
+tl.fromTo("#t2d", {y:30, opacity:0}, {y:0, opacity:1, duration:0.22, ease:"back.out(2)"}, 8.545);
+tl.fromTo("#t2e", {y:30, opacity:0}, {y:0, opacity:1, duration:0.22, ease:"back.out(2)"}, 10.148);
+// "fria"
+tl.to(["#t2b"], {opacity:1, duration:0.15}, 9.247);
+tl.fromTo("#t2c", {scale:1.9, opacity:0}, {scale:1, opacity:1, duration:0.28, ease:"back.out(1.7)", immediateRender:false}, 9.417);
+tl.to("#g-fill", {backgroundColor:"#8FE3FF", duration:0.3}, 9.447);
+tl.to("#g-bulb", {backgroundColor:"#8FE3FF", duration:0.2}, 9.447);
+tl.to("#win",{scale:1.03,duration:0.1,ease:"power3.out"},9.447);
+tl.to("#win",{scale:1.0,duration:0.3,ease:"power2.inOut"},9.547);
+// "Café na trilha": a etiqueta 12 h pulsa, régua em brasa
+tl.to("#g-fill", {backgroundColor:"#FF5B23", duration:0.25}, 11.004);
+tl.to("#g-bulb", {backgroundColor:"#FF5B23", duration:0.2}, 11.004);
+tl.fromTo("#t2d", {scale:1}, {scale:1.14, duration:0.14, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 11.004);
+tl.to("#win",{scale:1.03,duration:0.1,ease:"power3.out"},11.004);
+tl.to("#win",{scale:1.0,duration:0.3,ease:"power2.inOut"},11.104);
+
+tl.fromTo("#sht1",{y:-962},{keyframes:[{y:0,duration:0.17,ease:"power2.in"},{y:0,duration:0.02},{y:-962,duration:0.17,ease:"power2.out"}]},11.89);
+tl.fromTo("#shb1",{y:962},{keyframes:[{y:0,duration:0.17,ease:"power2.in"},{y:0,duration:0.02},{y:962,duration:0.17,ease:"power2.out"}]},11.89);
+
+// G 4,60-6,38 s: "água fria no trabalho"
+tl.fromTo("#movG", {scale:1.0}, {scale:1.025, duration:1.78, ease:"none"}, 12.07);
+tl.to("#g-fill", {backgroundColor:"#8FE3FF", duration:0.25}, 12.195);
+tl.to("#g-bulb", {backgroundColor:"#8FE3FF", duration:0.2}, 12.195);
+tl.fromTo("#t2e", {scale:1}, {scale:1.14, duration:0.14, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 12.195);
+tl.to("#win",{scale:1.03,duration:0.1,ease:"power3.out"},12.195);
+tl.to("#win",{scale:1.0,duration:0.3,ease:"power2.inOut"},12.295);
+tl.to(["#t2a", "#t2b", "#t2c", "#t2d", "#t2e"], {y:-30, opacity:0, duration:0.14, ease:"power2.in"}, 13.6);
+
+tl.fromTo("#sht2",{y:-962},{keyframes:[{y:0,duration:0.17,ease:"power2.in"},{y:0,duration:0.02},{y:-962,duration:0.17,ease:"power2.out"}]},13.67);
+tl.fromTo("#shb2",{y:962},{keyframes:[{y:0,duration:0.17,ease:"power2.in"},{y:0,duration:0.02},{y:962,duration:0.17,ease:"power2.out"}]},13.67);
+
+// ================= CTA: I 1,40-6,08 s (0,90x), mais calma =================
+tl.fromTo("#movI", {scale:1.0}, {scale:1.03, duration:5.2, ease:"none"}, 13.85);
+tl.fromTo("#win", {scale:1.05}, {scale:1.0, duration:0.5, ease:"power2.out", immediateRender:false}, 13.85);
+tl.fromTo("#t3s", {y:-30, opacity:0}, {y:0, opacity:1, duration:0.24, ease:"power3.out"}, 14.119);
+tl.to("#g-fill", {scaleY:0.6, backgroundColor:"#8FE3FF", duration:0.3}, 14.159);
+tl.to("#g-fill", {backgroundColor:"#FF5B23", duration:0.25}, 14.808);
+tl.to("#g-bulb", {backgroundColor:"#FF5B23", duration:0.2}, 14.808);
+tl.to("#g-in", {x:-140, opacity:0, duration:0.25, ease:"power2.in"}, 15.74);
+// "Toque": título + botão com seta para baixo/esquerda + ondas
+tl.fromTo("#t3a", {scale:1.8, opacity:0}, {scale:1, opacity:1, duration:0.26, ease:"back.out(1.7)"}, 15.91);
+tl.fromTo("#t3b", {x:60, opacity:0}, {x:0, opacity:1, duration:0.24, ease:"power3.out"}, 17.385);
+tl.to("#win",{scale:1.035,duration:0.1,ease:"power3.out"},15.94);
+tl.to("#win",{scale:1.0,duration:0.4,ease:"power2.inOut"},16.04);
+tl.fromTo("#tq-b", {scale:0.4, opacity:0}, {scale:1, opacity:1, duration:0.26, ease:"back.out(2.2)"}, 15.94);
+tl.fromTo("#tq-s", {x:0, y:0}, {x:-7, y:7, duration:0.22, yoyo:true, repeat:9, ease:"sine.inOut"}, 16.24);
+tl.fromTo("#tq-o1", {scale:0.6, opacity:0}, {keyframes:[{opacity:0.95, duration:0.02}, {scale:2.0, opacity:0, duration:0.63}], ease:"power2.out"}, 15.94);
+tl.fromTo("#tq-o2", {scale:0.6, opacity:0}, {keyframes:[{opacity:0.95, duration:0.02}, {scale:2.0, opacity:0, duration:0.63}], ease:"power2.out"}, 16.329);
+tl.fromTo("#tq-o3", {scale:0.6, opacity:0}, {keyframes:[{opacity:0.95, duration:0.02}, {scale:2.0, opacity:0, duration:0.63}], ease:"power2.out"}, 17.933);
+tl.fromTo("#tq-b", {scale:1}, {scale:1.12, duration:0.12, yoyo:true, repeat:1, ease:"power2.out", immediateRender:false}, 18.62);
+
+// ================= legenda =================
+tl.fromTo("#lg-int-0-0h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},0.228);
+tl.fromTo("#lg-int-0-0",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},0.228);
+tl.fromTo("#lg-int-0-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},0.208);
+tl.fromTo("#lg-int-1-1h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},1.773);
+tl.fromTo("#lg-int-1-1",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},1.773);
+tl.fromTo("#lg-int-1-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},1.399);
+tl.fromTo("#lg-int-2-2h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},2.468);
+tl.fromTo("#lg-int-2-2",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},2.468);
+tl.fromTo("#lg-int-2-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},2.342);
+tl.fromTo("#lg-int-3-1h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},2.999);
+tl.fromTo("#lg-int-3-1",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},2.999);
+tl.fromTo("#lg-int-3-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},2.838);
+tl.fromTo("#lg-int-4-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},3.368);
+tl.fromTo("#lg-apr-0-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},4.407);
+tl.fromTo("#lg-apr-1-1h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},5.394);
+tl.fromTo("#lg-apr-1-1b",{color:"#141110"},{color:"#FFF4E6",duration:0.06,ease:"none"},5.414);
+tl.fromTo("#lg-apr-1-1",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},5.394);
+tl.fromTo("#lg-apr-1-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},4.902);
+tl.fromTo("#lg-apr-2-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},6.058);
+tl.fromTo("#lg-apr-3-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},6.435);
+tl.fromTo("#lg-apr-4-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},7.249);
+tl.fromTo("#lg-apr-5-0h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},7.93);
+tl.fromTo("#lg-apr-5-0",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},7.93);
+tl.fromTo("#lg-apr-5-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},7.91);
+tl.fromTo("#lg-apr-6-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},8.193);
+tl.fromTo("#lg-apr-7-0h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},8.555);
+tl.fromTo("#lg-apr-7-0",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},8.555);
+tl.fromTo("#lg-apr-7-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},8.535);
+tl.fromTo("#lg-apr-8-1h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},9.427);
+tl.fromTo("#lg-apr-8-1",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},9.427);
+tl.fromTo("#lg-apr-8-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},9.242);
+tl.fromTo("#lg-apr-9-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},9.796);
+tl.fromTo("#lg-apr-10-0h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},10.158);
+tl.fromTo("#lg-apr-10-0",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},10.158);
+tl.fromTo("#lg-apr-10-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},10.138);
+tl.fromTo("#lg-apr-11-0h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},10.984);
+tl.fromTo("#lg-apr-11-0",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},10.984);
+tl.fromTo("#lg-apr-11-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},10.964);
+tl.fromTo("#lg-apr-12-1h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},12.47);
+tl.fromTo("#lg-apr-12-1",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},12.47);
+tl.fromTo("#lg-apr-12-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},12.155);
+tl.fromTo("#lg-apr-13-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},12.827);
+tl.fromTo("#lg-cta-0-0h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},14.139);
+tl.fromTo("#lg-cta-0-0",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},14.139);
+tl.fromTo("#lg-cta-0-2h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},14.788);
+tl.fromTo("#lg-cta-0-2",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},14.788);
+tl.fromTo("#lg-cta-0-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},14.119);
+tl.fromTo("#lg-cta-1-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},15.086);
+tl.fromTo("#lg-cta-2-0h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},15.92);
+tl.fromTo("#lg-cta-2-0b",{color:"#141110"},{color:"#FFF4E6",duration:0.06,ease:"none"},15.94);
+tl.fromTo("#lg-cta-2-0",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},15.92);
+tl.fromTo("#lg-cta-2-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},15.9);
+tl.fromTo("#lg-cta-3-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},16.289);
+tl.fromTo("#lg-cta-4-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},16.678);
+tl.fromTo("#lg-cta-5-1h",{scaleX:0},{scaleX:1,duration:0.13,ease:"power3.out"},17.405);
+tl.fromTo("#lg-cta-5-1b",{color:"#141110"},{color:"#FFF4E6",duration:0.06,ease:"none"},17.425);
+tl.fromTo("#lg-cta-5-1",{scale:1},{scale:1.08,duration:0.09,yoyo:true,repeat:1,ease:"power2.out"},17.405);
+tl.fromTo("#lg-cta-5-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},17.303);
+tl.fromTo("#lg-cta-6-p",{scale:0.9,y:12},{scale:1,y:0,duration:0.14,ease:"back.out(2.2)"},17.845);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

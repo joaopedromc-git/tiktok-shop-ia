@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<link rel="stylesheet" href="assets/fontes.css" />
+<script src="assets/gsap.min.js"></script>
+<style>
+:root{--base:#0B0F1A;--destaque:#3DF5A7;--texto:#F2F5FF}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#root{width:100%;height:100%;position:relative;overflow:hidden}
+.clip{position:absolute;inset:0}
+video.clip,img.clip{width:100%;height:100%;object-fit:cover}
+.vinheta{background:radial-gradient(ellipse at center,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%);z-index:4}
+.flash{background:#fff;z-index:9}
+.titulo{display:flex;justify-content:center;align-items:flex-start;padding-top:250px;z-index:6}
+.titulo span{font-family:"Bebas Neue";color:var(--texto);font-size:190px;line-height:.9;text-align:center;letter-spacing:2px;
+  text-shadow:0 10px 0 rgba(0,0,0,.55)}
+.titulo b{color:var(--destaque);font-weight:400}
+.legenda{height:auto;bottom:auto;display:flex;justify-content:center;gap:14px;z-index:7;padding:0 120px 0 60px;flex-wrap:wrap}
+.pal{font-family:"Inter";font-weight:800;font-size:74px;color:var(--texto);background:var(--base);padding:6px 20px;border-radius:14px;
+  display:inline-block;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+#congela{z-index:2}
+#congela img{position:absolute;inset:0;width:1080px;height:1920px}
+.etq{position:absolute;font-family:"Bebas Neue";font-size:84px;color:var(--destaque);background:var(--base);padding:6px 22px;border-radius:12px;
+  box-shadow:0 0 30px rgba(61,245,167,.35)}
+.linha{position:absolute;height:6px;background:var(--destaque);border-radius:3px;transform-origin:left center;box-shadow:0 0 14px var(--destaque)}
+.anel{position:absolute;border:10px solid var(--destaque);border-radius:50%;box-shadow:0 0 40px var(--destaque),inset 0 0 30px rgba(61,245,167,.4)}
+.lista{display:flex;justify-content:center;align-items:flex-start;gap:18px;padding-top:270px;z-index:6}
+.lista span{font-family:"Bebas Neue";font-size:120px;color:var(--texto);background:var(--base);padding:4px 26px;border-radius:14px}
+.lista span.ok{color:var(--base);background:var(--destaque)}
+#cta{z-index:8}
+#cta .bot{position:absolute;left:60px;top:1330px;font-family:"Bebas Neue";font-size:104px;color:var(--base);background:var(--destaque);
+  padding:10px 34px;border-radius:20px;box-shadow:0 0 50px rgba(61,245,167,.6)}
+#cta .seta{position:absolute;left:150px;top:1450px;font-size:96px;font-family:"Noto Color Emoji"}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="17.35" data-width="1080" data-height="1920">
+  <video id="vA" class="clip" data-start="0" data-duration="4.6" data-media-start="3.4" data-track-index="0" src="assets/clipe_A.mp4" muted></video>
+  <video id="vB" class="clip" data-start="4.6" data-duration="3.23" data-track-index="0" src="assets/b_lento.mp4" muted></video>
+  <div id="congela" class="clip" data-start="7.83" data-duration="3.77" data-track-index="1">
+    <div id="cz" style="position:absolute;inset:0;transform-origin:540px 900px">
+      <img id="bq" src="assets/b_quadro.png" alt="extensão" />
+      <div id="bt-a" class="anel" style="left:339px;top:381px;width:270px;height:270px"></div>
+    </div>
+    <div id="usb-l" class="linha" style="left:236px;top:1128px;width:172px"></div>
+    <div id="usb-e" class="etq" style="left:40px;top:1078px">4 USB</div>
+    <div id="tc-l" class="linha" style="left:270px;top:1374px;width:170px"></div>
+    <div id="tc-e" class="etq" style="left:40px;top:1324px">TIPO-C</div>
+    <div id="bt-e" class="etq" style="left:250px;top:700px">LIGA/DESLIGA</div>
+  </div>
+  <video id="vC" class="clip" data-start="11.6" data-duration="5.75" data-media-start="2.0" data-track-index="0" src="assets/clipe_C.mp4" muted></video>
+  <div id="vinheta" class="clip vinheta" data-start="0" data-duration="17.35" data-track-index="2"></div>
+  <div id="flash1" class="clip flash" data-start="0" data-duration="0.25" data-track-index="3"></div>
+  <div id="flash2" class="clip flash" data-start="7.83" data-duration="0.2" data-track-index="3"></div>
+
+  <div id="t1" class="clip titulo" data-start="0.05" data-duration="4.5" data-track-index="4"><span>FALTA TOMADA<br><b>AÍ?</b></span></div>
+  <div id="t2" class="clip titulo" data-start="5.78" data-duration="2.05" data-track-index="4"><span><b id="n5">0</b> TOMADAS</span></div>
+  <div id="t3" class="clip lista" data-start="12.37" data-duration="2.2" data-track-index="4">
+    <span id="l1">MESA</span><span id="l2">QUARTO</span><span id="l3">SALA</span></div>
+  <div id="cta" class="clip" data-start="14.61" data-duration="2.74" data-track-index="4">
+    <div id="cta-b" class="bot">TOQUE NO PRODUTO</div><div id="cta-s" class="seta">👇</div></div>
+
+  <div id="leg-intro-0" class="clip legenda" data-start="0.297" data-duration="0.896" data-track-index="5" style="top:1150px"><span id="leg-intro-0-0" class="pal">Uma</span><span id="leg-intro-0-1" class="pal">tomada</span><span id="leg-intro-0-2" class="pal">só</span></div>
+  <div id="leg-intro-1" class="clip legenda" data-start="1.193" data-duration="0.838" data-track-index="5" style="top:1150px"><span id="leg-intro-1-0" class="pal">pra</span><span id="leg-intro-1-1" class="pal">ligar</span><span id="leg-intro-1-2" class="pal">tudo</span></div>
+  <div id="leg-intro-2" class="clip legenda" data-start="2.031" data-duration="0.672" data-track-index="5" style="top:1150px"><span id="leg-intro-2-0" class="pal">isso</span></div>
+  <div id="leg-intro-3" class="clip legenda" data-start="2.703" data-duration="0.896" data-track-index="5" style="top:1150px"><span id="leg-intro-3-0" class="pal">Aí</span><span id="leg-intro-3-1" class="pal">vira</span><span id="leg-intro-3-2" class="pal">essa</span></div>
+  <div id="leg-intro-4" class="clip legenda" data-start="3.599" data-duration="1.001" data-track-index="5" style="top:1150px"><span id="leg-intro-4-0" class="pal">bagunça</span></div>
+  <div id="leg-apresentacao-0" class="clip legenda" data-start="4.897" data-duration="0.885" data-track-index="5" style="top:1450px"><span id="leg-apresentacao-0-0" class="pal">Essa</span><span id="leg-apresentacao-0-1" class="pal">extensão</span><span id="leg-apresentacao-0-2" class="pal">tem</span></div>
+  <div id="leg-apresentacao-1" class="clip legenda" data-start="5.782" data-duration="0.978" data-track-index="5" style="top:1450px"><span id="leg-apresentacao-1-0" class="pal">cinco</span><span id="leg-apresentacao-1-1" class="pal">tomadas</span><span id="leg-apresentacao-1-2" class="pal">num</span></div>
+  <div id="leg-apresentacao-2" class="clip legenda" data-start="6.760" data-duration="1.215" data-track-index="5" style="top:1450px"><span id="leg-apresentacao-2-0" class="pal">lugar</span><span id="leg-apresentacao-2-1" class="pal">só</span><span id="leg-apresentacao-2-2" class="pal">quatro</span></div>
+  <div id="leg-apresentacao-3" class="clip legenda" data-start="7.975" data-duration="1.132" data-track-index="5" style="top:1450px"><span id="leg-apresentacao-3-0" class="pal">USB</span><span id="leg-apresentacao-3-1" class="pal">uma</span><span id="leg-apresentacao-3-2" class="pal">tipo</span></div>
+  <div id="leg-apresentacao-4" class="clip legenda" data-start="9.107" data-duration="0.837" data-track-index="5" style="top:1450px"><span id="leg-apresentacao-4-0" class="pal">cê</span><span id="leg-apresentacao-4-1" class="pal">e</span><span id="leg-apresentacao-4-2" class="pal">botão</span></div>
+  <div id="leg-apresentacao-5" class="clip legenda" data-start="9.944" data-duration="0.672" data-track-index="5" style="top:1450px"><span id="leg-apresentacao-5-0" class="pal">de</span><span id="leg-apresentacao-5-1" class="pal">liga</span><span id="leg-apresentacao-5-2" class="pal">e</span></div>
+  <div id="leg-apresentacao-6" class="clip legenda" data-start="10.616" data-duration="0.984" data-track-index="5" style="top:1450px"><span id="leg-apresentacao-6-0" class="pal">desliga</span></div>
+  <div id="leg-cta-0" class="clip legenda" data-start="11.897" data-duration="1.097" data-track-index="5" style="top:1130px"><span id="leg-cta-0-0" class="pal">Serve</span><span id="leg-cta-0-1" class="pal">na</span><span id="leg-cta-0-2" class="pal">mesa</span></div>
+  <div id="leg-cta-1" class="clip legenda" data-start="12.994" data-duration="0.719" data-track-index="5" style="top:1130px"><span id="leg-cta-1-0" class="pal">no</span><span id="leg-cta-1-1" class="pal">quarto</span><span id="leg-cta-1-2" class="pal">ou</span></div>
+  <div id="leg-cta-2" class="clip legenda" data-start="13.713" data-duration="0.896" data-track-index="5" style="top:1130px"><span id="leg-cta-2-0" class="pal">na</span><span id="leg-cta-2-1" class="pal">sala</span></div>
+  <div id="leg-cta-3" class="clip legenda" data-start="14.609" data-duration="0.779" data-track-index="5" style="top:1130px"><span id="leg-cta-3-0" class="pal">Toca</span><span id="leg-cta-3-1" class="pal">no</span><span id="leg-cta-3-2" class="pal">produto</span></div>
+  <div id="leg-cta-4" class="clip legenda" data-start="15.388" data-duration="0.790" data-track-index="5" style="top:1130px"><span id="leg-cta-4-0" class="pal">aqui</span><span id="leg-cta-4-1" class="pal">no</span><span id="leg-cta-4-2" class="pal">vídeo</span></div>
+  <div id="leg-cta-5" class="clip legenda" data-start="16.178" data-duration="1.172" data-track-index="5" style="top:1130px"><span id="leg-cta-5-0" class="pal">e</span><span id="leg-cta-5-1" class="pal">confere</span></div>
+
+  <audio id="voz-intro" data-start="0.25" data-duration="4.3" data-track-index="6" src="assets/fala_intro.mp3"></audio>
+  <audio id="voz-apresentacao" data-start="4.85" data-duration="6.7" data-track-index="6" src="assets/fala_apresentacao.mp3"></audio>
+  <audio id="voz-cta" data-start="11.85" data-duration="5.4" data-track-index="6" src="assets/fala_cta.mp3"></audio>
+  <audio id="sfx-batida-0" data-start="0.00" data-duration="1.5" data-track-index="7" data-volume="0.6" src="assets/sfx/batida.wav"></audio>
+  <audio id="sfx-whoosh_curto-451" data-start="4.52" data-duration="1.5" data-track-index="7" data-volume="0.4" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-brilho-783" data-start="7.83" data-duration="1.5" data-track-index="7" data-volume="0.35" src="assets/sfx/brilho.wav"></audio>
+  <audio id="sfx-pop-960" data-start="9.60" data-duration="1.5" data-track-index="7" data-volume="0.45" src="assets/sfx/pop.wav"></audio>
+  <audio id="sfx-subida-1019" data-start="10.20" data-duration="1.5" data-track-index="7" data-volume="0.32" src="assets/sfx/subida.wav"></audio>
+  <audio id="sfx-whoosh_curto-1152" data-start="11.52" data-duration="1.5" data-track-index="7" data-volume="0.35" src="assets/sfx/whoosh_curto.wav"></audio>
+  <audio id="sfx-tique-1237" data-start="12.37" data-duration="1.5" data-track-index="7" data-volume="0.4" src="assets/sfx/tique.wav"></audio>
+  <audio id="sfx-clique-1461" data-start="14.61" data-duration="1.5" data-track-index="7" data-volume="0.5" src="assets/sfx/clique.wav"></audio>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+// gancho: punch-in + flash + título batendo
+tl.fromTo("#vA",{scale:1.25},{scale:1,duration:0.4,ease:"power3.out"},0);
+tl.to("#vA",{scale:1.07,duration:4.2,ease:"none"},0.4);
+tl.fromTo("#flash1",{opacity:0.85},{opacity:0,duration:0.22},0);
+tl.fromTo("#t1 span",{scale:2.4,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(2.2)"},0.05);
+tl.to("#t1 span",{y:-14,duration:0.08,yoyo:true,repeat:3},2.70);
+// apresentação: entrada com punch, contagem 0→5, congelamento com callouts
+tl.fromTo("#vB",{scale:1.18,x:60},{scale:1,x:0,duration:0.3,ease:"power3.out"},4.6);
+tl.to("#vB",{scale:1.05,duration:2.9,ease:"none"},4.9);
+tl.fromTo("#t2 span",{scale:1.8,opacity:0},{scale:1,opacity:1,duration:0.25,ease:"back.out(2)"},5.78);
+["1","2","3","4","5"].forEach((n,i)=>tl.set("#n5",{textContent:n},5.80+i*0.07));
+tl.fromTo("#cz",{scale:1.0},{scale:1.05,duration:3.77,ease:"none"},7.83);
+tl.fromTo("#flash2",{opacity:0.6},{opacity:0,duration:0.2},7.83);
+tl.fromTo("#usb-l",{scaleX:0},{scaleX:1,duration:0.2},7.98);
+tl.fromTo("#usb-e",{x:-80,opacity:0},{x:0,opacity:1,duration:0.22,ease:"power3.out"},7.98);
+tl.fromTo("#tc-l",{scaleX:0},{scaleX:1,duration:0.2},8.84);
+tl.fromTo("#tc-e",{x:-80,opacity:0},{x:0,opacity:1,duration:0.22,ease:"power3.out"},8.84);
+tl.fromTo("#bt-a",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.5)"},9.60);
+tl.fromTo("#bt-e",{y:30,opacity:0},{y:0,opacity:1,duration:0.22},9.70);
+// CTA: entrada, lista acendendo, botão pulsando
+tl.fromTo("#vC",{scale:1.15},{scale:1,duration:0.35,ease:"power3.out"},11.6);
+tl.fromTo("#t3",{opacity:0},{opacity:1,duration:0.1},12.37);
+tl.fromTo("#l1",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.18,ease:"back.out(2)"},12.37);
+tl.fromTo("#l2",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.18,ease:"back.out(2)"},13.15);
+tl.fromTo("#l3",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.18,ease:"back.out(2)"},13.84);
+["#l1","#l2","#l3"].forEach((s,i)=>tl.set(s,{backgroundColor:"var(--destaque)",color:"var(--base)"},[12.40,13.18,13.87][i]));
+tl.fromTo("#cta-b",{scale:2,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"back.out(2.4)"},14.61);
+tl.to("#cta-b",{scale:1.06,duration:0.35,yoyo:true,repeat:5,ease:"sine.inOut"},14.95);
+tl.fromTo("#cta-s",{y:-20,opacity:0},{y:0,opacity:1,duration:0.2},14.75);
+tl.to("#cta-s",{y:22,duration:0.3,yoyo:true,repeat:6,ease:"sine.inOut"},14.95);
+// legenda palavra por palavra
+tl.fromTo("#leg-intro-0-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},0.297);
+tl.fromTo("#leg-intro-0-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},0.486);
+tl.set("#leg-intro-0-1",{backgroundColor:"var(--destaque)",color:"var(--base)"},0.486);
+tl.fromTo("#leg-intro-0-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},0.934);
+tl.fromTo("#leg-intro-1-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},1.193);
+tl.fromTo("#leg-intro-1-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},1.347);
+tl.fromTo("#leg-intro-1-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},1.700);
+tl.fromTo("#leg-intro-2-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},2.031);
+tl.fromTo("#leg-intro-3-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},2.703);
+tl.fromTo("#leg-intro-3-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},3.104);
+tl.fromTo("#leg-intro-3-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},3.422);
+tl.fromTo("#leg-intro-4-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},3.599);
+tl.set("#leg-intro-4-0",{backgroundColor:"var(--destaque)",color:"var(--base)"},3.599);
+tl.fromTo("#leg-apresentacao-0-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},4.897);
+tl.fromTo("#leg-apresentacao-0-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},5.157);
+tl.fromTo("#leg-apresentacao-0-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},5.640);
+tl.fromTo("#leg-apresentacao-1-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},5.782);
+tl.set("#leg-apresentacao-1-0",{backgroundColor:"var(--destaque)",color:"var(--base)"},5.782);
+tl.fromTo("#leg-apresentacao-1-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},6.124);
+tl.set("#leg-apresentacao-1-1",{backgroundColor:"var(--destaque)",color:"var(--base)"},6.124);
+tl.fromTo("#leg-apresentacao-1-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},6.572);
+tl.fromTo("#leg-apresentacao-2-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},6.760);
+tl.fromTo("#leg-apresentacao-2-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},7.067);
+tl.fromTo("#leg-apresentacao-2-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},7.633);
+tl.fromTo("#leg-apresentacao-3-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},7.975);
+tl.set("#leg-apresentacao-3-0",{backgroundColor:"var(--destaque)",color:"var(--base)"},7.975);
+tl.fromTo("#leg-apresentacao-3-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},8.694);
+tl.fromTo("#leg-apresentacao-3-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},8.836);
+tl.set("#leg-apresentacao-3-2",{backgroundColor:"var(--destaque)",color:"var(--base)"},8.836);
+tl.fromTo("#leg-apresentacao-4-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},9.107);
+tl.set("#leg-apresentacao-4-0",{backgroundColor:"var(--destaque)",color:"var(--base)"},9.107);
+tl.fromTo("#leg-apresentacao-4-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},9.508);
+tl.fromTo("#leg-apresentacao-4-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},9.602);
+tl.set("#leg-apresentacao-4-2",{backgroundColor:"var(--destaque)",color:"var(--base)"},9.602);
+tl.fromTo("#leg-apresentacao-5-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},9.944);
+tl.fromTo("#leg-apresentacao-5-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},10.039);
+tl.fromTo("#leg-apresentacao-5-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},10.534);
+tl.fromTo("#leg-apresentacao-6-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},10.616);
+tl.fromTo("#leg-cta-0-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},11.897);
+tl.fromTo("#leg-cta-0-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},12.275);
+tl.fromTo("#leg-cta-0-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},12.369);
+tl.set("#leg-cta-0-2",{backgroundColor:"var(--destaque)",color:"var(--base)"},12.369);
+tl.fromTo("#leg-cta-1-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},12.994);
+tl.fromTo("#leg-cta-1-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},13.147);
+tl.set("#leg-cta-1-1",{backgroundColor:"var(--destaque)",color:"var(--base)"},13.147);
+tl.fromTo("#leg-cta-1-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},13.619);
+tl.fromTo("#leg-cta-2-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},13.713);
+tl.fromTo("#leg-cta-2-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},13.843);
+tl.set("#leg-cta-2-1",{backgroundColor:"var(--destaque)",color:"var(--base)"},13.843);
+tl.fromTo("#leg-cta-3-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},14.609);
+tl.fromTo("#leg-cta-3-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},14.881);
+tl.fromTo("#leg-cta-3-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},14.975);
+tl.set("#leg-cta-3-2",{backgroundColor:"var(--destaque)",color:"var(--base)"},14.975);
+tl.fromTo("#leg-cta-4-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},15.388);
+tl.fromTo("#leg-cta-4-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},15.588);
+tl.fromTo("#leg-cta-4-2",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},15.683);
+tl.fromTo("#leg-cta-5-0",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},16.178);
+tl.fromTo("#leg-cta-5-1",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.12,ease:"back.out(3)"},16.237);
+tl.set("#leg-cta-5-1",{backgroundColor:"var(--destaque)",color:"var(--base)"},16.237);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>
