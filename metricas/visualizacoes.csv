@@ -1,5 +1,5 @@
 ordem,produto,lote,visualizacoes,violacao
-1,garrafa,A,2434,
+1,garrafa,A,2434,produto_inconsistente
 2,bodysplash,A,982,
 3,extensao,A,276,
 4,piseira,A,241,produto_inconsistente
@@ -26,4 +26,4 @@ ordem,produto,lote,visualizacoes,violacao
 25,bodysplash,H,231,
 26,extensao,E,206,
 27,garrafa,F,260,
-28,hilee,C,103,
+28,hilee,C,103,a_confirmar

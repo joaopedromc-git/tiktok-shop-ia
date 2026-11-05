@@ -41,7 +41,7 @@ Gerado por `python evals/rodar.py`. Gabarito em `evals/casos.json`.
 | garrafa F | não confirmado | — | ✅ aprova | ✅ aprova | ✅ aprova | 4% | ✅ aprova |
 | hilee A | sim | — | ✅ aprova | ✅ aprova | ⚠️ atenção | 10% | ✅ aprova |
 | hilee B | sim | quadro_estatico | ✅ aprova | ✅ aprova | ✅ aprova | 40% | ✅ aprova |
-| hilee C | não confirmado | — | ✅ aprova | ✅ aprova | ✅ aprova | 6% | ✅ aprova |
+| hilee C | sim | a_confirmar | ✅ aprova | ✅ aprova | ✅ aprova | 6% | ✅ aprova |
 | piseira A | sim | produto_inconsistente | ✅ aprova | ✅ aprova | ⚠️ atenção | 22% | ✅ aprova |
 
 ## O que as regras fixas acharam

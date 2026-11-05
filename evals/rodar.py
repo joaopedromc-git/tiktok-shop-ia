@@ -62,7 +62,8 @@ def rodar(usar_ia, refazer):
 
 def placar(linhas, coluna, positivo):
     """Conta acertos e alarmes entre os vídeos postados."""
-    postados = [x for x in linhas if x["postado"] and x[coluna] is not None]
+    postados = [x for x in linhas if x["postado"] and x[coluna] is not None
+                and x["violacao"] != "a_confirmar"]
     pos = [x for x in postados if x["violacao"] == positivo]
     neg = [x for x in postados if x["violacao"] != positivo]
     return {
