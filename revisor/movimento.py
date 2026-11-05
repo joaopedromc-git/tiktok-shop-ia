@@ -11,9 +11,10 @@ cálculo:
 4. um par de quadros é "sem movimento real" quando o percentil 90 do resíduo
    fica abaixo de 0,5 px. Cortes (diferença média > 25) ficam fora da conta.
 
-Dependências: numpy, opencv-python-headless e ffmpeg (no PATH ou em $FFMPEG).
+Dependências: numpy, opencv-python-headless e ffmpeg ($FFMPEG, PATH ou o pacote imageio-ffmpeg).
 """
 import os
+import shutil
 import subprocess
 
 import cv2
@@ -27,8 +28,21 @@ LIMITE_CORTE = 25         # diferença média que indica troca de cena
 REPROVA, ATENCAO = 0.60, 0.45
 
 
+def _ffmpeg():
+    """$FFMPEG, depois o ffmpeg do PATH, depois o do pacote imageio-ffmpeg."""
+    if os.environ.get("FFMPEG"):
+        return os.environ["FFMPEG"]
+    if shutil.which("ffmpeg"):
+        return "ffmpeg"
+    try:
+        import imageio_ffmpeg
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except ImportError:
+        raise SystemExit("ffmpeg não encontrado: instale o ffmpeg ou rode pip install imageio-ffmpeg")
+
+
 def _quadros(video):
-    ffmpeg = os.environ.get("FFMPEG", "ffmpeg")
+    ffmpeg = _ffmpeg()
     saida = subprocess.run(
         [ffmpeg, "-loglevel", "error", "-i", str(video),
          "-vf", f"fps={FPS},scale={LARGURA}:{ALTURA},format=gray",

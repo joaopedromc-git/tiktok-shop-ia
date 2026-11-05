@@ -54,7 +54,7 @@ O movimento de câmera é descontado porque o TikTok não aceita "imagem de prod
 ## Instalação
 
 ```
-pip install -r revisor/requirements.txt   # numpy e opencv-python-headless
+pip install -r revisor/requirements.txt   # numpy, opencv-python-headless e imageio-ffmpeg
 ```
 
-Precisa também do `ffmpeg` no PATH (ou do caminho em `$FFMPEG`) e, para o agente, do Claude Code logado. Os testes das regras rodam com `python revisor/test_regras.py`.
+O `ffmpeg` vem do PATH, de `$FFMPEG` ou do pacote `imageio-ffmpeg`. Para o agente, precisa do Claude Code logado. Os testes das regras rodam com `python revisor/test_regras.py`.
