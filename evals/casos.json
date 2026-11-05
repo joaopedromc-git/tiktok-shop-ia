@@ -1,6 +1,6 @@
 {
-  "_fonte": "Histórico do projeto (banco tiktok e produtos/aprendizados.md). 'violacao' é o que o TikTok aplicou depois de postar; null = postado sem violação registrada. Os vídeos ainda não confirmados como postados ficam fora das métricas.",
-  "_observacao": "A 1ª violação da conta (inconsistência de produto) foi no vídeo A da garrafa, que não tem vídeo nem roteiro em JSON no repositório e por isso fica fora dos testes. A Hilee C levou violação de tipo ainda não confirmado (a_confirmar) e fica fora do placar até o tipo ser conhecido.",
+  "_fonte": "Histórico do projeto (banco tiktok e produtos/aprendizados.md). 'violacao' é o que o TikTok aplicou depois de postar; null = postado sem violação registrada. O extensão F ainda não foi postado e fica fora das métricas.",
+  "_observacao": "A 1ª violação da conta (inconsistência de produto) foi no vídeo A da garrafa, que não tem vídeo nem roteiro em JSON no repositório e por isso fica fora dos testes. Gabarito conferido com as notificações de violação do TikTok em 05/11/2026. A violação da facas E foi retirada depois do recurso, mas continua contando como caso de alegação exagerada.",
   "casos": [
     {"produto": "bodysplash", "lote": "A", "postado": true,  "violacao": null},
     {"produto": "bodysplash", "lote": "B", "postado": true,  "violacao": null},
@@ -9,7 +9,7 @@
     {"produto": "bodysplash", "lote": "E", "postado": true,  "violacao": null},
     {"produto": "bodysplash", "lote": "F", "postado": true,  "violacao": null},
     {"produto": "bodysplash", "lote": "G", "postado": true,  "violacao": null},
-    {"produto": "bodysplash", "lote": "H", "postado": false, "violacao": null},
+    {"produto": "bodysplash", "lote": "H", "postado": true,  "violacao": null},
     {"produto": "extensao",   "lote": "A", "postado": true,  "violacao": null},
     {"produto": "extensao",   "lote": "B", "postado": true,  "violacao": null},
     {"produto": "extensao",   "lote": "C", "postado": true,  "violacao": null},
@@ -25,10 +25,10 @@
     {"produto": "garrafa",    "lote": "C", "postado": true,  "violacao": null},
     {"produto": "garrafa",    "lote": "D", "postado": true,  "violacao": null},
     {"produto": "garrafa",    "lote": "E", "postado": true,  "violacao": null},
-    {"produto": "garrafa",    "lote": "F", "postado": false, "violacao": null},
+    {"produto": "garrafa",    "lote": "F", "postado": true,  "violacao": null},
     {"produto": "hilee",      "lote": "A", "postado": true,  "violacao": null},
     {"produto": "hilee",      "lote": "B", "postado": true,  "violacao": "quadro_estatico"},
-    {"produto": "hilee",      "lote": "C", "postado": true,  "violacao": "a_confirmar"},
+    {"produto": "hilee",      "lote": "C", "postado": true,  "violacao": "produto_inconsistente"},
     {"produto": "piseira",    "lote": "A", "postado": true,  "violacao": "produto_inconsistente"}
   ]
 }

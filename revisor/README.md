@@ -1,6 +1,6 @@
 # Revisor de conformidade
 
-Confere um vídeo antes de postar, para não tomar violação automática do TikTok Shop. A conta levou 5 violações; o revisor transforma o que elas ensinaram em uma verificação que roda sozinha.
+Confere um vídeo antes de postar, para não tomar violação automática do TikTok Shop. A conta levou 6 violações; o revisor transforma o que elas ensinaram em uma verificação que roda sozinha.
 
 ```
 python revisor/revisar.py facas E              # texto (regras + agente) e vídeo
@@ -22,9 +22,9 @@ O movimento de câmera é descontado porque o TikTok não aceita "imagem de prod
 
 ## Resultado nos vídeos já postados
 
-`python evals/rodar.py` roda as três verificações nos 24 vídeos postados com resultado conhecido (gabarito em `evals/casos.json`, tabela completa em `evals/resultados.md`).
+`python evals/rodar.py` roda as três verificações nos 27 vídeos postados (26 deles com roteiro em JSON) (gabarito em `evals/casos.json`, tabela completa em `evals/resultados.md`).
 
-| Verificação | Pegou a violação | Alarmes nos outros 22 vídeos (sem essa violação) |
+| Verificação | Pegou a violação | Alarmes nos outros 25 vídeos (sem essa violação) |
 |---|---|---|
 | Regras fixas originais | 0 de 1 (alegação exagerada) | 0 |
 | Regras fixas + regra criada após a 4ª violação | 1 de 1 | 0 |
@@ -34,7 +34,7 @@ O movimento de câmera é descontado porque o TikTok não aceita "imagem de prod
 ### Como ler
 
 - **As regras fixas originais não pegariam a alegação exagerada (facas E).** A regra que pega ("do primeiro ao último", "adeus") foi escrita depois da violação, então acertar esse caso não prova nada. Ela fica porque evita a repetição.
-- **O agente pegou a facas E sem ter visto a análise dela.** Ele reprovou "Pegada firme do primeiro ao último corte" e pôs o gancho "faca dançando na mão?" em atenção, com o motivo certo (o anúncio não promete resolver isso). O prompt do agente traz as categorias gerais da política, mas foi escrito depois das 5 violações, então não é um teste cego.
+- **O agente pegou a facas E sem ter visto a análise dela.** Ele reprovou "Pegada firme do primeiro ao último corte" e pôs o gancho "faca dançando na mão?" em atenção, com o motivo certo (o anúncio não promete resolver isso). O prompt do agente traz as categorias gerais da política, mas foi escrito depois das 5 primeiras violações, então não é um teste cego.
 - **O agente é mais rígido que o TikTok.** Dos 5 vídeos que ele reprovou e que não levaram violação de alegação:
   - garrafa D: o anúncio diz que o design "pode deixar a garrafa livre de suor", e o vídeo diz "SEM SUOR POR FORA". É risco real;
   - extensão B ("carrega tudo junto") e extensão D ("ao alcance da mão"): inferências que o anúncio não faz. Risco real, porém pequeno;
@@ -47,7 +47,9 @@ O movimento de câmera é descontado porque o TikTok não aceita "imagem de prod
 
 ### Limites
 
-- São só 4 vídeos com violação, e as regras e o prompt foram escritos depois deles. O teste que vale são os próximos vídeos: cada um que levar ou não levar violação entra em `evals/casos.json`.
+- **O primeiro caso novo passou pelo revisor.** A Hilee C foi postada depois que o revisor ficou pronto, foi aprovada nas três verificações e levou violação de produto inconsistente, um problema visual que o revisor não cobre.
+- **Produto inconsistente é a violação mais comum (3 de 6) e não é coberta.** O próximo passo é comparar quadros do vídeo com as fotos do anúncio usando um modelo de visão (cor, formato, logotipo e quantidade de peças).
+- São poucos casos (5 vídeos com violação no repositório), e as regras e o prompt foram escritos depois da maioria deles. Cada vídeo novo, com ou sem violação, entra em `evals/casos.json`.
 - A inconsistência visual do produto (cor, formato, padrão diferentes do anúncio, como na peseira A) não é verificada aqui. Continua na conferência humana dos clipes.
 - O agente pode responder diferente a cada execução. As respostas usadas na tabela estão guardadas em `evals/saida_ia/`.
 

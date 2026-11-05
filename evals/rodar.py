@@ -98,6 +98,7 @@ def escrever(linhas):
            frase(t, "Texto, todas as regras (alegação exagerada)"),
            frase(ti, "Texto, agente de IA (alegação exagerada)"),
            frase(tm, "Vídeo, movimento real (quadro estático)"),
+           frase(placar(linhas, "ia", "produto_inconsistente"), "Texto, agente de IA (produto inconsistente; fora do escopo, é visual)"),
            "",
            "## Por vídeo", "",
            "| Vídeo | Postado | Violação real | Regras originais | Todas as regras | Agente IA | Sem movimento | Movimento |",

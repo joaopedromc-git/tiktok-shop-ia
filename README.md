@@ -27,7 +27,7 @@ Anúncio do vendedor
 
 ## O que deu errado (e virou regra)
 
-A conta recebeu 5 violações automáticas do TikTok. Cada uma está analisada em `produtos/aprendizados.md`:
+A conta recebeu 6 violações automáticas do TikTok (lista completa em `metricas/violacoes.md`; análises em `produtos/aprendizados.md`):
 
 | Violação | Causa | Regra criada |
 |---|---|---|
@@ -39,9 +39,9 @@ O ponto central: a receita que evitava a primeira violação (fidelidade total, 
 
 ## Revisor de conformidade
 
-Antes de gastar crédito e antes de postar, `python revisor/revisar.py <produto> <lote>` confere o vídeo em três camadas: regras fixas no texto, um agente de IA que compara cada frase com o anúncio e uma medida de movimento real no vídeo (descontando zoom e deslocamento de câmera). Rodado nos 24 vídeos já postados:
+Antes de gastar crédito e antes de postar, `python revisor/revisar.py <produto> <lote>` confere o vídeo em três camadas: regras fixas no texto, um agente de IA que compara cada frase com o anúncio e uma medida de movimento real no vídeo (descontando zoom e deslocamento de câmera). Rodado nos 27 vídeos já postados:
 
-| Verificação | Pegou a violação | Alarmes nos outros 22 vídeos |
+| Verificação | Pegou a violação | Alarmes nos outros 25 vídeos |
 |---|---|---|
 | Agente de IA (alegação exagerada) | 1 de 1 | 5 reprovados, 13 em atenção |
 | Movimento (quadro estático) | 1 de 2 | 2 reprovados, 3 em atenção |
