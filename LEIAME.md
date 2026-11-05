@@ -15,6 +15,14 @@
 
 Roda em qualquer servidor com Docker que já tenha o n8n e um PostgreSQL.
 
+- **Acesso à VPS:** os scripts do PC (`render/kit/preparar.py`) e o agente `editor-video` falam com o servidor por `ssh minha-vps` e `scp ... minha-vps:`. `minha-vps` não é um servidor público: é um apelido de SSH. Crie o seu em `~/.ssh/config`:
+  ```
+  Host minha-vps
+      HostName <endereço do seu servidor>
+      User <seu usuário>
+      IdentityFile ~/.ssh/<sua chave>
+  ```
+  Teste com `ssh minha-vps echo ok`. Se preferir outro nome, troque `VPS` em `render/kit/preparar.py` e os comandos em `.claude/agents/editor-video.md`.
 - **Configuração:** copie `.env.exemplo` para `.env` e preencha `RENDER_TOKEN` (uma senha longa e aleatória) e `REDE_N8N` (a rede Docker onde o n8n roda).
 - **Subir ou atualizar o render:** `docker compose up -d --build`. Se der erro, `docker logs render`.
 - **Banco:** crie o banco `tiktok` e as tabelas (o script não apaga nada):

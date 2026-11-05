@@ -1,5 +1,7 @@
 # Vídeos de afiliado com IA para o TikTok Shop
 
+[![Verificação](https://github.com/joaopedromc-git/tiktok-shop-ia/actions/workflows/verificacao.yml/badge.svg)](https://github.com/joaopedromc-git/tiktok-shop-ia/actions/workflows/verificacao.yml) [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
+
 Um sistema que transforma o anúncio de um produto em vídeos verticais de propaganda, sem ninguém aparecer. Agentes de IA escrevem o roteiro, geram e conferem os clipes, narram e editam; uma pessoa aprova e publica. Rodou de verdade por um mês, numa conta real de afiliado.
 
 <p align="center">
@@ -146,6 +148,7 @@ Os vídeos estão em `produtos/<produto>/video_<lote>.mp4` (720p). O vídeo A da
 
 | Pasta | Conteúdo |
 |---|---|
+| `.github/workflows/` | Verificação automática a cada envio: testes do revisor, compilação dos scripts Python e tipos das cenas em Remotion |
 | `.claude/agents/` | Os três agentes |
 | `CLAUDE.md` | Regras fixas do projeto |
 | `revisor/` | Revisor de conformidade (regras, agente de IA, movimento) e seus testes |
@@ -159,3 +162,5 @@ Os vídeos estão em `produtos/<produto>/video_<lote>.mp4` (720p). O vídeo A da
 | `apresentacao/` | Vídeo de apresentação: roteiro, narração e cenas em HyperFrames e Remotion |
 
 Instalação, API do render e configuração estão em [`LEIAME.md`](LEIAME.md). Fotos de referência, clipes brutos e capturas de tela ficaram fora do repositório.
+
+O código está sob a [licença MIT](LICENSE). Marcas e produtos que aparecem nos vídeos e roteiros pertencem aos seus fabricantes.

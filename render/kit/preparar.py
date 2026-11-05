@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
-VPS = "minha-vps"
+VPS = "minha-vps"  # apelido de SSH do servidor (ver "Acesso à VPS" no LEIAME.md)
 REMOTO = "~/tiktok-automacao/dados"
 VELOCIDADE = "+6%"
 

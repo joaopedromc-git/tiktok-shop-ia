@@ -1,5 +1,5 @@
-"""Servico de render: narracao (edge-tts) + montagem 9:16 (ffmpeg).
-Chamado pelo n8n dentro da rede Docker. Todos os caminhos sao relativos a DADOS.
+"""Serviço de render: narração (edge-tts) + montagem 9:16 (ffmpeg).
+Chamado pelo n8n dentro da rede Docker. Todos os caminhos são relativos a DADOS.
 """
 import asyncio
 import json
@@ -22,14 +22,14 @@ FONTES = [
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
 ]
 L, A, FPS = 1080, 1920, 30
-trava = asyncio.Lock()  # um render por vez: a VPS tem 3 nucleos
+trava = asyncio.Lock()  # um render por vez: a VPS tem 3 núcleos
 
 app = FastAPI(title="render")
 
 
 def autorizar(x_token: str = Header(default="")):
     if TOKEN and x_token != TOKEN:
-        raise HTTPException(401, "token invalido")
+        raise HTTPException(401, "token inválido")
 
 
 def caminho(rel: str, deve_existir: bool = False) -> Path:
@@ -37,7 +37,7 @@ def caminho(rel: str, deve_existir: bool = False) -> Path:
     if DADOS not in p.parents:
         raise HTTPException(400, f"caminho fora da pasta de dados: {rel}")
     if deve_existir and not p.is_file():
-        raise HTTPException(404, f"arquivo nao encontrado: {rel}")
+        raise HTTPException(404, f"arquivo não encontrado: {rel}")
     p.parent.mkdir(parents=True, exist_ok=True)
     return p
 
@@ -56,7 +56,7 @@ def duracao(p: Path) -> float:
     try:
         return float(json.loads(r.stdout)["format"]["duration"])
     except Exception:
-        raise HTTPException(422, f"nao consegui ler a duracao de {p.name}")
+        raise HTTPException(422, f"não consegui ler a duração de {p.name}")
 
 
 def rodar(cmd: list[str]):
@@ -70,7 +70,7 @@ class Estilo(BaseModel):
     cor: str = "white"
     contorno: str = "black"
     espessura: int = 6
-    y: float = 0.16              # topo do texto, fracao da altura
+    y: float = 0.16              # topo do texto, fração da altura
     letras_por_linha: int = 18
     rodape_tamanho: int = 30
     rodape_y: float = 0.64       # acima da faixa que o TikTok cobre
@@ -78,7 +78,7 @@ class Estilo(BaseModel):
 
 class Parte(BaseModel):
     clipe: str
-    audio: str | None = None     # narracao; sem ela a parte fica muda
+    audio: str | None = None     # narração; sem ela a parte fica muda
     texto_tela: str = ""
     rodape: str = ""             # ex.: *Dados do fabricante
 
@@ -87,7 +87,7 @@ class Montagem(BaseModel):
     saida: str
     partes: list[Parte] = Field(min_length=1, max_length=6)
     estilo: Estilo = Estilo()
-    folga: float = 0.35          # silencio depois de cada fala
+    folga: float = 0.35          # silêncio depois de cada fala
 
 
 class Fala(BaseModel):
@@ -107,7 +107,7 @@ class Capa(BaseModel):
 
 def texto_filtro(tmp: Path, nome: str, texto: str, tam: int, y: float,
                  largura: int, e: Estilo, borda: int) -> str:
-    # uma chamada por linha: o drawtext nao centraliza linha a linha sozinho
+    # uma chamada por linha: o drawtext não centraliza linha a linha sozinho
     partes = []
     for j, linha in enumerate(textwrap.wrap(texto, largura)):
         arq = tmp / f"{nome}_{j}.txt"
@@ -195,7 +195,7 @@ def _montar(m: Montagem, saida: Path):
                 fa = "anullsrc=r=44100:cl=stereo"
             d = round(d, 3)
             tempos.append(d)
-            # fala maior que o clipe: congela o ultimo quadro ate a fala acabar
+            # fala maior que o clipe: congela o último quadro até a fala acabar
             filtros.append(
                 f"[{iv}:v]scale={L}:{A}:force_original_aspect_ratio=increase,"
                 f"crop={L}:{A},fps={FPS},setsar=1,"

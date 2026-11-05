@@ -1,0 +1,36 @@
+name: Verificação
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    name: Revisor e scripts Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Todos os scripts compilam
+        run: python -m compileall -q $(git ls-files '*.py')
+      - name: Testes das regras fixas do revisor
+        run: python revisor/test_regras.py
+
+  remotion:
+    name: Tipos das cenas em Remotion
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apresentacao/remotion
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apresentacao/remotion/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Checagem de tipos (TypeScript estrito)
+        run: npx tsc --noEmit
