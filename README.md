@@ -16,17 +16,21 @@ Um sistema que transforma o anúncio de um produto em vídeos verticais de propa
 
 ```mermaid
 flowchart TD
-    A["Anúncio do vendedor"] --> B["Agente de roteiro<br/>especialista-promocao"]
-    B --> C{"Aprovação 1<br/>roteiro"}
-    C --> R1["Revisor<br/>texto"]
-    R1 --> D["Google Flow (Veo)<br/>primeiro quadro + clipe de 8 s"]
-    D --> E{"Aprovação 2<br/>clipes"}
-    E --> F["Narração edge-tts<br/>+ edição HyperFrames<br/>agente editor-video"]
-    F --> G["Render em Docker<br/>na VPS"]
-    G --> R2["Revisor<br/>vídeo"]
-    R2 --> H["Postagem manual<br/>marcada como IA"]
-    M[("aprendizados.md<br/>memória do projeto")] -.-> B
-    H -.->|"violações e métricas"| M
+    subgraph S1["1 · Roteiro"]
+        direction LR
+        A["&nbsp;Anúncio&nbsp;"] --> B["&nbsp;Agente de roteiro&nbsp;"] --> C{{"&nbsp;Aprovação&nbsp;"}} --> R1["&nbsp;Revisor: texto&nbsp;"]
+    end
+    subgraph S2["2 · Clipes"]
+        direction LR
+        D["&nbsp;Primeiro quadro no Flow&nbsp;"] --> E["&nbsp;Clipe de 8 s no Veo&nbsp;"] --> F{{"&nbsp;Aprovação&nbsp;"}}
+    end
+    subgraph S3["3 · Edição e postagem"]
+        direction LR
+        G["&nbsp;Narração + HyperFrames&nbsp;"] --> H["&nbsp;Render&nbsp;"] --> R2["&nbsp;Revisor: vídeo&nbsp;"] --> I["&nbsp;Postagem manual&nbsp;"]
+    end
+    S1 --> S2 --> S3
+    M[("&nbsp;Memória: aprendizados.md&nbsp;")] -.-> B
+    I -.->|"violações e métricas"| M
 ```
 
 1. **Roteiro:** o agente lê o anúncio e escreve 9 partes (3 ganchos, 3 apresentações, 3 chamadas), que se combinam em vídeos diferentes sem repetir. O banco PostgreSQL guarda as combinações já usadas.
