@@ -12,9 +12,9 @@ Um sistema que transforma o anúncio de um produto em vídeos verticais de propa
 |:---:|:---:|:---:|:---:|:---:|
 | 6 produtos, 05/10 a 04/11/2026 | mediana de 294 por vídeo | R$ 23,13 de comissão | só a assinatura do Google AI Plus | viraram regras, memória e um revisor |
 
+https://github.com/user-attachments/assets/64dbc4ff-996c-47fd-8aa0-a745e9c75e9e
+
 <p align="center">
-  <a href="docs/apresentacao.mp4"><img src="docs/img/apresentacao_capa.jpg" width="640" alt="Capa do vídeo de apresentação: parede de celulares com os vídeos e o texto ninguém aparece"></a>
-  <br>
   <sub>Vídeo de apresentação (1 min 26 s), feito com o mesmo tipo de fluxo: roteiro escrito por um agente, narração edge-tts e cenas em HyperFrames e Remotion. Código em <a href="apresentacao/"><code>apresentacao/</code></a>.</sub>
 </p>
 
