@@ -1,0 +1,37 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "Abre a caixa e vem o faqueiro completo",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio lista os itens inclusos, mas não diz que o produto vem em caixa nem descreve a embalagem.",
+   "sugestao": "Vem o faqueiro de 6 peças: quatro facas, uma tesoura multiuso e um descascador."
+  },
+  {
+   "onde": "apresentacao.linha",
+   "trecho": "6 peças na caixa",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio fala em 6 peças, mas não menciona caixa ou embalagem.",
+   "sugestao": "6 peças no kit"
+  },
+  {
+   "onde": "apresentacao.titulo",
+   "trecho": "FAQUEIRO COMPLETO",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "\"Completo\" pode sugerir que o kit atende a qualquer necessidade, e o anúncio só diz \"Faqueiro 6 Peças\".",
+   "sugestao": "FAQUEIRO 6 PEÇAS"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Faqueiro completo de 6 peças",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio chama o produto de \"Faqueiro 6 Peças\" e não o descreve como completo.",
+   "sugestao": "Faqueiro de 6 peças: faca do chefe, faca de carne, cutelo, faca de descascar, tesoura multiuso e descascador de cerâmica."
+  }
+ ]
+}

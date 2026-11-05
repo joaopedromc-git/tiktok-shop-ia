@@ -1,0 +1,77 @@
+{
+ "veredito": "reprova",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Você ainda usa a mesma faca pra cebola, carne e cheiro-verde?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta apresenta o uso de uma faca só como problema que o kit resolveria, mas o anúncio não promete essa solução nem cita cebola, carne ou cheiro-verde.",
+   "sugestao": "Você já conferiu o que vem num faqueiro de 6 peças para cozinha e churrasco?"
+  },
+  {
+   "onde": "intro.titulo",
+   "trecho": "UMA FACA PRA TUDO?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Sugere um problema (uma faca para tudo) que o kit resolveria, e o anúncio não faz essa promessa.",
+   "sugestao": "FAQUEIRO 6 PEÇAS"
+  },
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "a faca do chefe parte a cebola, a tesoura corta o cheiro-verde, o cutelo encara a carne",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio só lista as peças e diz 'cozinha e churrasco'; não atribui a cada peça a função de cortar cebola, cheiro-verde ou carne.",
+   "sugestao": "Faqueiro de seis peças: faca do chefe, faca de carne, cutelo, faca de descascar, descascador de cerâmica e tesoura multiuso."
+  },
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "Cada tarefa com a peça certa.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Promete que o kit cobre cada tarefa com a peça adequada, algo que o anúncio não afirma.",
+   "sugestao": "Um kit pensado para cozinha e para área de churrasco."
+  },
+  {
+   "onde": "apresentacao.titulo",
+   "trecho": "A PEÇA CERTA",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Implica adequação ideal de cada peça a cada tarefa, o que o anúncio não diz.",
+   "sugestao": "KIT 6 PEÇAS"
+  },
+  {
+   "onde": "apresentacao.tela",
+   "trecho": "pra cada tarefa da cozinha",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "Promessa abrangente de cobrir todas as tarefas da cozinha, sem respaldo no anúncio, que indica apenas 'cozinha e churrasco'.",
+   "sugestao": "para cozinha e churrasco"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Você ainda usa a mesma faca pra tudo?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Gancho que expõe um problema como se o kit o resolvesse, sem que o anúncio prometa isso.",
+   "sugestao": "Já viu este faqueiro de 6 peças para cozinha e churrasco?"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "com uma peça pra cada tarefa",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "O anúncio não diz que há uma peça para cada tarefa; apenas lista seis itens para cozinha e churrasco.",
+   "sugestao": "Faqueiro de 6 peças para cozinha e churrasco:"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Da cebola ao cheiro-verde",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio não cita alimentos nem diz que as peças servem para cortar cebola ou cheiro-verde.",
+   "sugestao": "Para a cozinha e para a área de churrasco."
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Encheu de gelo de manhã e, no almoço, a água já tá morna?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta mostra o problema da água morna como se o produto o resolvesse (antes e depois implícito), e a solução só aparece depois, com a fonte; o anúncio promete 24 h de gelada só segundo o fabricante.",
+   "sugestao": "Você leva água gelada pra rua e quer beber de canudo? (ou manter a pergunta só se a fala seguinte já trouxer 'segundo o fabricante')"
+  },
+  {
+   "onde": "intro.tela",
+   "trecho": "ÁGUA MORNA DE NOVO? / e nem deu meio-dia",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Título e linha reforçam o problema de a água esquentar em poucas horas, sugerindo que o produto resolve, sem o 'segundo o fabricante' do anúncio nessa parte.",
+   "sugestao": "Título: 'GARRAFA COM CANUDO' / linha: 'tampa automática, dois jeitos de beber'"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Encheu de gelo de manhã e no almoço a água já tava morna?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Gancho que expõe um problema como se o produto o resolvesse; o anúncio só promete a duração segundo o fabricante.",
+   "sugestao": "Você é de levar a garrafa pra todo lugar? Conheça a Hilee com canudo embutido."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "aço inox 304 por dentro (dados do fabricante)",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio lista 'aço inoxidável 304' entre as camadas do produto, mas não diz que ele fica 'por dentro'; a localização é inferência.",
+   "sugestao": "aço inoxidável 304 (dados do fabricante)"
+  }
+ ]
+}

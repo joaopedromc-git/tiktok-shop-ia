@@ -1,0 +1,53 @@
+{
+ "veredito": "reprova",
+ "achados": [
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "Pegada firme do primeiro ao último corte.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "O anúncio diz só que o cabo tem \"toque firme e encaixa perfeitamente a mão\"; não promete firmeza constante do primeiro ao último corte, o que é uma promessa absoluta.",
+   "sugestao": "Cabo de toque firme que encaixa na mão."
+  },
+  {
+   "onde": "intro.fala",
+   "trecho": "Cortando a carne e a faca dançando na mão?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta mostra um problema (faca escorregando) e sugere que o produto o resolve, mas o anúncio só fala em \"toque firme\" e não promete que a faca não escorrega.",
+   "sugestao": "Vai cortar carne? Conheça o faqueiro de 6 peças para cozinha e churrasco."
+  },
+  {
+   "onde": "intro.titulo",
+   "trecho": "FACA DANÇANDO?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "O título repete a cena do problema e insinua antes e depois, sem que o anúncio prometa essa solução.",
+   "sugestao": "FAQUEIRO 6 PEÇAS"
+  },
+  {
+   "onde": "cta.fala",
+   "trecho": "Pronto pra trocar as facas da gaveta?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Sugere que as facas atuais são ruins e que este kit é melhor, e o anúncio não afirma superioridade sobre outros produtos.",
+   "sugestao": "Quer conhecer o faqueiro de 6 peças? Toque no produto do vídeo e confira."
+  },
+  {
+   "onde": "cta.linha",
+   "trecho": "adeus, faca da gaveta",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Comparação implícita de antes e depois, que põe o produto como substituto melhor das facas comuns, sem base no anúncio.",
+   "sugestao": "toque no produto e confira"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Faca dançando na mão bem na hora de cortar a carne?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Gancho que mostra um problema e sugere que o faqueiro o resolve, o que o anúncio não promete (só diz \"toque firme\").",
+   "sugestao": "Vai cortar carne no churrasco? Olha esse faqueiro de 6 peças."
+  }
+ ]
+}

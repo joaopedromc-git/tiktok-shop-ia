@@ -1,0 +1,61 @@
+{
+ "veredito": "reprova",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Tomada escondida atrás do móvel, e lá vai você de joelhos?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta mostra um problema (tomada atrás do móvel) que a apresentação depois trata como resolvido, e o anúncio não promete essa solução.",
+   "sugestao": "Usar um gancho neutro, por exemplo: \"Precisa de mais tomadas e entradas USB no mesmo lugar?\""
+  },
+  {
+   "onde": "intro.titulo",
+   "trecho": "De joelhos de novo?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Sugere um problema que o produto resolveria, mas o anúncio não diz nada sobre alcance ou posicionamento.",
+   "sugestao": "\"Tomadas e USB num lugar só\""
+  },
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "em cima do móvel, onde a mão alcança",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "reprova",
+   "motivo": "O anúncio não fala de comprimento de cabo, alcance nem de onde instalar, e a frase fecha a comparação antes e depois com a intro.",
+   "sugestao": "Extensão filtro de linha: cinco tomadas, quatro USB e uma tipo cê. Botão liga e desliga à vista."
+  },
+  {
+   "onde": "apresentacao.titulo",
+   "trecho": "Ao alcance da mão",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "reprova",
+   "motivo": "Promete praticidade de alcance que o anúncio não afirma (não há comprimento de cabo nem indicação de uso).",
+   "sugestao": "\"Tomadas, USB e tipo C\""
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Tomada escondida atrás do móvel e você de joelhos pra ligar?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Apresenta um problema que o produto não promete resolver, de acordo com o anúncio.",
+   "sugestao": "\"Precisa de mais tomadas e USB no mesmo lugar?\""
+  },
+  {
+   "onde": "legenda",
+   "trecho": "tudo em cima da mesa, da bancada ou do rack",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "reprova",
+   "motivo": "O anúncio não indica onde usar a extensão nem o comprimento do cabo, então não dá para afirmar que ela alcança esses lugares.",
+   "sugestao": "Extensão filtro de linha com 5 tomadas, 4 USB, 1 tipo C e botão liga/desliga."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "#achadinhos",
+   "categoria": "preco_e_pressao",
+   "gravidade": "atencao",
+   "motivo": "A hashtag costuma sugerir preço baixo ou oferta, e o anúncio proíbe qualquer menção a oferta ou preço.",
+   "sugestao": "Remover a hashtag e manter #extensao #filtrodelinha #tiktokshop."
+  }
+ ]
+}

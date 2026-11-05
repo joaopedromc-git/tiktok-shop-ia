@@ -1,0 +1,37 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Não sabe o que dar pra ele? Esquece a meia. Presente bom tem cheiro.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "O anúncio não apresenta o kit como presente nem como melhor opção que outros presentes. O gancho mostra um problema (o que dar) e sugere que o kit o resolve, e \"Presente bom tem cheiro\" soa como superioridade sobre outros presentes.",
+   "sugestao": "Não sabe o que dar pra ele? Três body splashes masculinos, um fresco, um elegante e um marcante."
+  },
+  {
+   "onde": "intro.tela",
+   "trecho": "Esquece a meia",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Põe o kit acima de outro produto (meia) como presente, o que o anúncio não afirma.",
+   "sugestao": "Kit Body Man: fresco, elegante e marcante"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Não sabe o que dar pra ele? Esquece a meia 🎁",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Repete o gancho de presente e a comparação com outro produto, e o anúncio não indica uso como presente nem superioridade.",
+   "sugestao": "Kit Body Man com 3 body splashes masculinos 🎁"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "#achadinhos",
+   "categoria": "preco_e_pressao",
+   "gravidade": "atencao",
+   "motivo": "A hashtag costuma sugerir preço baixo ou oferta, e o anúncio não confirma isso. A nota de cuidados também proíbe falar de preço.",
+   "sugestao": "Remover #achadinhos e manter só hashtags descritivas, como #bodysplash e #perfumemasculino."
+  }
+ ]
+}

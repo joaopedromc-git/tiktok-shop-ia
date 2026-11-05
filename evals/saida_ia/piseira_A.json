@@ -1,0 +1,37 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Cama arrumada e quarto sem graça? O segredo está no pé da cama.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta apresenta o quarto sem graça como um problema e o \"segredo\" sugere que a peseira o resolve, mas o anúncio só fala em toque de elegância e decoração, sem prometer essa solução.",
+   "sugestao": "Cama arrumada e quer um toque de aconchego? Olha esta peseira de tricô com tranças no pé da cama."
+  },
+  {
+   "onde": "intro.titulo",
+   "trecho": "Quarto sem graça?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Sugere um problema (antes e depois implícito) que o anúncio não promete resolver.",
+   "sugestao": "Toque de aconchego no quarto"
+  },
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "São duzentos e vinte por sessenta centímetros, segundo o fabricante, para cama de casal ou sofá.",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio diz que a medida de 220 x 60 cm (aproximada) é para uso transversal em cama de casal ou queen; o sofá aparece só em \"Uso: decoração de cama e sofás\", sem dizer que esse tamanho serve nele. A fala também omite que a medida é aproximada.",
+   "sugestao": "São cerca de duzentos e vinte por sessenta centímetros, segundo o fabricante, para cama de casal ou queen. Também serve para decorar sofás."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Tamanho 220 x 60 cm (dados do fabricante), para cama de casal, queen e também sofá.",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "Liga a medida ao uso em sofá, o que o anúncio não afirma (a medida é para cama de casal ou queen, e a palavra \"aproximado\" foi omitida).",
+   "sugestao": "Tamanho aproximado de 220 x 60 cm (dados do fabricante), para cama de casal ou queen. Também pode decorar sofás."
+  }
+ ]
+}

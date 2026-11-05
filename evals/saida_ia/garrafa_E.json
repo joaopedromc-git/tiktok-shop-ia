@@ -1,0 +1,53 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Fogueira acesa, noite fria, e o café já esfriou de novo?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta mostra o café esfriando como um problema que o produto resolveria (antes e depois implícito), e o anúncio só promete manter a temperatura por até 12 h (quente) e 18 h (frio).",
+   "sugestao": "Fogueira acesa, noite fria: você leva o quê para beber no acampamento?"
+  },
+  {
+   "onde": "intro.titulo",
+   "trecho": "O CAFÉ ESFRIOU?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Repete o gancho de problema que sugere a garrafa como solução, sem que o anúncio prometa isso além do tempo informado pelo fabricante.",
+   "sugestao": "CAFÉ NO ACAMPAMENTO"
+  },
+  {
+   "onde": "intro.linha",
+   "trecho": "e a noite nem começou",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Reforça o problema do café esfriando cedo, completando o antes e depois implícito, sem o anúncio prometer essa solução.",
+   "sugestao": "noite de acampamento"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Fogueira acesa, noite fria, e o café já esfriou de novo?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Mesmo gancho da intro: apresenta o café frio como um problema que o produto resolveria, e o anúncio não promete isso.",
+   "sugestao": "Fogueira acesa, noite fria: o que você leva para beber no acampamento?"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Garrafa Térmica MODUS de 2,4 litros",
+   "categoria": "dado_sem_fonte",
+   "gravidade": "atencao",
+   "motivo": "A capacidade (2400 ml) é especificação, e o 'dados do fabricante' da frase vem só depois das horas, então pode não cobrir os 2,4 litros.",
+   "sugestao": "Garrafa Térmica MODUS de 2,4 litros (segundo o fabricante), com isolamento a vácuo de parede dupla: mantém líquidos quentes por até 12 horas e frios por até 18 horas (dados do fabricante)."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "#achadinhos",
+   "categoria": "preco_e_pressao",
+   "gravidade": "atencao",
+   "motivo": "A hashtag sugere preço baixo ou oferta, e o anúncio não fala em preço nem em promoção.",
+   "sugestao": "Remover #achadinhos e manter #garrafatermica #acampamento #tiktokshop"
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "legenda",
+   "trecho": "#achadinhos",
+   "categoria": "preco_e_pressao",
+   "gravidade": "atencao",
+   "motivo": "A hashtag sugere produto barato ou boa oportunidade, e o anúncio não fala de preço (as notas pedem para não citar preço e para não usar \"custo-benefício\").",
+   "sugestao": "Tirar #achadinhos e manter só hashtags descritivas, como #bodysplash #perfumemasculino #bodyman #primacial #tiktokshop."
+  }
+ ]
+}

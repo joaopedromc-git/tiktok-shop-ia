@@ -1,0 +1,13 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "legenda",
+   "trecho": "#achadinhos",
+   "categoria": "preco_e_pressao",
+   "gravidade": "atencao",
+   "motivo": "A hashtag sugere produto barato ou achado em oferta, e o anúncio não fala em preço (as notas ainda mandam evitar \"custo-benefício\" e preço).",
+   "sugestao": "Trocar por #kitmasculino ou #perfumaria, ou tirar a hashtag."
+  }
+ ]
+}

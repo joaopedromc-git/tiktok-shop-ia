@@ -37,11 +37,24 @@ A conta recebeu 5 violações automáticas do TikTok. Cada uma está analisada e
 
 O ponto central: a receita que evitava a primeira violação (fidelidade total, câmera só se aproximando) era exatamente a que causava a segunda. A solução foi montar o primeiro quadro fiel no editor de imagem e pedir ao vídeo uma ação real com o produto.
 
+## Revisor de conformidade
+
+Antes de gastar crédito e antes de postar, `python revisor/revisar.py <produto> <lote>` confere o vídeo em três camadas: regras fixas no texto, um agente de IA que compara cada frase com o anúncio e uma medida de movimento real no vídeo (descontando zoom e deslocamento de câmera). Rodado nos 24 vídeos já postados:
+
+| Verificação | Pegou a violação | Alarmes nos outros 22 vídeos |
+|---|---|---|
+| Agente de IA (alegação exagerada) | 1 de 1 | 5 reprovados, 13 em atenção |
+| Movimento (quadro estático) | 1 de 2 | 2 reprovados, 3 em atenção |
+
+O agente pegou a alegação exagerada sem ter visto a análise dela, mas é mais rígido que o TikTok. O movimento não separa um dos dois casos de quadro estático. A leitura completa, os limites e como rodar os testes estão em [`revisor/README.md`](revisor/README.md).
+
 ## Estrutura
 
 | Pasta | Conteúdo |
 |---|---|
-| `.claude/agents/` | Agentes `especialista-promocao` (roteiro e prompts do Flow) e `editor-video` (edição HyperFrames) |
+| `.claude/agents/` | Agentes `especialista-promocao` (roteiro e prompts do Flow), `editor-video` (edição HyperFrames) e `revisor-conformidade` (conferência antes de postar) |
+| `revisor/` | Revisor de conformidade: regras fixas, agente de IA e medida de movimento |
+| `evals/` | Gabarito dos vídeos postados, executor dos testes e resultados |
 | `CLAUDE.md` | Regras fixas do projeto |
 | `LEIAME.md` | Arquitetura, instalação e API do render |
 | `docs/` | Especificação da arquitetura dos vídeos |

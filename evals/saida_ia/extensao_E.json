@@ -1,0 +1,13 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "uma tipo cê pro cabo do celular",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio lista só \"1 tipo C\" na arte e não menciona celular, carregamento ou compatibilidade; indicar o celular como uso é uma inferência, embora seja um uso comum.",
+   "sugestao": "Extensão filtro de linha: cinco tomadas, quatro USB, uma tipo cê e botão liga e desliga."
+  }
+ ]
+}

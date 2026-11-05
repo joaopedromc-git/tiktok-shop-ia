@@ -1,0 +1,69 @@
+{
+ "veredito": "reprova",
+ "achados": [
+  {
+   "onde": "apresentacao.titulo",
+   "trecho": "Carrega tudo junto",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "O anúncio só lista 5 tomadas, 4 USB, 1 tipo C e botão liga/desliga; não diz que carrega tudo ao mesmo tempo, e \"tudo\" é uma promessa absoluta.",
+   "sugestao": "4 USB, Tipo-C e 5 tomadas"
+  },
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "cada um carrega o seu, sem esperar a vez",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "Junto com a intro, mostra a fila do carregador como problema resolvido pelo produto, e o anúncio não promete carregamento simultâneo nem essa solução.",
+   "sugestao": "Extensão filtro de linha com quatro USB, uma tipo cê, cinco tomadas e botão liga e desliga."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "cada um carrega o seu, sem esperar a vez.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "Repete a promessa de resolver a espera por carregador, que o anúncio não faz (ele só lista as portas e o botão).",
+   "sugestao": "Extensão filtro de linha com 4 USB, 1 tipo C, 5 tomadas e botão liga/desliga."
+  },
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "Sobram cinco tomadas",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "\"Sobram\" sugere que as 5 tomadas ficam livres e funcionam junto com os USB, e o anúncio não diz isso.",
+   "sugestao": "São cinco tomadas e botão liga e desliga."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "E ainda sobram 5 tomadas e botão liga/desliga.",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "Mesma inferência de uso simultâneo das tomadas com os USB, que o anúncio não confirma.",
+   "sugestao": "São 5 tomadas e botão liga/desliga."
+  },
+  {
+   "onde": "intro.fala",
+   "trecho": "Fim do dia, todo mundo sem bateria e brigando pelo mesmo carregador?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta de gancho mostra um problema que o vídeo depois resolve com o produto, e o anúncio não promete essa solução. Um revisor deve decidir se é só gancho.",
+   "sugestao": "Quantos aparelhos você precisa conectar no fim do dia?"
+  },
+  {
+   "onde": "intro.linha",
+   "trecho": "todo mundo sem bateria",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A cena do problema na tela tem o mesmo efeito de antes e depois implícito, já que o produto é apresentado em seguida como solução.",
+   "sugestao": "Extensão com USB, tipo C e tomadas"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Fim do dia e todo mundo brigando pelo mesmo carregador?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Gancho que sugere um problema ao qual o produto responde, sem que o anúncio prometa essa solução.",
+   "sugestao": "Quantos aparelhos você conecta no fim do dia?"
+  }
+ ]
+}

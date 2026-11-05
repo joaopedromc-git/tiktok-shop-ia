@@ -1,0 +1,29 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Tirar da tomada um por um antes de dormir? Cansa.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta mostra um problema (desligar um por um) que a apresentação resolve com 'um toque'. Isso sugere um antes e depois. O anúncio só mostra o botão liga/desliga nas fotos e não promete desligar tudo nem economizar energia.",
+   "sugestao": "Usar um gancho neutro, como: 'Você sabe o que tem ligado na sua tomada à noite?'"
+  },
+  {
+   "onde": "intro.titulo",
+   "trecho": "Um por um? Cansa.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Reforça o problema que o produto parece resolver. O anúncio não promete essa solução.",
+   "sugestao": "Trocar por 'Extensão com 5 tomadas'."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Tirar da tomada um por um antes de dormir? Cansa. ... na hora de desligar, é um toque só.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Repete a comparação implícita entre desligar um por um e desligar com um toque. O anúncio só lista o botão liga/desliga, sem prometer esse benefício.",
+   "sugestao": "'Extensão filtro de linha com 5 tomadas, 4 USB, 1 tipo C e botão liga/desliga.'"
+  }
+ ]
+}

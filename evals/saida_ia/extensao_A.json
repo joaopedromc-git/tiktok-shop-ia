@@ -1,0 +1,29 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Uma tomada só pra ligar tudo isso? Aí vira essa bagunça.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Mostra um problema (poucas tomadas, bagunça) que sugere que a extensão o resolve, e o anúncio só diz que ela tem 5 tomadas, 4 USB e 1 tipo C, sem prometer organização.",
+   "sugestao": "Uma pergunta neutra, como: \"Quantos aparelhos você precisa ligar ao mesmo tempo?\""
+  },
+  {
+   "onde": "cta.fala",
+   "trecho": "Serve na mesa, no quarto ou na sala.",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio não cita ambientes nem locais de uso, e \"serve\" afirma uma adequação que ele não declara.",
+   "sugestao": "Tire os ambientes: \"Toca no produto aqui no vídeo e confere os detalhes.\""
+  },
+  {
+   "onde": "cta.linha",
+   "trecho": "mesa • quarto • sala",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "Repete os ambientes de uso, que o anúncio não menciona.",
+   "sugestao": "5 tomadas • 4 USB • 1 Tipo-C"
+  }
+ ]
+}

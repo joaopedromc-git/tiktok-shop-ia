@@ -18,6 +18,7 @@ Ler `LEIAME.md` antes de qualquer coisa: tem a arquitetura decidida, a API do re
   - O operador (14/10/2026): "o importante é não parecer uma foto parada, ou movimentos mínimos". Sombra ou luz mexendo não substitui mão; fogo, ondas e fumaça ao fundo ajudam, mas a ação principal é o produto se movendo (mão ou exibição de estúdio).
   - Na edição, **nada de quadro congelado** por mais de ~1 s (cartões com o produto parado, Ken Burns sobre foto/arte). O vídeo de fundo tem que estar rodando o tempo todo.
   - Sem crédito para gerar movimento de verdade, **não montar vídeo**: avisar o operador e esperar os créditos.
+- **Revisor de conformidade (`revisor/`):** depois do roteiro aprovado e antes de gastar crédito do Flow, rodar `python revisor/revisar.py <codigo> <lote> --sem-video`; depois do render e antes de subir para o Drive, rodar de novo com o vídeo. Reprovado não segue: corrigir e rodar outra vez. "Atenção" vai para o operador decidir, com os trechos apontados.
 - Nunca postar, digitar senha, resolver captcha ou aceitar termos. Marcar produto, marcar "Conteúdo gerado por IA", escolher música e publicar são sempre manuais.
 - Todo vídeo pronto vai com a legenda para postar (gancho, benefício do anúncio, pergunta, chamada e 5-6 hashtags); regra completa no passo 9 da especificação.
 - Tokens e senhas vão no `.env` ou nas credenciais do n8n, nunca no chat nem em arquivo versionado.

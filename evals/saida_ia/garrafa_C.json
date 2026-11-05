@@ -1,0 +1,53 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Vai pegar estrada? Água no painel do carro esquenta rapidinho.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Mostra um problema (água esquentando no carro) como gancho para o produto, mas o anúncio só fala em manter bebidas na temperatura por horas (até 12 h quentes e 18 h frias) e não cita carro, painel ou calor.",
+   "sugestao": "Vai pegar estrada? Leva a sua bebida junto. (ou: Vai pegar estrada? Conhece a Garrafa Térmica MODUS.)"
+  },
+  {
+   "onde": "intro.tela (linha)",
+   "trecho": "água no painel esquenta",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A linha de tela reforça o problema da água esquentando, sugerindo um antes e depois que o anúncio não promete para o uso no carro.",
+   "sugestao": "para a sua viagem"
+  },
+  {
+   "onde": "cta.fala",
+   "trecho": "Deixa uma dessas no carro.",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "Sugere deixar a garrafa no carro, o que implica que ela resiste ao calor ou mantém a água fria ali. O anúncio não diz isso e fala em atividades ao ar livre e no dia a dia.",
+   "sugestao": "Leva uma dessas na sua próxima viagem. Toca no produto e confere."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Vai pegar estrada e a água esquenta no painel? 🚙💧",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Repete o gancho do problema (água quente no painel) com emoji de gota, como se a garrafa o resolvesse. O anúncio não cita carro nem calor.",
+   "sugestao": "Vai pegar estrada? 🚙"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Garrafa Térmica MODUS de 2,4 litros, com parede dupla a vácuo (dados do fabricante)",
+   "categoria": "dado_sem_fonte",
+   "gravidade": "atencao",
+   "motivo": "A capacidade (2,4 litros) é uma especificação e a legenda não usa \"segundo o fabricante\". O parêntese \"dados do fabricante\" fica depois de \"parede dupla a vácuo\" e não deixa claro que cobre a capacidade.",
+   "sugestao": "Garrafa Térmica MODUS de 2,4 litros, segundo o fabricante, com parede dupla a vácuo, em aço inox 304 e com alça."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Vai junto na viagem, na pescaria e no acampamento.",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio cita acampamentos, caminhadas, escaladas e atividades ao ar livre, mas não cita pescaria nem viagem de carro.",
+   "sugestao": "Vai junto no acampamento, na caminhada e nas atividades ao ar livre."
+  }
+ ]
+}

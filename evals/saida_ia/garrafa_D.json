@@ -1,0 +1,69 @@
+{
+ "veredito": "reprova",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Apoiou a garrafa na mesa e ficou aquela poça de novo?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta mostra o problema da poça como se a garrafa o resolvesse (antes e depois implícito), mas o anúncio só diz que o design \"pode deixar a garrafa livre de suor\".",
+   "sugestao": "Use um gancho neutro, por exemplo: \"Procurando uma garrafa térmica grande pro dia a dia?\""
+  },
+  {
+   "onde": "intro.titulo",
+   "trecho": "POÇA NA MESA?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Sugere um problema que o produto resolveria, e o anúncio não promete isso (só \"pode deixar a garrafa livre de suor\").",
+   "sugestao": "GARRAFA TÉRMICA 2,4 L*, com o rodapé \"*Dados do fabricante\", ou \"CONHEÇA A MODUS\"."
+  },
+  {
+   "onde": "intro.linha",
+   "trecho": "toda vez que apoia",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Reforça a cena do problema recorrente e ajuda a montar a comparação antes e depois que o anúncio não sustenta.",
+   "sugestao": "Troque por uma linha descritiva, como \"aço inox 304, com alça\"."
+  },
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "isolamento a vácuo pra ela não suar por fora",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "O anúncio diz que o design \"pode deixar a garrafa livre de suor\", e a fala afirma de forma absoluta que ela não sua.",
+   "sugestao": "\"isolamento a vácuo de parede dupla que, segundo o fabricante, pode deixar a garrafa livre de suor\"."
+  },
+  {
+   "onde": "apresentacao.fala",
+   "trecho": "Mais tranquilidade pra levar na bolsa.",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio fala em tampa que \"evita vazamentos e facilita o transporte\", mas não cita bolsa nem promete tranquilidade ou segurança ali. Isso sugere que não vaza deitada na bolsa.",
+   "sugestao": "\"Tem alça pra facilitar o transporte.\""
+  },
+  {
+   "onde": "apresentacao.titulo",
+   "trecho": "SEM SUOR POR FORA*",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "Promessa absoluta. O anúncio só diz que o design \"pode deixar a garrafa livre de suor\", e o asterisco não torna a afirmação condicional.",
+   "sugestao": "\"PODE FICAR LIVRE DE SUOR*\", mantendo o rodapé \"*Dados do fabricante\"."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Apoiou a garrafa na mesa e ficou aquela poça de novo?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "Repete o gancho que apresenta a poça como problema que a garrafa resolveria, sem o anúncio prometer essa solução.",
+   "sugestao": "\"Procurando uma garrafa térmica de 2,4 litros pro dia a dia?\""
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Onde a garrafa molha mais o seu dia: na mesa ou na bolsa? Conta aqui.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "É uma pergunta de engajamento, mas reforça o problema de molhar a mesa ou a bolsa como se o produto o evitasse. O anúncio não cita bolsa nem promete isso.",
+   "sugestao": "\"Onde você levaria a sua garrafa: trabalho, academia ou acampamento? Conta aqui.\""
+  }
+ ]
+}

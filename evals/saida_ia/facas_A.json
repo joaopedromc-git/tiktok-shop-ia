@@ -1,0 +1,37 @@
+{
+ "veredito": "reprova",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Faca que amassa em vez de cortar? Olha esse faqueiro de seis peças.",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "A pergunta mostra o problema (faca que não corta) e apresenta o faqueiro como solução, mas o anúncio não promete desempenho de corte.",
+   "sugestao": "Tem faca, tesoura e descascador na cozinha? Olha esse faqueiro de seis peças."
+  },
+  {
+   "onde": "intro.titulo",
+   "trecho": "FACA QUE NÃO CORTA?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "O título sugere um problema que o produto resolveria, e o anúncio não promete capacidade de corte. Fica como comparação antes e depois implícita.",
+   "sugestao": "FAQUEIRO DE 6 PEÇAS"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Faca que amassa em vez de cortar? 🔪",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "reprova",
+   "motivo": "Repete o gancho que sugere que o faqueiro resolve o problema de faca que não corta, algo que o anúncio não promete.",
+   "sugestao": "Faqueiro de cozinha com 6 peças 🔪"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Lâmina com ondulações que prolongam a durabilidade (dados do fabricante).",
+   "categoria": "dado_sem_fonte",
+   "gravidade": "atencao",
+   "motivo": "A durabilidade é dado de desempenho e precisa de \"segundo o fabricante\". A legenda traz só \"(dados do fabricante)\", sem a fórmula exigida.",
+   "sugestao": "Segundo o fabricante, a lâmina tem ondulações que prolongam a durabilidade."
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Olha o que vem dentro dessa caixa",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio não fala de caixa nem de embalagem; os itens inclusos são listados sem mencionar como vêm acondicionados.",
+   "sugestao": "Olha o que vem no kit: um faqueiro de seis peças."
+  },
+  {
+   "onde": "intro.fala",
+   "trecho": "um faqueiro completo, de seis peças",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "\"Completo\" sugere que o kit atende a todas as necessidades, e o anúncio só lista 6 itens, sem dizer que é um conjunto completo.",
+   "sugestao": "um faqueiro de seis peças."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Olha tudo que vem dentro dessa caixa 👀🔪",
+   "categoria": "alegacao_sem_base",
+   "gravidade": "atencao",
+   "motivo": "O anúncio não menciona caixa ou embalagem.",
+   "sugestao": "Olha tudo que vem no kit 👀🔪"
+  },
+  {
+   "onde": "legenda",
+   "trecho": "#achadinhos",
+   "categoria": "preco_e_pressao",
+   "gravidade": "atencao",
+   "motivo": "A hashtag sugere achado barato ou oferta, e o anúncio não traz preço nem promoção.",
+   "sugestao": "Retirar #achadinhos e manter hashtags neutras como #faqueiro #cozinha #churrasco."
+  }
+ ]
+}

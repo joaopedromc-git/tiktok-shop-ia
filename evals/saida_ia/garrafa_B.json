@@ -1,0 +1,29 @@
+{
+ "veredito": "atencao",
+ "achados": [
+  {
+   "onde": "intro.fala",
+   "trecho": "Sua garrafinha de água acaba antes do almoço e não tem onde encher?",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "A pergunta mostra um problema (a água acabar) que o vídeo apresenta como resolvido pela garrafa de 2,4 L. O anúncio informa a capacidade, mas não promete que a água dura o dia todo nem resolve esse problema.",
+   "sugestao": "Usar um gancho neutro, por exemplo: \"Qual garrafa você leva no dia a dia?\" ou \"Pra onde você levaria a sua garrafa?\""
+  },
+  {
+   "onde": "intro.tela (titulo e linha)",
+   "trecho": "Acabou a água? / antes do almoço",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "O título e a linha repetem o problema, o que reforça a comparação implícita antes e depois com a garrafa. O anúncio não promete essa solução.",
+   "sugestao": "Trocar por um título neutro, como \"Garrafa Térmica MODUS\" com a linha \"do trabalho à trilha\"."
+  },
+  {
+   "onde": "legenda",
+   "trecho": "Sua garrafinha de água acaba antes do almoço? 💧",
+   "categoria": "exagero_de_desempenho",
+   "gravidade": "atencao",
+   "motivo": "É a mesma pergunta de gancho da intro. Ela sugere um problema que a legenda depois apresenta como resolvido pela garrafa, e o anúncio não promete essa solução.",
+   "sugestao": "Abrir com uma pergunta de engajamento neutra, como \"Qual é a sua companheira de trilha? 💧\", ou começar direto pelo produto."
+  }
+ ]
+}
