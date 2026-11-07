@@ -26,7 +26,7 @@ https://github.com/user-attachments/assets/64dbc4ff-996c-47fd-8aa0-a745e9c75e9e
   <img src="docs/img/fluxo.svg" width="960" alt="Diagrama em três etapas. Roteiro: anúncio, agente de roteiro, aprovação de uma pessoa e revisor do texto. Clipes: primeiro quadro no Flow, clipe no Veo, conferência quadro a quadro e aprovação. Edição e postagem: narração, edição HyperFrames, render, revisor do vídeo e postagem manual. A memória do projeto recebe violações e métricas e é lida antes de cada roteiro.">
 </p>
 
-1. **Roteiro:** o agente lê o anúncio e escreve 9 partes (3 ganchos, 3 apresentações, 3 chamadas), que se combinam em vídeos diferentes sem repetir. O banco PostgreSQL guarda as combinações já usadas.
+1. **Roteiro:** para cada vídeo, o agente lê o anúncio, a memória e os roteiros anteriores e escreve um roteiro de 3 partes (gancho, apresentação e chamada) com texto novo. Os clipes aprovados são reaproveitados entre vídeos para economizar crédito (o faqueiro C usa clipes do A e do B), e o banco PostgreSQL registra quais clipes cada vídeo usou.
 2. **Clipes:** o primeiro quadro é montado no editor de imagem do Flow a partir da foto do anúncio e conferido antes de gastar crédito. Só depois o Veo gera 8 s de vídeo a partir dele, com uma mão movendo o produto.
 3. **Conferência:** cada clipe é olhado quadro a quadro (cor, formato, logotipo, contagem de peças). Clipe com qualquer diferença do produto é rejeitado.
 4. **Edição:** o agente editor escreve uma composição HTML com animações (HyperFrames + GSAP), sincronizada palavra por palavra com a narração. Cada vídeo tem identidade visual própria. O render roda num container Docker na VPS.
@@ -73,9 +73,9 @@ O projeto é operado por uma sessão do **Claude Code**, que coordena tudo e con
 O que os números dizem:
 
 - **Dois vídeos fazem 45% das visualizações.** O body splash D tem cara de comercial: produto grande, fumaça e luz, uma pergunta curta no primeiro segundo. Essa receita foi documentada e reaplicada. A garrafa A abre com o problema (uma garrafa de água esquentando no painel do carro).
-- **O produto pesa mais que o formato.** A extensão ficou em cerca de 220 visualizações por vídeo com qualquer receita, inclusive a cópia exata do vídeo de maior alcance. A decisão foi parar de gastar crédito nela.
+- **O produto pesa mais que o formato.** A extensão ficou em cerca de 220 visualizações por vídeo com qualquer receita, inclusive com a receita do vídeo de maior alcance. A decisão foi parar de gastar crédito nela.
 - **O gargalo é o clique, não a compra.** Menos de 1% de quem vê o produto toca nele; de quem toca, 1,5% compra.
-- **O retorno financeiro foi pequeno.** As duas vendas vieram de vídeos da primeira semana. Depois disso o alcance caiu (mediana de 379 nos vídeos 1 a 14 e 252,5 nos vídeos 15 a 28), ao mesmo tempo em que as violações se acumulavam. Os vídeos recentes também ficaram menos dias no ar, então a queda não tem uma causa única comprovada.
+- **O retorno financeiro foi pequeno.** As duas vendas aconteceram na primeira semana (08 e 11/10). Depois disso o alcance caiu (mediana de 379 nos vídeos 1 a 14 e 252,5 nos vídeos 15 a 28), ao mesmo tempo em que as violações se acumulavam. Os vídeos recentes também ficaram menos dias no ar, então a queda não tem uma causa única comprovada.
 
 Dados completos em [`metricas/`](metricas/).
 
@@ -103,15 +103,15 @@ Cada violação virou uma verificação automática. `python revisor/revisar.py 
 - **um agente de IA** que compara cada frase com o anúncio e aponta a troca segura;
 - **uma medida de movimento real** no vídeo, por fluxo óptico, descontando o movimento de câmera.
 
-Testado nos 27 vídeos postados, contra o que o TikTok de fato aplicou:
+Testado nos 27 vídeos postados que estão no repositório, contra o que o TikTok de fato aplicou:
 
-| Verificação | Pegou a violação | Alarmes nos outros 25 vídeos |
+| Verificação | Pegou a violação | Alarmes nos vídeos sem essa violação (25) |
 |---|---|---|
 | Agente de IA (alegação exagerada) | 1 de 1 | 5 reprovados, 13 em atenção |
 | Movimento (quadro estático) | 1 de 2 | 2 reprovados, 3 em atenção |
 | Produto inconsistente | fora do escopo | — |
 
-O agente pegou a alegação sem ter visto a análise dela, mas é mais rígido que o TikTok (a maioria dos alarmes aponta exageros reais que passaram). A medida de movimento não separa um dos dois casos. E o tipo de violação mais comum, produto inconsistente, é visual e ainda não é coberto: o primeiro vídeo postado depois do revisor (Hilee C) passou nas três verificações e levou exatamente essa violação. A leitura completa está em [`revisor/README.md`](revisor/README.md).
+O agente pegou a alegação sem ter visto a análise dela, mas é mais rígido que o TikTok: das 5 reprovações em vídeos sem essa violação, 4 apontam exageros reais que passaram, e os 13 avisos não foram analisados um a um. A medida de movimento não separa um dos dois casos. E o tipo de violação mais comum, produto inconsistente, é visual e ainda não é coberto: o primeiro vídeo postado depois do revisor (Hilee C) passou nas três verificações e levou exatamente essa violação. A leitura completa está em [`revisor/README.md`](revisor/README.md).
 
 ## O que eu faria diferente
 
@@ -142,13 +142,13 @@ O agente pegou a alegação sem ter visto a análise dela, mas é mais rígido q
   <img src="docs/img/galeria.jpg" width="960" alt="Grade com os 27 vídeos postados que estão no repositório, cada um com as visualizações; os seis com violação têm borda vermelha">
 </p>
 
-Os vídeos estão em `produtos/<produto>/video_<lote>.mp4` (720p). O vídeo A da garrafa não está no repositório.
+Os vídeos estão em `produtos/<produto>/video_<lote>.mp4` (720p). O vídeo A da garrafa não está no repositório; o da extensão F está, mas a postagem ainda não foi confirmada.
 
 ## Estrutura
 
 | Pasta | Conteúdo |
 |---|---|
-| `.github/workflows/` | Verificação automática a cada envio: testes do revisor, compilação dos scripts Python e tipos das cenas em Remotion |
+| `.github/workflows/` | Verificação automática a cada envio: testes das regras fixas do revisor, compilação dos scripts Python e tipos das cenas em Remotion |
 | `.claude/agents/` | Os três agentes |
 | `CLAUDE.md` | Regras fixas do projeto |
 | `revisor/` | Revisor de conformidade (regras, agente de IA, movimento) e seus testes |

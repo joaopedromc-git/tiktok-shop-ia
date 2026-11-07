@@ -22,7 +22,7 @@ O movimento de câmera é descontado porque o TikTok não aceita "imagem de prod
 
 ## Resultado nos vídeos já postados
 
-`python evals/rodar.py` roda as três verificações nos 27 vídeos postados (26 deles com roteiro em JSON) (gabarito em `evals/casos.json`, tabela completa em `evals/resultados.md`).
+`python evals/rodar.py` roda as três verificações nos 27 vídeos postados que estão no repositório (26 deles com roteiro em JSON) (gabarito em `evals/casos.json`, tabela completa em `evals/resultados.md`).
 
 | Verificação | Pegou a violação | Alarmes nos outros 25 vídeos (sem essa violação) |
 |---|---|---|
