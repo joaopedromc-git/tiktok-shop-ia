@@ -12,7 +12,7 @@ Um sistema que transforma o anúncio de um produto em vídeos verticais de propa
 
 | 28 vídeos | 16.522 visualizações | 2 vendas · R$ 290 | R$ 0 de API | 6 violações |
 |:---:|:---:|:---:|:---:|:---:|
-| 6 produtos, 05/10 a 04/11/2026 | mediana de 294 por vídeo | R$ 23,13 de comissão | só a assinatura do Google AI Plus | viraram regras, memória e um revisor |
+| 6 produtos, 05/10 a 04/11/2026 | mediana de 294 por vídeo | R$ 23,13 de comissão | só assinaturas que eu já usava (Google AI Plus e Claude) | viraram regras, memória e um revisor |
 
 https://github.com/user-attachments/assets/64dbc4ff-996c-47fd-8aa0-a745e9c75e9e
 
